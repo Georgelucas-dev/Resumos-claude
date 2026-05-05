@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do Iluminismo ao Totalitarismo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0c0a;
+    --bg2: #141210;
+    --bg3: #1c1916;
+    --gold: #c9a84c;
+    --gold-dim: #8a6e30;
+    --cream: #e8dcc8;
+    --cream-dim: #a89880;
+    --cream-faint: #5a4e3e;
+    --red: #8b2e2e;
+    --red-bright: #c0392b;
+    --border: rgba(201,168,76,0.18);
+    --border-dim: rgba(201,168,76,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border-dim);
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-dim);
+  }
+
+  .nav-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream-faint);
+    margin-bottom: 0.6rem;
+    margin-top: 1.2rem;
+  }
+
+  .nav-link {
+    display: block;
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    color: var(--cream-dim);
+    text-decoration: none;
+    padding: 5px 0 5px 10px;
+    border-left: 2px solid transparent;
+    transition: all 0.2s;
+    line-height: 1.35;
+    margin-bottom: 2px;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--gold);
+    border-left-color: var(--gold);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    margin-left: 220px;
+    flex: 1;
+    max-width: 800px;
+    padding: 0 3.5rem 6rem;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border-dim);
+    margin-bottom: 5rem;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -3.5rem; right: -3.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 19px;
+    color: var(--cream-dim);
+    max-width: 560px;
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    margin-bottom: 5rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .chapter-header {
+    margin-bottom: 2rem;
+  }
+
+  .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .chapter-date {
+    font-size: 14px;
+    color: var(--cream-faint);
+    font-style: italic;
+    margin-bottom: 1.25rem;
+  }
+
+  .chapter-rule {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 1.75rem;
+  }
+
+  /* ── TEXT ── */
+  p {
+    margin-bottom: 1.2rem;
+    color: var(--cream);
+    font-weight: 300;
+  }
+
+  strong { font-weight: 600; color: var(--cream); }
+  em { color: var(--gold); font-style: italic; }
+
+  .pull-quote {
+    margin: 2rem 0;
+    padding: 1.25rem 1.75rem;
+    border-left: 3px solid var(--gold);
+    background: rgba(201,168,76,0.04);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.55;
+    color: var(--cream-dim);
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    line-height: 0;
+    position: absolute;
+    top: 2.5rem;
+    left: 1rem;
+    color: var(--gold);
+    opacity: 0.15;
+  }
+
+  /* ── CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+    margin: 2rem 0;
+  }
+
+  .card {
+    background: var(--bg3);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 1.1rem 1.2rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border); }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+
+  .card-dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .card-text {
+    font-size: 13.5px;
+    color: var(--cream-dim);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight {
+    background: var(--bg3);
+    border: 1px solid var(--border-dim);
+    border-top: 2px solid var(--gold);
+    border-radius: 2px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .highlight-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .highlight p {
+    font-size: 15px;
+    color: var(--cream-dim);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 2rem 0;
+  }
+
+  .stat {
+    background: var(--bg3);
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 1rem 1.1rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--cream-faint);
+    line-height: 1.35;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    margin: 2rem 0;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold-dim), transparent);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.3rem;
+    padding-left: 0.5rem;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -2.25rem;
+    top: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px rgba(201,168,76,0.4);
+  }
+
+  .tl-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 2px;
+  }
+
+  .tl-text {
+    font-size: 15px;
+    color: var(--cream-dim);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .sep {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-dim), transparent);
+    margin: 4rem 0;
+  }
+
+  /* ── CORRENTES ── */
+  .correntes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 2rem 0;
+  }
+
+  .corrente {
+    border: 1px solid var(--border-dim);
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+    transition: background 0.2s;
+  }
+
+  .corrente:hover { background: var(--bg3); }
+
+  .corrente-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+
+  .corrente-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+
+  .corrente-desc {
+    font-size: 13.5px;
+    color: var(--cream-dim);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-dim);
+    font-size: 13px;
+    color: var(--cream-faint);
+    text-align: center;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 0 1.5rem 4rem; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .chapter {
+    animation: fadeIn 0.5s ease both;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-brand">Resumo Histórico</div>
+
+  <div class="nav-label">Séculos XVIII–XIX</div>
+  <a href="#iluminismo" class="nav-link">I — Iluminismo</a>
+  <a href="#correntes" class="nav-link">II — Outras Correntes</a>
+
+  <div class="nav-label">Brasil</div>
+  <a href="#brasil" class="nav-link">III — Brasil Republicano</a>
+
+  <div class="nav-label">Século XX</div>
+  <a href="#guerra" class="nav-link">IV — 1ª Guerra Mundial</a>
+  <a href="#russia" class="nav-link">V — Revolução Russa</a>
+  <a href="#loucos" class="nav-link">VI — Anos Loucos & 1929</a>
+  <a href="#totalitarismo" class="nav-link">VII — Totalitarismo</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Resumo histórico · Séculos XVIII ao XX</div>
+    <h1 class="hero-title">Do <em>Iluminismo</em><br>ao Totalitarismo</h1>
+    <p class="hero-desc">Das luzes da razão às trevas dos regimes absolutos — um panorama das ideias, revoluções e transformações que moldaram o mundo moderno.</p>
+    <div class="hero-meta">
+      <span class="hero-tag">Iluminismo</span>
+      <span class="hero-tag">Brasil Republicano</span>
+      <span class="hero-tag">1ª Guerra</span>
+      <span class="hero-tag">Revolução Russa</span>
+      <span class="hero-tag">Anos Loucos</span>
+      <span class="hero-tag">Totalitarismo</span>
+    </div>
+  </section>
+
+  <!-- CAP I: ILUMINISMO -->
+  <section class="chapter" id="iluminismo">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo I</div>
+      <h2 class="chapter-title">O Iluminismo</h2>
+      <div class="chapter-date">Séculos XVII–XVIII · França, Inglaterra, Alemanha</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>O Iluminismo — ou <em>Siècle des Lumières</em> — foi um movimento intelectual que varreu a Europa entre os séculos XVII e XVIII propondo que a <strong>razão humana</strong>, e não a fé ou a tradição, deveria guiar o conhecimento, a moral e a organização da sociedade. Seu alvo principal era o Absolutismo monárquico e a autoridade irrestrita da Igreja.</p>
+
+    <div class="pull-quote">
+      Ouse saber! Tem coragem de usar tua própria razão.<br><small style="font-size:14px; opacity:0.6;">— Kant, definindo o espírito iluminista em uma frase</small>
+    </div>
+
+    <p>Os iluministas acreditavam no <strong>progresso</strong> como destino natural da humanidade, na <strong>tolerância religiosa</strong>, nos <strong>direitos naturais</strong> do indivíduo e na separação entre Estado e Igreja. Suas ideias alimentaram diretamente a Revolução Francesa (1789), a Independência Americana (1776) e, mais tarde, os movimentos de independência na América Latina.</p>
+
+    <div class="highlight">
+      <div class="highlight-label">Ideias Centrais</div>
+      <p>Razão acima da fé · Direitos naturais (vida, liberdade, propriedade) · Separação dos poderes · Contrato social · Progresso da ciência · Tolerância religiosa · Soberania popular · Enciclopedismo</p>
+    </div>
+
+    <p>Os pensadores iluministas eram chamados de <em>philosophes</em>. Muitos colaboraram na <strong>Encyclopédie</strong>, organizada por Diderot e D'Alembert — uma obra monumental que pretendia reunir todo o conhecimento humano e torná-lo acessível ao público letrado.</p>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-name">John Locke</div>
+        <div class="card-dates">1632 – 1704 · Inglaterra</div>
+        <div class="card-text">Pai do liberalismo. Direitos naturais inalienáveis e governo por consentimento dos governados. Influência direta na Constituição americana.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Montesquieu</div>
+        <div class="card-dates">1689 – 1755 · França</div>
+        <div class="card-text">Teorizou a separação dos três poderes: Executivo, Legislativo e Judiciário — base de toda democracia moderna.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Jean-Jacques Rousseau</div>
+        <div class="card-dates">1712 – 1778 · Suíça/França</div>
+        <div class="card-text">O "Contrato Social": a soberania pertence ao povo. Criticou a propriedade privada como origem da desigualdade social.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Voltaire</div>
+        <div class="card-dates">1694 – 1778 · França</div>
+        <div class="card-text">Crítico feroz da Igreja e da intolerância. Defensor da liberdade de expressão e da razão como instrumento contra o fanatismo.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Immanuel Kant</div>
+        <div class="card-dates">1724 – 1804 · Prússia</div>
+        <div class="card-text">Sintetizou o Iluminismo: o uso da razão é um dever moral. Formulou o imperativo categórico como base da ética universal.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Adam Smith</div>
+        <div class="card-dates">1723 – 1790 · Escócia</div>
+        <div class="card-text">Fundador da economia política liberal. A "mão invisível" do mercado como mecanismo natural de equilíbrio econômico.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- CAP II: OUTRAS CORRENTES -->
+  <section class="chapter" id="correntes">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo II</div>
+      <h2 class="chapter-title">Outras Correntes de Pensamento</h2>
+      <div class="chapter-date">Século XIX · Reações, rupturas e alternativas ao Iluminismo</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>O Iluminismo não ficou sem resposta. Ao longo do século XIX surgiram correntes que ora o completavam, ora o contestavam radicalmente — cada uma refletindo as tensões, contradições e esperanças do seu tempo histórico.</p>
+
+    <div class="correntes-grid">
+      <div class="corrente">
+        <div class="corrente-name">Romantismo</div>
+        <div class="corrente-period">~1780 – 1850</div>
+        <div class="corrente-desc">Reação ao racionalismo frio. Valorizava emoção, natureza, nação, folclore e o sublime. Schiller, Goethe, Byron, Victor Hugo.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Positivismo</div>
+        <div class="corrente-period">~1830 – 1900</div>
+        <div class="corrente-desc">Auguste Comte: só o conhecimento científico é válido. A ciência deve guiar a sociedade. Influência enorme no Brasil republicano.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Marxismo</div>
+        <div class="corrente-period">~1848 – séc. XX</div>
+        <div class="corrente-desc">Marx e Engels: a história é luta de classes. O capitalismo explora o proletariado; a revolução traria a sociedade sem classes.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Liberalismo</div>
+        <div class="corrente-period">Séc. XIX</div>
+        <div class="corrente-desc">Herança de Locke e Smith. Liberdade individual, livre mercado, Estado mínimo, direitos civis e políticos garantidos.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Anarquismo</div>
+        <div class="corrente-period">Séc. XIX</div>
+        <div class="corrente-desc">Proudhon, Bakunin, Kropotkin: toda autoridade é ilegítima. Contra o Estado, o capital e a Igreja. Forte nos movimentos operários.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Nietzsche</div>
+        <div class="corrente-period">1844 – 1900</div>
+        <div class="corrente-desc">"Deus está morto." Criticou a moral cristã e democrática. O além-homem como ideal. Mal compreendido, foi distorcido pelo nazismo.</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      O século XIX foi uma batalha de ideias: enquanto uns aperfeiçoavam a razão iluminista, outros a demoliam — e o século XX pagaria a conta de ambos.
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- CAP III: BRASIL -->
+  <section class="chapter" id="brasil">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo III</div>
+      <h2 class="chapter-title">O Brasil Republicano</h2>
+      <div class="chapter-date">1889 – 1930 · Da Proclamação à Revolução de 30</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>A República no Brasil não nasceu de uma revolução popular — nasceu de um golpe militar em 15 de novembro de 1889, liderado pelo Marechal Deodoro da Fonseca, com apoio de fazendeiros descontentes com a abolição da escravidão (1888) e da elite militar influenciada pelo <strong>Positivismo de Comte</strong>. Daí o lema da bandeira: <em>"Ordem e Progresso"</em>.</p>
+
+    <div class="highlight">
+      <div class="highlight-label">República da Espada — 1889 a 1894</div>
+      <p>Primeiros anos sob governo militar. Deodoro da Fonseca e Floriano Peixoto. Instabilidade, revoltas e a Constituição de 1891 que estabeleceu o federalismo e o presidencialismo no Brasil.</p>
+    </div>
+
+    <p>A partir de 1894, o poder passou às oligarquias rurais de São Paulo e Minas Gerais, dando início à <strong>República Oligárquica</strong> (1894–1930). O sistema funcionava através da <strong>Política do Café com Leite</strong>: paulistas (café) e mineiros (pecuária) se alternavam na presidência por acordo mútuo, excluindo as demais regiões do poder.</p>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-name">Coronelismo</div>
+        <div class="card-dates">Prática central da época</div>
+        <div class="card-text">Coronéis controlavam o voto dos trabalhadores rurais. Troca de favores entre chefes locais e governo federal estruturava toda a política.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Voto de Cabresto</div>
+        <div class="card-dates">Fraude eleitoral</div>
+        <div class="card-text">Voto era aberto e controlado pelos coronéis. Fraudes explícitas e impunes. Sem representação real da maioria da população.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Questão Social</div>
+        <div class="card-dates">Início séc. XX</div>
+        <div class="card-text">Greves operárias em SP (1917), influência anarquista entre imigrantes. Governo tratava como "caso de polícia" — sem políticas trabalhistas.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Tenentismo</div>
+        <div class="card-dates">Anos 1920</div>
+        <div class="card-text">Jovens oficiais rebeldes contra a oligarquia. Revolta de 22, Coluna Prestes (1925–27). Semente da Revolução de 30 e da Era Vargas.</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1889</div>
+        <div class="tl-text">Proclamação da República. Dom Pedro II exilado. Fim de 67 anos de monarquia.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1893–95</div>
+        <div class="tl-text">Revolução Federalista no Sul e Revolta da Armada: conflitos violentos da República da Espada.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1896–97</div>
+        <div class="tl-text">Guerra de Canudos: Conselheiro lidera comunidade sertaneja. Exército massacra após 4 campanhas. Euclides da Cunha escreve <em>Os Sertões</em>.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1910</div>
+        <div class="tl-text">Revolta da Chibata: marinheiros negros sob João Cândido se rebelam contra castigos corporais na Marinha Brasileira.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1922</div>
+        <div class="tl-text">Semana de Arte Moderna em São Paulo — modernismo cultural. Revolta dos 18 do Forte de Copacabana — tenentismo.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1930</div>
+        <div class="tl-text">Revolução de 1930. Getúlio Vargas chega ao poder. Fim da Primeira República e da Política do Café com Leite.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- CAP IV: 1ª GUERRA -->
+  <section class="chapter" id="guerra">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo IV</div>
+      <h2 class="chapter-title">A Primeira Guerra Mundial</h2>
+      <div class="chapter-date">1914 – 1918 · Europa em chamas</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>A Primeira Guerra Mundial foi o maior conflito da história até então — e resultou de décadas de tensões acumuladas: rivalidades imperialistas, corrida armamentista, alianças militares rígidas e um nacionalismo exacerbado. O estopim foi o assassinato do Arquiduque <strong>Franz Ferdinand</strong> da Áustria em Sarajevo, em 28 de junho de 1914. Em poucas semanas, toda a Europa estava em guerra.</p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">17 mi</div>
+        <div class="stat-label">mortos no conflito</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4 anos</div>
+        <div class="stat-label">de duração</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">nações envolvidas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">impérios destruídos</div>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <div class="highlight-label">Tríplice Entente vs. Tríplice Aliança</div>
+      <p><strong>Entente (vencedores):</strong> França, Reino Unido, Rússia — depois EUA, Itália e outros aliados.<br>
+      <strong>Aliança (derrotados):</strong> Alemanha, Áustria-Hungria, Império Otomano e Bulgária.</p>
+    </div>
+
+    <p>A guerra foi marcada pela brutal <strong>guerra de trincheiras</strong> — soldados enterrados em valas por anos, com perdas imensas e pouquíssimo avanço territorial. Novas tecnologias tornaram o combate mais letal do que qualquer conflito anterior: <strong>metralhadoras, gás venenoso, aviões, tanques e submarinos</strong>. A batalha de Verdun (1916), por exemplo, durou 10 meses e custou cerca de 700 mil vidas por um ganho territorial irrisório.</p>
+
+    <div class="pull-quote">
+      Com a derrota alemã, o Tratado de Versalhes (1919) impôs condições humilhantes à Alemanha. O economista Keynes o chamou de "paz cartaginesa" — e a humilhação alemã seria o combustível que levaria Hitler ao poder 14 anos depois.
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- CAP V: REVOLUÇÃO RUSSA -->
+  <section class="chapter" id="russia">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo V</div>
+      <h2 class="chapter-title">A Revolução Russa</h2>
+      <div class="chapter-date">1917 · Do czarismo à União Soviética</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>Em 1917, a Rússia estava exausta: anos de guerra, milhões de mortos, fome nas cidades e um czar (<strong>Nicolau II</strong>) incapaz de governar um império em colapso. A revolução aconteceu em duas ondas distintas e decisivas:</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">Fev/1917</div>
+        <div class="tl-text"><strong>Revolução de Fevereiro:</strong> protestos e greves derrubam o czar. Forma-se um governo provisório burguês liderado por Kerensky, que comete o erro fatal de continuar a guerra.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Out/1917</div>
+        <div class="tl-text"><strong>Revolução de Outubro:</strong> os bolcheviques de Lenin tomam o Palácio de Inverno. "Paz, terra e pão" — o programa que conquistou operários e camponeses exaustos.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1918–21</div>
+        <div class="tl-text">Rússia assina paz com a Alemanha (Brest-Litovsk). Guerra Civil brutal: Exército Vermelho vs. Exército Branco (apoiado pelo Ocidente).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1922</div>
+        <div class="tl-text">Fundação da URSS — União das Repúblicas Socialistas Soviéticas.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1924–29</div>
+        <div class="tl-text">Morte de Lenin. Stalin consolida o poder derrotando Trotsky e outros rivais. Início da era mais repressiva da URSS.</div>
+      </div>
+    </div>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-name">Vladimir Lenin</div>
+        <div class="card-dates">1870 – 1924</div>
+        <div class="card-text">Líder dos bolcheviques. Adaptou Marx à realidade russa: partido de vanguarda profissional lideraria a revolução do proletariado.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Leon Trotsky</div>
+        <div class="card-dates">1879 – 1940</div>
+        <div class="card-text">Organizou o Exército Vermelho. Defendia a "revolução permanente" e o internacionalismo. Derrotado por Stalin, foi assassinado no México.</div>
+      </div>
+      <div class="card">
+        <div class="card-name">Josef Stalin</div>
+        <div class="card-dates">1878 – 1953</div>
+        <div class="card-text">Construiu um dos regimes mais totalitários da história. Industrializou a URSS a ferro e sangue. Gulags, Grandes Purgas e o Holodomor.</div>
+      </div>
+    </div>
+
+    <p>A Revolução Russa aterrorizou as elites ocidentais e inspirou movimentos operários no mundo inteiro. A tensão entre o modelo capitalista e o socialista soviético estruturaria toda a geopolítica do século XX até 1991.</p>
+  </section>
+
+  <hr class="sep">
+
+  <!-- CAP VI: ANOS LOUCOS -->
+  <section class="chapter" id="loucos">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo VI</div>
+      <h2 class="chapter-title">Os Anos Loucos e a Crise de 1929</h2>
+      <div class="chapter-date">1920s – 1930s · EUA e o mundo</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>Enquanto a Europa lambia suas feridas, os <strong>Estados Unidos</strong> viveram a década de 1920 como uma festa sem fim. A economia americana saiu da guerra credora e poderosa. Com a industrialização acelerada surgiu uma nova <strong>cultura de massa</strong>: rádio, cinema, jazz, automóvel, geladeira, arranha-céus. Era o nascimento do consumismo moderno.</p>
+
+    <div class="highlight">
+      <div class="highlight-label">A Lei Seca — 1920 a 1933</div>
+      <p>A proibição do álcool nos EUA criou um paradoxo clássico: aumentou o crime organizado e transformou a ilegalidade em glamour. Al Capone, <em>flappers</em> e <em>speakeasies</em> tornaram-se símbolos da era. O proibicionismo falhou redondamente e foi revogado em 1933.</p>
+    </div>
+
+    <p>A prosperidade dos anos 20, porém, tinha pés de barro. A <strong>especulação financeira</strong> desenfreada inflou uma bolha gigantesca na Bolsa de Nova York. Em <strong>outubro de 1929</strong> — a "Quinta-feira Negra" — a bolha estourou. Em poucos dias, trilhões de dólares evaporaram. Bancos quebraram em cadeia, fábricas fecharam, e o desemprego americano chegou a 25%.</p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">25%</div>
+        <div class="stat-label">desemprego nos EUA em 1933</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">~9 mil</div>
+        <div class="stat-label">bancos americanos falidos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">30%</div>
+        <div class="stat-label">queda do PIB americano</div>
+      </div>
+    </div>
+
+    <p>A crise se espalhou globalmente. No Brasil, o preço do café despencou, detonando a crise da oligarquia cafeeira e abrindo o caminho para a Revolução de 1930. Na Europa, a Grande Depressão criou o caldo de cultura perfeito para o surgimento dos totalitarismos.</p>
+
+    <div class="pull-quote">
+      Franklin D. Roosevelt respondeu à crise com o <em>New Deal</em> (1933): investimento público massivo, regulação financeira e proteção social — redefinindo o papel do Estado na economia e salvando o capitalismo de si mesmo.
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- CAP VII: TOTALITARISMO -->
+  <section class="chapter" id="totalitarismo">
+    <div class="chapter-header">
+      <div class="chapter-num">Capítulo VII</div>
+      <h2 class="chapter-title">Totalitarismo e Comunismo</h2>
+      <div class="chapter-date">Décadas de 1920–1940 · A grande tragédia política do século XX</div>
+      <div class="chapter-rule"></div>
+    </div>
+
+    <p>O totalitarismo foi a forma extrema de Estado que não apenas governa, mas controla todos os aspectos da vida: política, economia, cultura, família e pensamento. Nasceu da crise do pós-guerra, da Grande Depressão e do medo — tanto do caos liberal quanto da ameaça comunista.</p>
+
+    <div class="correntes-grid">
+      <div class="corrente">
+        <div class="corrente-name">Fascismo Italiano</div>
+        <div class="corrente-period">Mussolini · 1922–1945</div>
+        <div class="corrente-desc">Primeiro regime fascista. Culto ao líder, corporativismo, nacionalismo radical, violência como instrumento político. Originou o próprio termo "fascismo".</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Nazismo Alemão</div>
+        <div class="corrente-period">Hitler · 1933–1945</div>
+        <div class="corrente-desc">Forma mais extrema: racismo como ideologia central, antissemitismo, pangermanismo e Lebensraum. Culminou no Holocausto (6 mi judeus) e na 2ª Guerra.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Stalinismo Soviético</div>
+        <div class="corrente-period">Stalin · 1924–1953</div>
+        <div class="corrente-desc">Comunismo totalitário. Coletivização forçada, Gulags, Grandes Purgas, Holodomor. Industrializou a URSS a um custo humano imensurável.</div>
+      </div>
+      <div class="corrente">
+        <div class="corrente-name">Estado Novo — Brasil</div>
+        <div class="corrente-period">Vargas · 1937–1945</div>
+        <div class="corrente-desc">Ditadura com traços fascistas, mas pragmática. Centralizou o Estado, criou a CLT, industrializou o país e cerceou liberdades civis.</div>
+      </div>
+    </div>
+
+    <p>O Nazismo e o Fascismo eram <strong>de direita</strong> — anticomunistas, ultranacionalistas e baseados na ideia de superioridade racial ou nacional. O Stalinismo era <strong>de esquerda</strong> — internacionalista na teoria, mas profundamente autoritário na prática. Ambos usaram os mesmos instrumentos: propaganda de massa, partido único, terror policial e culto ao líder.</p>
+
+    <div class="highlight">
+      <div class="highlight-label">Hannah Arendt — As Origens do Totalitarismo (1951)</div>
+      <p>A filósofa alemã identificou nazismo e stalinismo como variantes de um mesmo fenômeno inédito na história. Sua análise permanece a referência central para entender como regimes totalitários nascem e operam.</p>
+    </div>
+
+    <p>O <strong>Comunismo</strong> como sistema, teorizado por Marx e Engels no <em>Manifesto Comunista</em> (1848), propunha a abolição da propriedade privada e a construção de uma sociedade sem classes. Na prática, nenhum Estado que se declarou comunista alcançou essa utopia — o que emergiu foram regimes de partido único com forte centralização estatal, justificando o autoritarismo como uma "fase de transição" sem data para terminar.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1917</div>
+        <div class="tl-text">Revolução Russa. Primeiro Estado socialista da história moderna.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1922</div>
+        <div class="tl-text">Mussolini assume o poder na Itália com a "Marcha sobre Roma".</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1933</div>
+        <div class="tl-text">Hitler é nomeado Chanceler da Alemanha. A democracia alemã foi encerrada em questão de meses.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1936–38</div>
+        <div class="tl-text">Grandes Purgas de Stalin: milhões de "inimigos do povo" executados ou enviados aos Gulags siberianos.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1939</div>
+        <div class="tl-text">Invasão da Polônia pela Alemanha. Início da Segunda Guerra Mundial.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1945</div>
+        <div class="tl-text">Fim da 2ª Guerra. Derrota do nazifascismo. Início da Guerra Fria entre EUA e URSS — nova era do mundo moderno.</div>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      O totalitarismo foi a prova amarga de que a modernidade poderia ser usada não para libertar o ser humano — como prometia o Iluminismo — mas para dominá-lo de maneira total e sistemática.
+    </div>
+  </section>
+
+  <div class="footer">
+    Do Iluminismo ao Totalitarismo · Séculos XVIII – XX
+  </div>
+
+</main>
+
+<script>
+  const links = document.querySelectorAll('.nav-link');
+  const chapters = document.querySelectorAll('.chapter');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.25 });
+
+  chapters.forEach(c => observer.observe(c));
+</script>
+
+</body>
+</html>
