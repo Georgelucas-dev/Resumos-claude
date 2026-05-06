@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos — Geografia da População</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f4;
+            --surface: #ffffff;
+            --text: #1a1814;
+            --muted: #6b6760;
+            --border: #e4e0d8;
+            --accent1: #2d5a3d;
+            --accent2: #8b4513;
+            --accent3: #1e3a5f;
+            --accent4: #6b2d6b;
+            --accent5: #5a3e1b;
+            --highlight: #f0ebe0;
+            --tag-bg: #e8f0eb;
+            --tag-text: #1e4d2b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 17px;
+            line-height: 1.75;
+        }
+
+        /* HEADER */
+        .site-header {
+            background: var(--text);
+            color: white;
+            padding: 3rem 2rem 2.5rem;
+            text-align: center;
+        }
+
+        .site-header .label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+
+        .site-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .site-header .subtitle {
+            font-family: 'DM Sans', sans-serif;
+            color: #ccc;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        /* NAV */
+        .nav-bar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+
+        .nav-bar a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            padding: 1rem 1.1rem;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .nav-bar a:hover {
+            color: var(--text);
+        }
+
+        .nav-bar a.m1 {
+            border-color: var(--accent1);
+            color: var(--accent1);
+        }
+
+        /* LAYOUT */
+        .content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 3rem 2rem 6rem;
+        }
+
+        /* MODULE SECTIONS */
+        .module {
+            margin-bottom: 5rem;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .module-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            opacity: 0.12;
+        }
+
+        .module-title-block .tag {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .module-title-block h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Color accents per module */
+        .mod-1 .module-num,
+        .mod-1 .tag {
+            color: var(--accent1);
+        }
+
+        .mod-2 .module-num,
+        .mod-2 .tag {
+            color: var(--accent3);
+        }
+
+        .mod-3 .module-num,
+        .mod-3 .tag {
+            color: var(--accent2);
+        }
+
+        .mod-4 .module-num,
+        .mod-4 .tag {
+            color: var(--accent4);
+        }
+
+        .mod-5 .module-num,
+        .mod-5 .tag {
+            color: var(--accent5);
+        }
+
+        /* SECTION within module */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-num {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            background: var(--text);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mod-1 .section-num {
+            background: var(--accent1);
+        }
+
+        .mod-2 .section-num {
+            background: var(--accent3);
+        }
+
+        .mod-3 .section-num {
+            background: var(--accent2);
+        }
+
+        .mod-4 .section-num {
+            background: var(--accent4);
+        }
+
+        .mod-5 .section-num {
+            background: var(--accent5);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* ANALOGY BOX */
+        .analogy {
+            background: var(--highlight);
+            border-left: 3px solid var(--accent2);
+            border-radius: 0 8px 8px 0;
+            padding: 1.1rem 1.4rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .analogy::before {
+            content: "Analogia";
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-style: normal;
+            color: var(--accent2);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        /* KEY CONCEPT BOX */
+        .keybox {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .keybox .title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 0.6rem;
+        }
+
+        /* FORMULA */
+        .formula {
+            background: #1a1814;
+            color: #f0ebe0;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1.25rem 0;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+
+        .formula .label {
+            color: #888;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 0.3rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* THEORY COMPARISON */
+        .theories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .theory-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem;
+            border-top: 3px solid var(--border);
+        }
+
+        .theory-card.malthus {
+            border-top-color: #c0392b;
+        }
+
+        .theory-card.neomalthus {
+            border-top-color: #e67e22;
+        }
+
+        .theory-card.reformista {
+            border-top-color: var(--accent1);
+        }
+
+        .theory-card h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--muted);
+        }
+
+        .theory-card p {
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+
+        /* INDICATOR TABLE */
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .indicator-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem;
+        }
+
+        .indicator-card .name {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .indicator-card .definition {
+            font-size: 14.5px;
+            margin-bottom: 0;
+        }
+
+        /* PYRAMID */
+        .pyramid-desc {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin: 1.25rem 0;
+        }
+
+        .pyramid-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.1rem;
+            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            font-size: 15px;
+        }
+
+        .pyramid-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            min-width: 50px;
+        }
+
+        /* MIGRATION FACTORS */
+        .factor-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .factor-box {
+            border-radius: 10px;
+            padding: 1.1rem;
+            font-size: 15px;
+        }
+
+        .factor-box.repulsao {
+            background: #fef0ee;
+            border: 1px solid #f5c6bb;
+        }
+
+        .factor-box.atracao {
+            background: #edf4ed;
+            border: 1px solid #b8d9b8;
+        }
+
+        .factor-box h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+        }
+
+        .factor-box.repulsao h4 {
+            color: #c0392b;
+        }
+
+        .factor-box.atracao h4 {
+            color: var(--accent1);
+        }
+
+        .factor-box ul {
+            padding-left: 1.2rem;
+        }
+
+        .factor-box li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* BLOCKQUOTE / KEY STAT */
+        .pullquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem 0;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            border-left: 2px solid var(--border);
+            margin: 1.5rem 0 1.5rem 1rem;
+            padding-left: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.9rem;
+            top: 0.45rem;
+            width: 10px;
+            height: 10px;
+            background: var(--accent5);
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+        }
+
+        .timeline-item .period {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent5);
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-item p {
+            font-size: 15px;
+            margin-bottom: 0;
+        }
+
+        /* PHASES */
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .phase-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem;
+            font-size: 14.5px;
+        }
+
+        .phase-card .phase-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            opacity: 0.15;
+            line-height: 1;
+            color: var(--accent3);
+            margin-bottom: 0.25rem;
+        }
+
+        .phase-card h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent3);
+            margin-bottom: 0.4rem;
+        }
+
+        .phase-card p {
+            margin: 0;
+        }
+
+        /* ECONOMIC STRUCTURE */
+        .econ-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .econ-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.1rem;
+        }
+
+        .econ-card .sigla {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--accent2);
+            margin-bottom: 0.3rem;
+        }
+
+        .econ-card h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .econ-card p {
+            font-size: 14.5px;
+            margin: 0;
+        }
+
+        /* DIVIDER */
+        hr.section-div {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        /* TAGS */
+        .concept-tag {
+            display: inline-block;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin: 2px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--muted);
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 640px) {
+            .site-header h1 {
+                font-size: 2rem;
+            }
+
+            .factor-cols {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 2rem 1.25rem 4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="label">Guia de Estudos Completo</div>
+        <h1>Geografia da População</h1>
+        <p class="subtitle">Do básico ao avançado — cinco módulos com analogias e exemplos</p>
+    </header>
+
+    <nav class="nav-bar">
+        <a href="#mod1" class="m1">I · Fundamentos</a>
+        <a href="#mod2">II · Evolução</a>
+        <a href="#mod3">III · Economia</a>
+        <a href="#mod4">IV · Migrações</a>
+        <a href="#mod5">V · Brasil</a>
+        <a href="./quiz_demografico.html">Quiz</a>
+    </nav>
+
+    <main class="content">
+
+        <!-- ===== MÓDULO I ===== -->
+        <section class="module mod-1" id="mod1">
+            <div class="module-header">
+                <div class="module-num">I</div>
+                <div class="module-title-block">
+                    <div class="tag">Módulo I</div>
+                    <h2>Fundamentos Demográficos</h2>
+                </div>
+            </div>
+
+            <!-- 1.1 -->
+            <div class="section">
+                <h3><span class="section-num">1</span> Populoso vs. Povoado — a confusão mais comum</h3>
+                <p>Esses dois conceitos são frequentemente confundidos, mas medem coisas completamente diferentes.
+                    <strong>Populoso</strong> se refere ao <em>total de habitantes</em> de um lugar.
+                    <strong>Povoado</strong> se refere à <em>concentração de pessoas</em> no espaço — o que a geografia
+                    chama de <strong>densidade demográfica</strong>.</p>
+                <div class="formula">
+                    <span class="label">Densidade demográfica</span>
+                    Densidade = Total de habitantes ÷ Área total (km²)
+                </div>
+                <div class="analogy">
+                    Imagine dois shows de música. O primeiro acontece num estádio para 80 mil pessoas — é um evento com
+                    muita gente (populoso), mas o estádio é enorme e as pessoas ficam espalhadas. O segundo acontece num
+                    bar de 30m² com 200 fãs — bem menos gente no total, mas densamente aglomerados. O bar é muito mais
+                    "povoado" que o estádio. China e Índia são países populosos (bilhões de habitantes). Bangladesh e
+                    Monaco são países densamente povoados (muita gente por km²).
+                </div>
+                <div class="keybox">
+                    <div class="title">Exemplos concretos</div>
+                    <p>A <strong>Rússia</strong> é o maior país do mundo em área, com ~145 milhões de pessoas — populosa
+                        mas pouco povoada (≈ 8 hab/km²). <strong>Bangladesh</strong> tem tamanho similar ao estado de
+                        Goiás mas abriga mais de 170 milhões de pessoas, com densidade de mais de 1.100 hab/km². Já a
+                        <strong>Mongólia</strong> tem ≈ 2 hab/km² — vasta e quase vazia.</p>
+                </div>
+            </div>
+
+            <!-- 1.2 -->
+            <div class="section">
+                <h3><span class="section-num">2</span> Os quatro indicadores demográficos essenciais</h3>
+                <p>Antes de entender qualquer fenômeno populacional, é preciso dominar os quatro termômetros da
+                    demografia:</p>
+                <div class="indicator-grid">
+                    <div class="indicator-card">
+                        <div class="name">Natalidade (TBN)</div>
+                        <div class="definition">Número de nascidos vivos para cada 1.000 habitantes em um ano. Mede o
+                            ritmo de entrada de novos indivíduos na população.</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="name">Mortalidade (TBM)</div>
+                        <div class="definition">Número de mortes para cada 1.000 habitantes em um ano. Mede a saída de
+                            indivíduos da população por óbito.</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="name">Mortalidade Infantil</div>
+                        <div class="definition">Mortes de crianças menores de 1 ano a cada 1.000 nascidos vivos. É o
+                            melhor termômetro das condições de saúde e saneamento de um país.</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="name">Taxa de Fecundidade</div>
+                        <div class="definition">Número médio de filhos que uma mulher tem ao longo da vida reprodutiva
+                            (15–49 anos). A taxa de reposição é ≈ 2,1 filhos.</div>
+                    </div>
+                </div>
+                <div class="analogy">
+                    Pense na população de um país como um reservatório d'água. A natalidade é a torneira que abastece —
+                    quanto mais aberta, mais água entra. A mortalidade é o ralo — quanto mais largo, mais água escapa. A
+                    mortalidade infantil é como a qualidade da água que entra: se ela é contaminada (infraestrutura
+                    precária), muitas crianças morrem antes de crescer. A fecundidade é a pressão da torneira — quantos
+                    "jatos" por mulher a sociedade produz.
+                </div>
+            </div>
+
+            <!-- 1.3 -->
+            <div class="section">
+                <h3><span class="section-num">3</span> Calculando o crescimento da população</h3>
+                <p>Há duas formas de medir o crescimento de uma população. O <strong>crescimento vegetativo</strong> (ou
+                    natural) considera apenas os nascimentos e mortes. O <strong>crescimento absoluto</strong> (ou
+                    total) acrescenta as migrações.</p>
+                <div class="formula">
+                    <span class="label">Crescimento Vegetativo (CV)</span>
+                    CV = Natalidade − Mortalidade
+                </div>
+                <div class="formula">
+                    <span class="label">Crescimento Absoluto (CA)</span>
+                    CA = CV + Saldo Migratório (Imigração − Emigração)
+                </div>
+                <p>Quando a natalidade supera a mortalidade, o CV é positivo e a população cresce. Quando a mortalidade
+                    supera a natalidade, o CV é negativo — <strong>involução demográfica</strong>, cenário atual de
+                    países como Japão, Alemanha e Itália. O saldo migratório pode compensar esse déficit: a Alemanha,
+                    por exemplo, mantém sua população estável graças à imigração.</p>
+            </div>
+
+            <!-- 1.4 -->
+            <div class="section">
+                <h3><span class="section-num">4</span> Lendo pirâmides etárias</h3>
+                <p>A pirâmide etária é um gráfico de barras duplas que mostra a distribuição da população por faixa de
+                    idade e sexo. Cada parte revela algo diferente sobre a sociedade:</p>
+                <div class="pyramid-desc">
+                    <div class="pyramid-row">
+                        <div class="pyramid-label" style="color: #8b4513;">Base</div>
+                        <div>Representa a população jovem (0–14 anos). Base larga = alta natalidade, população jovem e
+                            crescente (países subdesenvolvidos). Base estreita = baixa natalidade, envelhecimento
+                            (países desenvolvidos).</div>
+                    </div>
+                    <div class="pyramid-row">
+                        <div class="pyramid-label" style="color: #1e3a5f;">Corpo</div>
+                        <div>Representa a população adulta (15–64 anos), a chamada PIA — força produtiva do país. Corpo
+                            robusto indica grande parcela em idade de trabalho, o "bônus demográfico".</div>
+                    </div>
+                    <div class="pyramid-row">
+                        <div class="pyramid-label" style="color: #2d5a3d;">Ápice</div>
+                        <div>Representa os idosos (65+ anos). Ápice largo indica população envelhecida, alta expectativa
+                            de vida e pressão sobre sistemas de saúde e previdência.</div>
+                    </div>
+                </div>
+                <div class="analogy">
+                    A pirâmide etária é como uma "selfie" da população em um dado momento. Países como o Niger têm
+                    pirâmides que lembram triângulos perfeitos — base enorme, ápice minúsculo. O Japão tem uma pirâmide
+                    que parece uma urna grega — estreita embaixo, larga no meio e no topo. O Brasil está numa transição:
+                    ainda temos uma base razoável, mas o ápice cresce rapidamente.
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MÓDULO II ===== -->
+        <section class="module mod-2" id="mod2">
+            <div class="module-header">
+                <div class="module-num">II</div>
+                <div class="module-title-block">
+                    <div class="tag">Módulo II</div>
+                    <h2>A Evolução da População</h2>
+                </div>
+            </div>
+
+            <!-- 2.1 -->
+            <div class="section">
+                <h3><span class="section-num">1</span> Transição demográfica — o grande ciclo</h3>
+                <p>A <strong>Teoria da Transição Demográfica</strong> descreve o processo pelo qual todas as sociedades
+                    industrializadas passaram: de uma situação de alta natalidade + alta mortalidade (equilíbrio
+                    precário) para baixa natalidade + baixa mortalidade (equilíbrio avançado). O ritmo de transição
+                    entre essas fases gera a "explosão demográfica".</p>
+                <div class="phases">
+                    <div class="phase-card">
+                        <div class="phase-num">1</div>
+                        <h4>Pré-transição</h4>
+                        <p>Alta natalidade e alta mortalidade. População estagnada. Típica de sociedades
+                            pré-industriais, marcadas por guerras, fome e epidemias.</p>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-num">2</div>
+                        <h4>Explosão</h4>
+                        <p>Natalidade alta, mortalidade começa a cair (saneamento, vacinas, medicina). A diferença entre
+                            os dois dispara: população cresce rapidamente.</p>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-num">3</div>
+                        <h4>Estabilização</h4>
+                        <p>Natalidade começa a cair (urbanização, educação feminina, anticoncepção). A diferença
+                            diminui: crescimento mais lento.</p>
+                    </div>
+                    <div class="phase-card">
+                        <div class="phase-num">4</div>
+                        <h4>Pós-transição</h4>
+                        <p>Baixa natalidade e baixa mortalidade. Equilíbrio, crescimento próximo de zero ou negativo
+                            (involução). Países desenvolvidos.</p>
+                    </div>
+                </div>
+                <div class="analogy">
+                    Imagine um balde cheio de areia. Você abre um buraco no fundo (reduz a mortalidade) mas continua
+                    jogando areia na mesma velocidade (natalidade alta). O balde transborda — essa é a explosão
+                    demográfica. Com o tempo, você também diminui o ritmo com que coloca areia (natalidade cai). O nível
+                    se estabiliza — transição completa.
+                </div>
+            </div>
+
+            <!-- 2.2 -->
+            <div class="section">
+                <h3><span class="section-num">2</span> Por que a mortalidade caiu primeiro?</h3>
+                <p>A chave para entender a explosão demográfica é perceber que a mortalidade caiu muito antes da
+                    natalidade — e por razões completamente diferentes.</p>
+                <p>A <strong>queda da mortalidade</strong> foi causada por fatores externos e relativamente rápidos:
+                    desenvolvimento de vacinas (varíola, poliomielite, sarampo), criação de sistemas de saneamento
+                    básico (tratamento de água, esgoto), descoberta de antibióticos e melhoria geral da nutrição.</p>
+                <p>A <strong>queda da natalidade</strong>, por outro lado, exige mudanças culturais profundas e lentas:
+                    urbanização (filhos no campo são mão de obra, na cidade são custo), acesso feminino à educação e
+                    mercado de trabalho, popularização de métodos anticoncepcionais e uma nova mentalidade sobre
+                    família.</p>
+                <div class="pullquote">"A mortalidade cai por decreto; a natalidade cai por escolha."</div>
+            </div>
+
+            <!-- 2.3 -->
+            <div class="section">
+                <h3><span class="section-num">3</span> Três teorias que explicam (e discutem) o crescimento populacional
+                </h3>
+                <div class="theories">
+                    <div class="theory-card malthus">
+                        <h4>Teoria Malthusiana (1798)</h4>
+                        <p>Thomas Malthus argumentou que a população cresce em <em>progressão geométrica</em> (2, 4, 8,
+                            16...) enquanto os alimentos crescem em <em>progressão aritmética</em> (2, 4, 6, 8...). O
+                            resultado inevitável seriam guerras, fome e epidemias como "freios naturais". A solução
+                            seria o celibato e a abstinência.</p>
+                    </div>
+                    <div class="theory-card neomalthus">
+                        <h4>Neomalthusianismo (pós-1945)</h4>
+                        <p>Atualiza Malthus para o contexto da explosão demográfica pós-2ª Guerra Mundial, especialmente
+                            no Terceiro Mundo. A solução proposta não é a abstinência, mas o controle ativo de
+                            natalidade: anticoncepcionais, campanhas governamentais e planejamento familiar. Países
+                            ricos frequentemente pressionaram países pobres a adotar essas políticas.</p>
+                    </div>
+                    <div class="theory-card reformista">
+                        <h4>Teoria Reformista / Marxista</h4>
+                        <p>Critica as duas anteriores. Argumenta que o problema não é o excesso de gente, mas a má
+                            distribuição de riqueza. A população cresce mais em países pobres porque a pobreza gera
+                            filhos como estratégia de sobrevivência. A solução seria a reforma social: distribuição de
+                            renda, acesso à educação e saúde. Quando a vida melhora, a natalidade cai naturalmente —
+                            como provam os países escandinavos.</p>
+                    </div>
+                </div>
+                <div class="analogy">
+                    Imagine três médicos diante de um paciente com febre. O malthusiano diz: "A febre vai matar o
+                    paciente se não cortarmos a comida dele". O neomalthusiano diz: "Vamos dar um remédio para suprimir
+                    a febre diretamente". O reformista diz: "A febre é sintoma de uma infecção — precisamos tratar a
+                    causa, não o sintoma". Cada teoria diagnostica o mesmo fenômeno (crescimento populacional) de formas
+                    radicalmente diferentes.
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MÓDULO III ===== -->
+        <section class="module mod-3" id="mod3">
+            <div class="module-header">
+                <div class="module-num">III</div>
+                <div class="module-title-block">
+                    <div class="tag">Módulo III</div>
+                    <h2>População e Economia</h2>
+                </div>
+            </div>
+
+            <!-- 3.1 -->
+            <div class="section">
+                <h3><span class="section-num">1</span> Quem trabalha? Estrutura da população economicamente ativa</h3>
+                <p>Para entender a relação entre população e economia, a demografia divide a população por sua relação
+                    com o mercado de trabalho:</p>
+                <div class="econ-grid">
+                    <div class="econ-card">
+                        <div class="sigla">PIA</div>
+                        <h4>Pop. em Idade Ativa</h4>
+                        <p>Todas as pessoas com 15 anos ou mais, consideradas aptas ao trabalho. É o universo do qual
+                            derivam todos os outros grupos.</p>
+                    </div>
+                    <div class="econ-card">
+                        <div class="sigla">PEA</div>
+                        <h4>Pop. Economicamente Ativa</h4>
+                        <p>Dentro da PIA, são os que trabalham ou estão procurando emprego ativamente. Inclui empregados
+                            formais, informais, autônomos e desempregados que buscam vagas.</p>
+                    </div>
+                    <div class="econ-card">
+                        <div class="sigla">PEI</div>
+                        <h4>Pop. Economicamente Inativa</h4>
+                        <p>Dentro da PIA, são os que não trabalham nem procuram emprego: estudantes em tempo integral,
+                            donas/donos de casa, aposentados, pessoas com deficiência.</p>
+                    </div>
+                    <div class="econ-card">
+                        <div class="sigla" style="color: #c0392b;">Des.</div>
+                        <h4>Desalentados</h4>
+                        <p>Um grupo especial: pessoas que <em>desistiram</em> de procurar emprego por acreditar que não
+                            encontrarão. Estatisticamente, são contados na PEI, mas representam desemprego "invisível".
+                        </p>
+                    </div>
+                </div>
+                <div class="analogy">
+                    Pense num torneio de xadrez. A PIA são todos os jogadores inscritos (15+ anos). A PEA são os que
+                    estão jogando ou esperando a vez. A PEI são os que foram ao torneio mas decidiram só assistir. Os
+                    desalentados foram ao ginásio, viram a fila, e foram embora sem se inscrever — eles existem mas não
+                    aparecem nas estatísticas do torneio.
+                </div>
+                <p>O desemprego, dentro da PEA, pode ser formal (sem carteira assinada) ou informal. A
+                    <strong>informalidade</strong> no Brasil é estrutural: segundo o IBGE, mais de 40% dos trabalhadores
+                    ocupados não têm vínculos formais, o que os priva de direitos como FGTS, 13º salário e
+                    seguro-desemprego.</p>
+            </div>
+
+            <!-- 3.2 -->
+            <div class="section">
+                <h3><span class="section-num">2</span> Três indicadores para medir riqueza e desigualdade</h3>
+
+                <h4
+                    style="font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; margin: 1.25rem 0 0.5rem; color: var(--muted); text-transform:uppercase; letter-spacing:1px;">
+                    PIB e PIB per capita</h4>
+                <p>O <strong>Produto Interno Bruto (PIB)</strong> é a soma de todos os bens e serviços produzidos por um
+                    país em um ano. O <strong>PIB per capita</strong> divide esse total pelo número de habitantes — uma
+                    tentativa de medir a "fatia" de riqueza por pessoa.</p>
+                <p>O grande problema do PIB per capita é que ele é uma <em>média aritmética</em>. Se um país tem 9
+                    pessoas ganhando R$ 1.000/mês e 1 milionário ganhando R$ 1.000.000/mês, o PIB per capita "registra"
+                    uma renda média de quase R$ 100.000 — que não reflete a realidade de 90% da população. O PIB per
+                    capita mede riqueza total, não distribuição.</p>
+
+                <h4
+                    style="font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; margin: 1.5rem 0 0.5rem; color: var(--muted); text-transform:uppercase; letter-spacing:1px;">
+                    Índice de Gini — o medidor da desigualdade</h4>
+                <p>O <strong>Coeficiente de Gini</strong> mede a distribuição de renda numa escala de 0 a 1 (ou 0 a
+                    100). Quanto mais próximo de <strong>0</strong>, mais igualitária é a sociedade (renda distribuída
+                    uniformemente). Quanto mais próximo de <strong>1</strong>, mais desigual (toda a renda concentrada
+                    em poucas mãos).</p>
+                <div class="keybox">
+                    <div class="title">Contexto atual</div>
+                    <p>Os países escandinavos (Noruega, Dinamarca, Finlândia) têm Gini em torno de 0,25–0,28. O Brasil
+                        historicamente oscila entre 0,52–0,54 — uma das maiores desigualdades do mundo. África do Sul e
+                        Comores têm os piores índices globais (0,60+).</p>
+                </div>
+                <div class="analogy">
+                    Imagine que você tem 10 pizzas para dividir entre 10 pessoas. Se cada um recebe exatamente 1 pizza:
+                    Gini = 0. Se uma pessoa recebe 9 pizzas e as outras 9 dividem 1 pizza entre si: Gini → 1. O Gini
+                    mede não quantas pizzas existem (PIB), mas como elas estão repartidas.
+                </div>
+
+                <h4
+                    style="font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500; margin: 1.5rem 0 0.5rem; color: var(--muted); text-transform:uppercase; letter-spacing:1px;">
+                    IDH — Índice de Desenvolvimento Humano</h4>
+                <p>Criado pelo PNUD/ONU, o <strong>IDH</strong> foi uma revolução conceitual: ao invés de medir só
+                    riqueza econômica, incorpora três dimensões do bem-estar humano:</p>
+                <div class="indicator-grid">
+                    <div class="indicator-card">
+                        <div class="name">Renda</div>
+                        <div class="definition">PIB per capita ajustado pelo poder de compra (PPC). Mede condições
+                            materiais de vida.</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="name">Educação</div>
+                        <div class="definition">Média de anos de escolaridade da população adulta + expectativa de anos
+                            de escolaridade para crianças.</div>
+                    </div>
+                    <div class="indicator-card">
+                        <div class="name">Longevidade</div>
+                        <div class="definition">Expectativa de vida ao nascer. Sintetiza qualidade do sistema de saúde,
+                            nutrição e saneamento.</div>
+                    </div>
+                </div>
+                <p>O IDH varia de 0 a 1. Acima de 0,80 = muito alto; 0,70–0,79 = alto; 0,55–0,69 = médio; abaixo de 0,55
+                    = baixo. O Brasil oscila na faixa alta (~0,75). Países como Noruega e Suíça ficam acima de 0,95.</p>
+            </div>
+
+            <!-- 3.3 -->
+            <div class="section">
+                <h3><span class="section-num">3</span> Desigualdades estruturais de gênero e raça</h3>
+                <p>As desigualdades de renda não são distribuídas aleatoriamente — elas se concentram sobre grupos
+                    historicamente marginalizados. Dois eixos são centrais na análise geográfica e sociológica:</p>
+                <p><strong>Desigualdade de gênero:</strong> No Brasil e na maioria dos países, mulheres recebem salários
+                    menores que homens em cargos equivalentes (gap salarial de gênero). Além disso, concentram-se em
+                    setores menos valorizados e têm menor representação em cargos de liderança. O trabalho doméstico não
+                    remunerado — realizado majoritariamente por mulheres — não entra no cálculo do PIB, tornando essa
+                    contribuição econômica invisível.</p>
+                <p><strong>Desigualdade racial:</strong> No Brasil, a população negra (preta e parda, segundo o IBGE)
+                    representa mais de 55% da população mas está sobre-representada nos estratos mais pobres, nas
+                    favelas, no desemprego e na informalidade, e sub-representada nas universidades, no Congresso e nos
+                    cargos de chefia do setor privado. Esse é um legado direto de séculos de escravidão e da ausência de
+                    políticas de reparação histórica.</p>
+                <div class="analogy">
+                    Imagine uma corrida de 100 metros, mas alguns corredores começam na linha de 50 metros enquanto
+                    outros começam em 0. Ao final, se o corredor que começou em 0 chega em 2º lugar, isso não é um
+                    mérito menor — é um resultado extraordinário apesar da desvantagem estrutural. Políticas de ação
+                    afirmativa tentam corrigir o ponto de partida, não a habilidade dos corredores.
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MÓDULO IV ===== -->
+        <section class="module mod-4" id="mod4">
+            <div class="module-header">
+                <div class="module-num">IV</div>
+                <div class="module-title-block">
+                    <div class="tag">Módulo IV</div>
+                    <h2>Dinâmica Migratória Global</h2>
+                </div>
+            </div>
+
+            <!-- 4.1 e 4.2 -->
+            <div class="section">
+                <h3><span class="section-num">1</span> Conceitos e classificações</h3>
+                <p><strong>Migração</strong> é o deslocamento de pessoas entre lugares, implicando mudança de
+                    residência. Do ponto de vista do destino, quem chega é um <strong>imigrante</strong>; do ponto de
+                    vista da origem, quem sai é um <strong>emigrante</strong>. A mesma pessoa é simultaneamente as duas
+                    coisas — dependendo de qual lado da fronteira você olha.</p>
+                <div class="keybox">
+                    <div class="title">Tipos de migração por duração e direção</div>
+                    <p><strong>Temporária:</strong> o migrante parte com intenção de retornar após um período (ex:
+                        trabalhador sazonal na colheita). <strong>Definitiva:</strong> o migrante abandona
+                        permanentemente o local de origem. <strong>Circular:</strong> o migrante se desloca
+                        periodicamente entre dois ou mais lugares, sem fixar residência permanente em nenhum.
+                        <strong>Pendular:</strong> deslocamento diário entre local de residência e trabalho/estudo —
+                        tecnicamente não é uma migração pois não implica mudança de residência, mas é estudada junto por
+                        sua intensidade (ex: moradores da periferia que vão ao centro trabalhar).</p>
+                </div>
+                <p>As migrações também se classificam pela escala: <strong>internas</strong> (dentro de um mesmo país)
+                    ou <strong>internacionais</strong> (entre países). E pela motivação: <strong>voluntárias</strong>
+                    (econômicas, educacionais) ou <strong>forçadas</strong> (guerra, perseguição, desastres climáticos).
+                </p>
+            </div>
+
+            <!-- 4.3 -->
+            <div class="section">
+                <h3><span class="section-num">2</span> Fatores de repulsão e atração</h3>
+                <p>A clássica teoria <strong>Push-Pull</strong> (Lee, 1966) explica o movimento migratório pela
+                    interação de dois tipos de força:</p>
+                <div class="factor-cols">
+                    <div class="factor-box repulsao">
+                        <h4>Fatores de Repulsão (Push)</h4>
+                        <ul>
+                            <li>Guerras, conflitos armados e perseguições</li>
+                            <li>Pobreza extrema e fome</li>
+                            <li>Desastres naturais e climáticos</li>
+                            <li>Desemprego e falta de perspectiva</li>
+                            <li>Violência urbana e crime organizado</li>
+                            <li>Perseguição política, étnica ou religiosa</li>
+                        </ul>
+                    </div>
+                    <div class="factor-box atracao">
+                        <h4>Fatores de Atração (Pull)</h4>
+                        <ul>
+                            <li>Disponibilidade de emprego e salários maiores</li>
+                            <li>Segurança jurídica e estabilidade política</li>
+                            <li>Melhores serviços de saúde e educação</li>
+                            <li>Redes de contatos (diáspora já estabelecida)</li>
+                            <li>Liberdades civis e direitos garantidos</li>
+                            <li>Qualidade de vida e infraestrutura</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="analogy">
+                    Pense em migração como quando você decide sair de uma festa. Você sai porque a música está horrível
+                    e tem briga (fator de repulsão) E porque seu amigo ligou dizendo que tem outra festa melhor com
+                    pizza gratuita (fator de atração). Na prática, a migração quase sempre é resultado dos dois fatores
+                    agindo simultaneamente — dificilmente se migra só "para fugir" ou só "para chegar", mas ambos.
+                </div>
+            </div>
+
+            <!-- 4.4 -->
+            <div class="section">
+                <h3><span class="section-num">3</span> Cenários críticos contemporâneos</h3>
+
+                <h4 style="font-family:'Playfair Display',serif; font-size:1.1rem; margin: 1.25rem 0 0.75rem;">A crise
+                    dos refugiados</h4>
+                <p>Um <strong>refugiado</strong> difere de um migrante econômico: é alguém forçado a fugir por fundado
+                    temor de perseguição, guerra ou violência generalizada. A proteção ao refugiado é garantida pela
+                    Convenção de Genebra de 1951. As maiores crises atuais envolvem sírios (Guerra Civil desde 2011),
+                    afegãos (décadas de conflito e retomada do Talibã em 2021), rohingyas (Myanmar/Bangladesh) e
+                    populações de vários países do Sahel africano, afetados tanto por conflitos quanto por
+                    desertificação acelerada pelas mudanças climáticas.</p>
+
+                <h4 style="font-family:'Playfair Display',serif; font-size:1.1rem; margin: 1.5rem 0 0.75rem;">Fronteira
+                    México–EUA e tráfico humano</h4>
+                <p>A fronteira México–EUA é a mais cruzada ilegalmente no mundo. Migrantes (majoritariamente da América
+                    Central: Guatemala, Honduras, El Salvador — o "Triângulo Norte") fugem de pobreza extrema, violência
+                    de gangues e instabilidade política. O tráfico humano nessa rota envolve redes criminosas que cobram
+                    fortunas para conduzir pessoas pelo deserto, frequentemente em condições letais. As políticas de
+                    endurecimento (muros, deportações em massa) historicamente não reduzem os fluxos — apenas os tornam
+                    mais perigosos e lucrativos para o crime organizado.</p>
+
+                <h4 style="font-family:'Playfair Display',serif; font-size:1.1rem; margin: 1.5rem 0 0.75rem;">Remessas
+                    financeiras — o "PIB invisível"</h4>
+                <p>As <strong>remessas</strong> (dinheiro enviado por migrantes para seus países de origem) movimentam
+                    mais de US$ 700 bilhões por ano globalmente — mais que o dobro da ajuda humanitária internacional.
+                    Para países como El Salvador, Nepal, Tajiquistão e Haiti, as remessas representam entre 20% e 40% do
+                    PIB nacional. Elas sustentam famílias, financiam educação, constroem casas e estabilizam economias
+                    frágeis. Economistas consideram as remessas uma das mais eficientes ferramentas de redução da
+                    pobreza — sem burocracia, chegam diretamente a quem precisa.</p>
+            </div>
+        </section>
+
+        <!-- ===== MÓDULO V ===== -->
+        <section class="module mod-5" id="mod5">
+            <div class="module-header">
+                <div class="module-num">V</div>
+                <div class="module-title-block">
+                    <div class="tag">Módulo V</div>
+                    <h2>O Cenário Brasileiro</h2>
+                </div>
+            </div>
+
+            <!-- 5.1 -->
+            <div class="section">
+                <h3><span class="section-num">1</span> Formação étnica — um processo violento e contraditório</h3>
+                <p>O Brasil é frequentemente celebrado como um país de "três raças" (indígena, africana e europeia), mas
+                    é fundamental entender o processo violento que produziu essa mistura. A narrativa da "harmonia
+                    racial" obscurece dois crimes históricos centrais:</p>
+                <p><strong>O massacre indígena:</strong> Estima-se que havia entre 2 e 10 milhões de indígenas no Brasil
+                    antes da chegada dos portugueses em 1500. Cinco séculos depois, são menos de 1 milhão (≈ 0,5% da
+                    população). A dizimação ocorreu por doenças (gripe, varíola — para as quais não havia imunidade),
+                    guerra, escravização e destruição sistemática de territórios e culturas. O Brasil ainda tem
+                    conflitos fundiários envolvendo terras indígenas em andamento.</p>
+                <p><strong>A escravidão africana:</strong> O Brasil importou mais africanos escravizados do que qualquer
+                    outro país — cerca de 4,8 milhões entre 1500 e 1850 (40% de todo o tráfico atlântico). A escravidão
+                    durou 388 anos, sendo o Brasil o último país das Américas a aboli-la (1888). A herança desta
+                    estrutura é visível hoje nos indicadores socioeconômicos: a população negra concentra-se
+                    desproporcionalmente nos estratos de menor renda, escolaridade e acesso a serviços.</p>
+            </div>
+
+            <!-- 5.2 -->
+            <div class="section">
+                <h3><span class="section-num">2</span> Ondas imigratórias dos séculos XIX e XX</h3>
+                <p>Após a abolição, o Brasil precisou substituir a mão de obra escravizada nas fazendas de café. A
+                    solução foi a imigração europeia — mas com um objetivo confessado pela elite: o
+                    <strong>"branqueamento"</strong> da população brasileira, baseado na pseudociência racista do século
+                    XIX.</p>
+                <div class="keybox">
+                    <div class="title">Principais grupos e destinos</div>
+                    <p><strong>Italianos</strong> (maioria absoluta — ~1,5 milhão): fixaram-se principalmente no
+                        interior de São Paulo e no Rio Grande do Sul, nas fazendas de café e posteriormente na indústria
+                        paulistana.<br><br><strong>Alemães</strong> (~260 mil): concentraram-se no Sul (RS, SC, PR),
+                        onde fundaram colônias com forte identidade cultural preservada até
+                        hoje.<br><br><strong>Japoneses</strong> (a partir de 1908 — ~200 mil até 1960): chegaram
+                        contratados para o café paulista. O Brasil tem hoje a maior diáspora japonesa fora do Japão
+                        (~1,5 milhão de descendentes).<br><br><strong>Espanhóis, portugueses, sírios e
+                            libaneses</strong> também chegaram em números expressivos e se espalharam por diferentes
+                        setores da economia.</p>
+                </div>
+            </div>
+
+            <!-- 5.3 -->
+            <div class="section">
+                <h3><span class="section-num">3</span> Imigração contemporânea para o Brasil</h3>
+                <p>O Brasil do século XXI tornou-se destino de novas levas de imigrantes, agora oriundos de países em
+                    crise:</p>
+                <p><strong>Haitianos (a partir de 2010):</strong> O terremoto devastador de 2010 e a extrema pobreza
+                    estrutural impulsionaram uma migração expressiva. Os haitianos chegaram ao Brasil principalmente
+                    pelo Acre, atraídos pela oportunidade de trabalho na construção civil durante o boom pré-Copa do
+                    Mundo. Enfrentaram xenofobia e condições precárias, mas muitos se estabeleceram permanentemente.</p>
+                <p><strong>Venezuelanos (especialmente após 2015):</strong> O colapso econômico e político da Venezuela
+                    sob o governo Maduro produziu uma das maiores crises migratórias da América do Sul — mais de 7
+                    milhões de venezue­lanos deixaram o país. O Brasil recebe especialmente aqueles que chegam por terra
+                    por Roraima. A Operação Acolhida do governo federal tentou organizar o acolhimento e interiorizar os
+                    imigrantes para outras cidades.</p>
+                <p><strong>Bolivianos:</strong> São a maior comunidade de imigrantes indocumentados no Brasil.
+                    Concentram-se em São Paulo, em grande parte trabalhando em condições análogas à escravidão no setor
+                    têxtil — frequentemente em redes exploratórias montadas por compatriotas.</p>
+            </div>
+
+            <!-- 5.4 -->
+            <div class="section">
+                <h3><span class="section-num">4</span> Migrações internas e os ciclos econômicos</h3>
+                <p>A história das migrações internas no Brasil é a história do próprio desenvolvimento econômico do país
+                    — cada grande fluxo migratório interno está atrelado a um ciclo produtivo.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="period">1940–1960 · Industrialização</div>
+                        <p>O projeto de industrialização de Getúlio Vargas e, depois, a construção de Brasília (1960)
+                            atraíram nordestinos para o Sudeste industrial e para o Centro-Oeste. O fluxo Nordeste → São
+                            Paulo e Rio de Janeiro foi o mais intenso: nordestinos ("retirantes") fugiam da seca e da
+                            miséria do semiárido em busca de trabalho nas fábricas. São Paulo industrializado absorveu
+                            milhões — o ABC paulista tornou-se o maior polo industrial da América Latina. A "Marcha para
+                            o Centro-Oeste" também foi estimulada politicamente para "integrar" o interior do país.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="period">1970–1990 · Expansão da Fronteira Agrícola</div>
+                        <p>Durante a ditadura militar, o governo incentivou a ocupação da Amazônia com o slogan "uma
+                            terra sem homens para homens sem terra" — ignorando completamente a existência de povos
+                            indígenas. Colonos do Sul e do Nordeste foram direcionados para projetos de colonização no
+                            Mato Grosso, Rondônia e Pará. Esse processo gerou conflitos fundiários violentos (como o
+                            assassinato de Chico Mendes em 1988), desmatamento acelerado e pobreza crônica nas novas
+                            fronteiras.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="period">Anos 1990+ · Desconcentração e Retorno</div>
+                        <p>Com a crise industrial do ABC paulista (automação, desindustrialização), o Sudeste perdeu
+                            parte de sua atratividade. Simultaneamente, cidades médias do interior (Campinas, Ribeirão
+                            Preto, Uberlândia, Maringá) cresceram como polos de agronegócio, serviços e indústria.
+                            Surgiu também a <strong>migração de retorno</strong>: nordestinos e seus descendentes voltam
+                            ao Nordeste, agora atraídos pelo crescimento regional (turismo, complexos eólicos, polos
+                            industriais como Suape/PE e o POLO de Camaçari/BA) e pelas melhorias do Bolsa Família e
+                            outros programas sociais, que reduziram a extrema pobreza na região.</p>
+                    </div>
+                </div>
+                <div class="analogy">
+                    As migrações internas do Brasil funcionam como água em um terreno irregular: a água sempre corre
+                    para onde há declive, ou seja, onde há oportunidade. Quando São Paulo era o único "vale" (polo
+                    industrial), toda a água corria para lá. Com o tempo, novos "vales" foram surgindo — agronegócio no
+                    Centro-Oeste, serviços em cidades médias, turismo no Nordeste — e a água passou a se distribuir por
+                    mais caminhos. O terreno econômico do Brasil está, lentamente, se tornando menos acidentado.
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Guia de Estudos · Geografia da População · Cinco Módulos</p>
+        <p style="margin-top: 0.3rem; font-size: 12px;">Do Módulo I (fundamentos) ao Módulo V (Brasil) — bons estudos.
+        </p>
+    </footer>
+
+</body>
+
+</html>
