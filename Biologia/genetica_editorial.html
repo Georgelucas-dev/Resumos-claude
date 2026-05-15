@@ -1,0 +1,2558 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genética — Manual Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --gray1: #f5f5f5;
+  --gray2: #e8e8e8;
+  --gray3: #c0c0c0;
+  --gray4: #808080;
+  --gray5: #404040;
+  --red: #cc0000;
+  --blue: #0044cc;
+  --rule: 2px solid #0a0a0a;
+  --rule-thin: 1px solid #0a0a0a;
+  --rule-light: 1px solid #c0c0c0;
+}
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+/* ─── LAYOUT ─────────────────────────────── */
+.page-wrap {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+/* ─── SIDEBAR ────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: var(--rule);
+  padding: 0;
+  background: var(--white);
+}
+
+.sidebar-head {
+  padding: 24px 20px 20px;
+  border-bottom: var(--rule);
+}
+
+.sidebar-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 8px;
+}
+
+.sidebar-head h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.sidebar-head h1 span { color: var(--red); }
+
+.nav-group { border-bottom: var(--rule-thin); }
+
+.nav-group-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  padding: 10px 20px 4px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 7px 20px;
+  text-decoration: none;
+  color: var(--gray5);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--black);
+  background: var(--gray1);
+  border-left-color: var(--black);
+}
+
+.nav-link.active {
+  color: var(--black);
+  border-left-color: var(--red);
+  background: var(--gray1);
+}
+
+.nav-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--gray3);
+  min-width: 16px;
+}
+
+/* ─── MAIN ───────────────────────────────── */
+.main {
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* ─── HERO ───────────────────────────────── */
+.hero {
+  border-bottom: var(--rule);
+  padding: 48px 64px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+
+.hero-left {}
+
+.hero-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-kicker::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--red);
+  max-width: 60px;
+}
+
+.hero h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+.hero h2 em {
+  font-style: normal;
+  color: var(--red);
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--gray5);
+  line-height: 1.6;
+  max-width: 380px;
+  border-left: 3px solid var(--black);
+  padding-left: 16px;
+}
+
+.hero-right {
+  border-left: var(--rule-thin);
+  padding-left: 48px;
+}
+
+.hero-index-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: var(--rule-thin);
+}
+
+.hero-index { list-style: none; }
+.hero-index li {
+  display: flex;
+  gap: 12px;
+  padding: 5px 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray5);
+  border-bottom: 1px dotted var(--gray2);
+}
+
+.hero-index li span:first-child {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--gray3);
+  min-width: 20px;
+  padding-top: 2px;
+}
+
+/* ─── SECTION ────────────────────────────── */
+.section {
+  border-bottom: var(--rule);
+  scroll-margin-top: 0;
+}
+
+.section-banner {
+  border-bottom: var(--rule-thin);
+  padding: 20px 64px;
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  background: var(--black);
+  color: var(--white);
+}
+
+.section-banner .sec-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--gray3);
+}
+
+.section-banner h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-banner .sec-tag {
+  margin-left: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray3);
+  border: 1px solid var(--gray4);
+  padding: 3px 8px;
+}
+
+.section-body { padding: 40px 64px; }
+
+/* ─── CONTENT ELEMENTS ───────────────────── */
+h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 32px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: var(--rule-thin);
+}
+
+h3:first-child { margin-top: 0; }
+
+h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray5);
+  margin: 20px 0 6px;
+}
+
+p { margin-bottom: 12px; color: var(--black); }
+p:last-child { margin-bottom: 0; }
+
+strong { font-weight: 700; }
+
+.mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  background: var(--gray1);
+  border: var(--rule-thin);
+  padding: 1px 6px;
+}
+
+/* ─── 2-COL GRID ─────────────────────────── */
+.col2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: var(--rule);
+  margin: 20px 0;
+}
+
+.col2 > * {
+  padding: 20px 24px;
+}
+
+.col2 > *:not(:last-child) { border-right: var(--rule-thin); }
+
+.col3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border: var(--rule);
+  margin: 20px 0;
+}
+
+.col3 > * { padding: 20px 24px; }
+.col3 > *:not(:last-child) { border-right: var(--rule-thin); }
+
+.col-head {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 10px;
+}
+
+/* ─── BOX TYPES ──────────────────────────── */
+.box {
+  border: var(--rule);
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+
+.box-head {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: var(--rule-thin);
+}
+
+.box.black-top { border-top: 4px solid var(--black); }
+.box.red-top { border-top: 4px solid var(--red); }
+.box.blue-top { border-top: 4px solid var(--blue); }
+
+.box-red {
+  border: var(--rule);
+  border-left: 4px solid var(--red);
+  padding: 16px 20px;
+  margin: 16px 0;
+  background: #fff8f8;
+}
+
+.box-blue {
+  border: var(--rule);
+  border-left: 4px solid var(--blue);
+  padding: 16px 20px;
+  margin: 16px 0;
+  background: #f8f8ff;
+}
+
+.box-gray {
+  border: var(--rule-thin);
+  padding: 16px 20px;
+  margin: 16px 0;
+  background: var(--gray1);
+}
+
+.box-answer {
+  border: var(--rule);
+  padding: 16px 20px;
+  margin: 20px 0;
+  background: var(--black);
+  color: var(--white);
+}
+
+.box-answer .ba-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--gray3);
+  margin-bottom: 6px;
+}
+
+.box-answer strong { color: var(--white); }
+
+/* ─── PUNNETT TABLE ──────────────────────── */
+.punnett-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 16px 0;
+}
+
+.punnett-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 8px;
+}
+
+.punnett {
+  border-collapse: collapse;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.punnett th, .punnett td {
+  border: var(--rule-thin);
+  width: 90px;
+  height: 52px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.punnett th {
+  background: var(--black);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.punnett td { background: var(--white); }
+.punnett td.dom { font-weight: 700; }
+.punnett td.het { color: var(--gray5); }
+.punnett td.rec { color: var(--gray4); }
+.punnett td.dead { color: var(--red); text-decoration: line-through; background: #fff0f0; }
+.punnett .corner { background: var(--gray2); }
+
+.punnett-wide th, .punnett-wide td { width: 120px; }
+
+/* ─── FRACTION ───────────────────────────── */
+.frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  vertical-align: middle;
+  line-height: 1.2;
+  margin: 0 4px;
+}
+
+.frac .num { border-bottom: 1px solid currentColor; padding: 0 4px; }
+.frac .den { padding: 0 4px; }
+
+.formula-line {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  background: var(--gray1);
+  border: var(--rule);
+  padding: 14px 20px;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  line-height: 2;
+}
+
+.formula-block {
+  border: var(--rule);
+  border-top: 4px solid var(--black);
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  background: var(--gray1);
+}
+
+.formula-block .fb-title {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 12px;
+}
+
+/* ─── STEPS ──────────────────────────────── */
+.steps { margin: 16px 0; }
+
+.step {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dotted var(--gray2);
+}
+
+.step:last-child { border-bottom: none; }
+
+.step-n {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 28px;
+  height: 28px;
+  border: var(--rule-thin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-body h5 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.step-body p { font-size: 14px; margin-bottom: 0; color: var(--gray5); }
+
+/* ─── TABLE ──────────────────────────────── */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+}
+
+.tbl th {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 500;
+}
+
+.tbl td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--gray2);
+  vertical-align: top;
+}
+
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:nth-child(even) td { background: var(--gray1); }
+.tbl td:first-child { font-weight: 600; }
+
+/* ─── PROPORTION VISUAL ──────────────────── */
+.prop-bar {
+  height: 32px;
+  border: var(--rule-thin);
+  display: flex;
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.prop-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  transition: flex 0.3s;
+}
+
+/* ─── TAGS / BADGES ──────────────────────── */
+.tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border: var(--rule-thin);
+  margin: 2px;
+  vertical-align: middle;
+}
+
+.tag-fill {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  background: var(--black);
+  color: var(--white);
+  margin: 2px;
+  vertical-align: middle;
+}
+
+.tag-red { border-color: var(--red); color: var(--red); }
+.tag-blue { border-color: var(--blue); color: var(--blue); }
+
+/* ─── CHROMOSOME DIAGRAM ─────────────────── */
+.chromo-pair {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}
+
+.chromo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.chromo-body {
+  width: 44px;
+  height: 130px;
+  border: var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 0;
+  position: relative;
+}
+
+.chromo-locus {
+  width: 32px;
+  height: 18px;
+  border: var(--rule-thin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--white);
+}
+
+.chromo-locus.dom { background: var(--black); color: var(--white); }
+
+.chromo-label { font-size: 9px; color: var(--gray4); text-align: center; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ─── HEREDOGRAM ─────────────────────────── */
+.hered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 16px 0;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+}
+
+.hered-gen { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 8px 0; }
+.hered-line { width: 1px; height: 24px; background: var(--black); }
+.hered-hline { display: flex; justify-content: center; }
+
+.hered-person { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+
+.hered-circle {
+  width: 36px; height: 36px;
+  border: 2px solid var(--black);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  background: var(--white);
+}
+
+.hered-square {
+  width: 36px; height: 36px;
+  border: 2px solid var(--black);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  background: var(--white);
+}
+
+.hered-fill { background: var(--black); color: var(--white); }
+.hered-dot { position: relative; }
+.hered-dot::after {
+  content: '•';
+  position: absolute;
+  bottom: -2px; right: -2px;
+  font-size: 16px;
+  color: var(--black);
+  line-height: 1;
+}
+
+.hered-label { color: var(--gray4); font-size: 9px; text-align: center; }
+
+/* ─── BLOOD TYPE ─────────────────────────── */
+.blood-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: var(--rule);
+  margin: 16px 0;
+}
+
+.blood-cell {
+  padding: 16px;
+  border-right: var(--rule-thin);
+  text-align: center;
+}
+
+.blood-cell:last-child { border-right: none; }
+
+.bt-letter {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.bt-letter.a { color: var(--red); }
+.bt-letter.b { color: var(--blue); }
+.bt-letter.ab { font-size: 32px; }
+.bt-letter.o {}
+
+.blood-cell p { font-size: 11px; color: var(--gray5); margin-bottom: 4px; }
+
+/* ─── DOMINANCE CHAIN ────────────────────── */
+.dom-chain {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: var(--rule);
+  margin: 12px 0;
+  overflow: hidden;
+}
+
+.dc-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px 8px;
+  border-right: var(--rule-thin);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}
+
+.dc-item:last-child { border-right: none; }
+.dc-item .dc-rank { font-size: 8px; color: var(--gray4); letter-spacing: 1px; margin-bottom: 4px; }
+.dc-item .dc-sym { font-size: 16px; font-weight: 600; }
+.dc-item.first { background: var(--black); color: var(--white); }
+.dc-item.first .dc-rank { color: var(--gray3); }
+
+.dc-arrow {
+  font-size: 18px;
+  color: var(--gray3);
+  padding: 0 6px;
+}
+
+/* ─── CALC ───────────────────────────────── */
+.calc-wrap {
+  border: var(--rule);
+  border-top: 4px solid var(--black);
+  margin: 24px 0;
+}
+
+.calc-head {
+  padding: 16px 24px;
+  border-bottom: var(--rule-thin);
+  background: var(--gray1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calc-head-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calc-head-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray4);
+}
+
+.calc-body { padding: 24px; }
+
+.calc-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ci label {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 6px;
+}
+
+.ci input, .ci select {
+  width: 100%;
+  border: var(--rule);
+  padding: 10px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.ci input:focus, .ci select:focus { border-color: var(--red); }
+
+.calc-btn {
+  border: var(--rule);
+  border-top: 3px solid var(--black);
+  padding: 12px 24px;
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+}
+
+.calc-btn:hover { background: var(--gray5); }
+
+.calc-out {
+  display: none;
+  border-top: var(--rule-thin);
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.calc-out.show { display: block; }
+
+.result-punnett {
+  border-collapse: collapse;
+  font-family: 'IBM Plex Mono', monospace;
+  margin: 0 auto 16px;
+}
+
+.result-punnett th, .result-punnett td {
+  border: var(--rule-thin);
+  width: 80px; height: 48px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.result-punnett th { background: var(--black); color: var(--white); font-weight: 500; }
+.result-punnett td { background: var(--white); }
+.result-punnett td.d { font-weight: 700; }
+.result-punnett td.r { color: var(--gray4); }
+
+.ratio-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: var(--rule-thin);
+  margin-top: 12px;
+}
+
+.rg-item {
+  padding: 12px;
+  text-align: center;
+  border-right: var(--rule-thin);
+}
+
+.rg-item:last-child { border-right: none; }
+.rg-val { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; }
+.rg-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray4); letter-spacing: 1px; }
+
+/* ─── SUMMARY TABLE ──────────────────────── */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: var(--rule);
+  margin: 16px 0;
+}
+
+.sg-item {
+  padding: 16px 18px;
+  border-right: var(--rule-thin);
+  border-bottom: var(--rule-thin);
+}
+
+.sg-item:nth-child(3n) { border-right: none; }
+.sg-item:nth-last-child(-n+3) { border-bottom: none; }
+
+.sg-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray4);
+  margin-bottom: 4px;
+}
+
+.sg-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.sg-desc { font-size: 12px; color: var(--gray5); }
+
+/* ─── BIG PROP FORMULA ───────────────────── */
+.big-prop {
+  border: var(--rule);
+  padding: 24px 32px;
+  margin: 20px 0;
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  background: var(--gray1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.big-prop .op { color: var(--gray4); }
+
+/* ─── DIVIDER ────────────────────────────── */
+.rule { border: none; border-top: var(--rule-thin); margin: 28px 0; }
+.rule-thick { border: none; border-top: var(--rule); margin: 32px 0; }
+
+/* ─── SCROLL TOP ─────────────────────────── */
+.scrolltop {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  width: 40px; height: 40px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 999;
+}
+
+.scrolltop.show { opacity: 1; }
+
+/* ─── QUIZ ───────────────────────────────── */
+.quiz-box {
+  border: var(--rule);
+  border-left: 4px solid var(--black);
+  margin: 20px 0;
+}
+
+.quiz-head {
+  background: var(--black);
+  color: var(--white);
+  padding: 10px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.quiz-q { padding: 14px 16px; font-size: 14px; border-bottom: var(--rule-thin); }
+
+.quiz-opts { display: flex; flex-direction: column; }
+
+.q-opt {
+  padding: 10px 16px;
+  border: none;
+  border-bottom: 1px dotted var(--gray2);
+  background: var(--white);
+  cursor: pointer;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 13px;
+  text-align: left;
+  transition: background 0.12s;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.q-opt:last-child { border-bottom: none; }
+.q-opt:hover { background: var(--gray1); }
+.q-opt.correct { background: #e8ffe8; }
+.q-opt.wrong { background: #ffe8e8; }
+
+.q-opt span:first-child {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--gray4);
+  min-width: 16px;
+}
+
+.quiz-fb {
+  padding: 12px 16px;
+  font-size: 13px;
+  display: none;
+  border-top: var(--rule-thin);
+  background: var(--gray1);
+}
+
+.quiz-fb.show { display: block; }
+
+/* ─── RESPONSIVE ─────────────────────────── */
+@media (max-width: 860px) {
+  .page-wrap { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 32px 24px; }
+  .hero-right { border-left: none; padding-left: 0; border-top: var(--rule-thin); padding-top: 24px; }
+  .section-banner, .section-body { padding-left: 24px; padding-right: 24px; }
+  .col2, .col3 { grid-template-columns: 1fr; }
+  .col2 > *, .col3 > * { border-right: none !important; border-bottom: var(--rule-thin); }
+  .blood-row { grid-template-columns: 1fr 1fr; }
+  .ratio-grid { grid-template-columns: 1fr 1fr; }
+  .summary-grid { grid-template-columns: 1fr 1fr; }
+  .calc-inputs { grid-template-columns: 1fr; }
+  .hero h2 { font-size: 48px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<!-- ════════════════════════════ SIDEBAR ══════════════════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-head">
+    <div class="sidebar-eyebrow">Biologia · Genética</div>
+    <h1>Manual<br><span>Completo</span></h1>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Fundamentos</div>
+    <a href="#s1" class="nav-link active"><span class="nav-num">01</span>Genes, Locus e Alelos</a>
+    <a href="#s2" class="nav-link"><span class="nav-num">02</span>Genótipo e Fenótipo</a>
+    <a href="#s3" class="nav-link"><span class="nav-num">03</span>Leis de Mendel</a>
+    <a href="#s4" class="nav-link"><span class="nav-num">04</span>Probabilidade e Frações</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Tipos de Herança</div>
+    <a href="#s5" class="nav-link"><span class="nav-num">05</span>Dominância Incompleta</a>
+    <a href="#s6" class="nav-link"><span class="nav-num">06</span>Codominância</a>
+    <a href="#s7" class="nav-link"><span class="nav-num">07</span>Genes Letais</a>
+    <a href="#s8" class="nav-link"><span class="nav-num">08</span>Polialelia</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Especial</div>
+    <a href="#s9" class="nav-link"><span class="nav-num">09</span>Herança Ligada ao X</a>
+    <a href="#s10" class="nav-link"><span class="nav-num">10</span>Herança Mitocondrial</a>
+    <a href="#s11" class="nav-link"><span class="nav-num">11</span>Sistema ABO e Rh</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-label">Avançado</div>
+    <a href="#s12" class="nav-link"><span class="nav-num">12</span>Diibridismo</a>
+    <a href="#s13" class="nav-link"><span class="nav-num">13</span>Calculadora Punnett</a>
+    <a href="#s14" class="nav-link"><span class="nav-num">14</span>Gabarito Completo</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════ MAIN ════════════════════════════════ -->
+<main class="main">
+
+<!-- ──── HERO ──────────────────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-kicker">Manual de Estudo</div>
+    <h2>Genética<br><em>Mendeliana</em><br>& Especial</h2>
+    <p class="hero-desc">Do conceito de alelo até doenças mitocondriais — com todos os cálculos de proporção, probabilidade e frações que você precisa para resolver qualquer questão.</p>
+  </div>
+  <div class="hero-right">
+    <div class="hero-index-title">Índice de Conteúdo</div>
+    <ul class="hero-index">
+      <li><span>01</span><span>Genes, Locus e Alelos</span></li>
+      <li><span>02</span><span>Genótipo e Fenótipo</span></li>
+      <li><span>03</span><span>Leis de Mendel + Punnett</span></li>
+      <li><span>04</span><span>Probabilidade e Frações</span></li>
+      <li><span>05</span><span>Dominância Incompleta</span></li>
+      <li><span>06</span><span>Codominância</span></li>
+      <li><span>07</span><span>Genes Letais</span></li>
+      <li><span>08</span><span>Polialelia</span></li>
+      <li><span>09</span><span>Herança Ligada ao X</span></li>
+      <li><span>10</span><span>Herança Mitocondrial</span></li>
+      <li><span>11</span><span>Sistema ABO e Rh</span></li>
+      <li><span>12</span><span>Diibridismo</span></li>
+      <li><span>13</span><span>Calculadora Interativa</span></li>
+      <li><span>14</span><span>Gabarito das Questões</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ SEÇÃO 1 ═══════════════════════════ -->
+<section class="section" id="s1">
+  <div class="section-banner">
+    <span class="sec-num">01</span>
+    <h2>Genes, Locus e Alelos</h2>
+    <span class="sec-tag">Fundamentos</span>
+  </div>
+  <div class="section-body">
+
+    <div class="col2">
+      <div>
+        <div class="col-head">Gene</div>
+        <p>Segmento de DNA que contém a informação para determinar uma <strong>característica hereditária</strong>. Cada gene produz (direta ou indiretamente) uma proteína ou regula alguma função.</p>
+      </div>
+      <div>
+        <div class="col-head">Locus (Loco)</div>
+        <p>É a <strong>posição exata e fixa</strong> que um gene ocupa em um cromossomo específico. É como o endereço permanente do gene no genoma. Plural: loci.</p>
+      </div>
+    </div>
+
+    <h3>O que são Alelos?</h3>
+    <p>Alelos são as <strong>formas alternativas de um mesmo gene</strong>, ocupando o mesmo loco em cromossomos homólogos. Podem diferir em apenas uma letra do DNA, mas isso é suficiente para mudar o fenótipo.</p>
+
+    <div class="col3">
+      <div>
+        <div class="col-head">Alelo Dominante</div>
+        <p>Representado por <strong>letra maiúscula</strong> (ex: <span class="mono">A</span>). Quando presente, seu efeito "suprime" ou "cobre" o alelo recessivo. Basta 1 cópia para se expressar.</p>
+      </div>
+      <div>
+        <div class="col-head">Alelo Recessivo</div>
+        <p>Representado por <strong>letra minúscula</strong> (ex: <span class="mono">a</span>). Só se expressa no fenótipo quando o indivíduo possui <em>duas cópias</em> recessivas (homozigoto recessivo).</p>
+      </div>
+      <div>
+        <div class="col-head">Representação</div>
+        <p>O genótipo é sempre escrito com 2 letras, uma de cada cromossomo homólogo: <span class="mono">AA</span>, <span class="mono">Aa</span> ou <span class="mono">aa</span>.</p>
+      </div>
+    </div>
+
+    <div class="box red-top">
+      <div class="box-head">Diferença crucial — Locus vs Alelo</div>
+      <p><strong>Locus</strong> = a posição no cromossomo (igual para todos os indivíduos da espécie).<br>
+      <strong>Alelo</strong> = a versão do gene naquele locus (pode variar entre indivíduos).<br>
+      Todos os humanos têm um gene para cor dos olhos no mesmo locus; mas alguns têm o alelo <em>olho azul</em>, outros o alelo <em>olho castanho</em>.</p>
+    </div>
+
+    <h3>Cromossomos Homólogos e Alelos</h3>
+
+    <div class="chromo-pair">
+      <div class="chromo">
+        <div class="chromo-body">
+          <div class="chromo-locus dom">A</div>
+          <div class="chromo-locus dom">B</div>
+          <div class="chromo-locus">c</div>
+        </div>
+        <div class="chromo-label">Crom. 1</div>
+      </div>
+      <div style="font-size:24px; color:var(--gray3); padding:0 8px; align-self:center">⇌</div>
+      <div class="chromo">
+        <div class="chromo-body">
+          <div class="chromo-locus">a</div>
+          <div class="chromo-locus dom">B</div>
+          <div class="chromo-locus">c</div>
+        </div>
+        <div class="chromo-label">Crom. 2</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gray5); margin-left:24px; line-height:2.8">
+        <div>← mesmo locus, alelos diferentes → <strong>Aa</strong> (heterozigoto)</div>
+        <div>← mesmo locus, alelos iguais → <strong>BB</strong> (homozigoto dominante)</div>
+        <div>← mesmo locus, alelos iguais → <strong>cc</strong> (homozigoto recessivo)</div>
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 1 — Resposta</div>
+      A posição no cromossomo = <strong>Loco</strong>. As variações do segmento = <strong>Alelos</strong>. Resposta: <strong>B</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 2 ═══════════════════════════ -->
+<section class="section" id="s2">
+  <div class="section-banner">
+    <span class="sec-num">02</span>
+    <h2>Genótipo e Fenótipo</h2>
+    <span class="sec-tag">Fundamentos</span>
+  </div>
+  <div class="section-body">
+
+    <div class="col2">
+      <div>
+        <div class="col-head">Genótipo</div>
+        <p>É o <strong>conjunto de alelos</strong> de um indivíduo para um dado gene. Representa a "receita genética" — não é diretamente visível.</p>
+        <div class="formula-line"><span class="mono">AA</span> ou <span class="mono">Aa</span> ou <span class="mono">aa</span></div>
+        <p style="font-size:13px">O mesmo fenótipo pode ter genótipos diferentes:<br>
+        Flor amarela pode ser <span class="mono">AA</span> ou <span class="mono">Aa</span>.</p>
+      </div>
+      <div>
+        <div class="col-head">Fenótipo</div>
+        <p>É a <strong>característica observável</strong> do indivíduo — o que você vê, mede ou detecta. É determinado pelo genótipo + ambiente.</p>
+        <div class="formula-line">Fenótipo = Genótipo + Ambiente</div>
+        <p style="font-size:13px">Ex: altura, cor dos olhos, tipo sanguíneo, presença de doença.</p>
+      </div>
+    </div>
+
+    <h3>Tipos de Genótipo</h3>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Notação</th>
+          <th>Fenótipo (dom. completa)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Homozigoto Dominante</td>
+          <td>Dois alelos dominantes iguais</td>
+          <td><span class="mono">AA</span></td>
+          <td>Dominante</td>
+        </tr>
+        <tr>
+          <td>Heterozigoto</td>
+          <td>Um dominante + um recessivo</td>
+          <td><span class="mono">Aa</span></td>
+          <td>Dominante (cobre o recessivo)</td>
+        </tr>
+        <tr>
+          <td>Homozigoto Recessivo</td>
+          <td>Dois alelos recessivos iguais</td>
+          <td><span class="mono">aa</span></td>
+          <td>Recessivo</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box-gray">
+      <strong>Regra prática:</strong> se o genótipo tem pelo menos 1 alelo dominante (<span class="mono">AA</span> ou <span class="mono">Aa</span>), o fenótipo dominante aparece. O recessivo só aparece em <span class="mono">aa</span>.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 3 ═══════════════════════════ -->
+<section class="section" id="s3">
+  <div class="section-banner">
+    <span class="sec-num">03</span>
+    <h2>Leis de Mendel e o Quadro de Punnett</h2>
+    <span class="sec-tag">Fundamentos</span>
+  </div>
+  <div class="section-body">
+
+    <div class="col2">
+      <div>
+        <div class="col-head">1ª Lei — Segregação dos Fatores</div>
+        <p>Cada indivíduo possui <strong>dois fatores</strong> (alelos) para cada característica. Na formação dos gametas, esses fatores <strong>se separam</strong>, indo um para cada gameta.</p>
+        <div class="box-gray" style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:center">
+          Indivíduo <strong>Aa</strong><br>↓ meiose<br>
+          Gametas: <strong>A</strong> (50%) e <strong>a</strong> (50%)
+        </div>
+      </div>
+      <div>
+        <div class="col-head">2ª Lei — Segregação Independente</div>
+        <p>Genes em cromossomos <strong>diferentes</strong> se segregam de forma independente. Um diibrídico <span class="mono">AaBb</span> produz 4 tipos de gametas com igual frequência.</p>
+        <div class="box-gray" style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:center">
+          <strong>AaBb</strong> → gametas:<br>
+          AB · Ab · aB · ab<br>(25% cada)
+        </div>
+      </div>
+    </div>
+
+    <h3>Como Montar o Quadro de Punnett</h3>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <h5>Escreva os genótipos dos pais</h5>
+          <p>Identifique os alelos de cada progenitor. Ex: Pai <span class="mono">Aa</span> × Mãe <span class="mono">Aa</span></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <h5>Derive os gametas de cada pai</h5>
+          <p>Separe os dois alelos. Pai <span class="mono">Aa</span> → gametas <span class="mono">A</span> e <span class="mono">a</span> | Mãe <span class="mono">Aa</span> → gametas <span class="mono">A</span> e <span class="mono">a</span></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <h5>Monte a tabela — colunas = pai, linhas = mãe</h5>
+          <p>Cada célula é a combinação do gameta da coluna com o gameta da linha.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body">
+          <h5>Conte genótipos e fenótipos</h5>
+          <p>Some as células iguais e escreva as proporções como frações.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col2">
+      <div>
+        <div class="punnett-title">Cruzamento Aa × Aa</div>
+        <div class="punnett-wrap">
+          <table class="punnett">
+            <tr>
+              <td class="corner" style="background:var(--gray2)"></td>
+              <th>A</th><th>a</th>
+            </tr>
+            <tr>
+              <th>A</th>
+              <td class="dom">AA</td>
+              <td class="het">Aa</td>
+            </tr>
+            <tr>
+              <th>a</th>
+              <td class="het">Aa</td>
+              <td class="rec">aa</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Resultado do cruzamento Aa × Aa</div>
+        <table class="tbl">
+          <thead><tr><th>Genótipo</th><th>Qtd.</th><th>Fração</th><th>Fenótipo</th></tr></thead>
+          <tbody>
+            <tr><td><span class="mono">AA</span></td><td>1</td><td>1/4</td><td>Dominante</td></tr>
+            <tr><td><span class="mono">Aa</span></td><td>2</td><td>2/4 = 1/2</td><td>Dominante</td></tr>
+            <tr><td><span class="mono">aa</span></td><td>1</td><td>1/4</td><td>Recessivo</td></tr>
+          </tbody>
+        </table>
+        <div class="formula-line"><strong>Fenotípico:</strong> 3/4 dominante · 1/4 recessivo → <strong>3:1</strong></div>
+        <div class="formula-line"><strong>Genotípico:</strong> 1/4 AA · 2/4 Aa · 1/4 aa → <strong>1:2:1</strong></div>
+      </div>
+    </div>
+
+    <h3>Todas as Proporções Clássicas — Monoidrídico</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>Cruzamento</th><th>Proporção Genotípica</th><th>Proporção Fenotípica</th><th>Como decorar</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="mono">Aa × Aa</span></td><td>1 AA : 2 Aa : 1 aa</td><td><strong>3:1</strong></td><td>Clássico de Mendel</td></tr>
+        <tr><td><span class="mono">Aa × aa</span></td><td>1 Aa : 1 aa</td><td><strong>1:1</strong></td><td>Teste / retrocruzamento</td></tr>
+        <tr><td><span class="mono">AA × aa</span></td><td>100% Aa</td><td><strong>100% dom.</strong></td><td>Pais puros</td></tr>
+        <tr><td><span class="mono">AA × Aa</span></td><td>1 AA : 1 Aa</td><td><strong>100% dom.</strong></td><td>Todo dom. mas genótipos 50/50</td></tr>
+        <tr><td><span class="mono">AA × AA</span></td><td>100% AA</td><td><strong>100% dom.</strong></td><td>Linhagem pura</td></tr>
+        <tr><td><span class="mono">aa × aa</span></td><td>100% aa</td><td><strong>100% rec.</strong></td><td>Linhagem pura recessiva</td></tr>
+      </tbody>
+    </table>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 2 — Resposta</div>
+      Roxo (<strong>AA</strong>) × Branco (<strong>aa</strong>) → F1 = <strong>Aa</strong> (100% roxas). F1 × F1 = Aa × Aa → F2 = <strong>3 roxas : 1 branca</strong>. Resposta: <strong>A</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 4 ═══════════════════════════ -->
+<section class="section" id="s4">
+  <div class="section-banner">
+    <span class="sec-num">04</span>
+    <h2>Probabilidade e Cálculo com Frações</h2>
+    <span class="sec-tag">Matemática da Genética</span>
+  </div>
+  <div class="section-body">
+
+    <p>Toda questão de genética é, no fundo, um problema de probabilidade. Dominar as frações é fundamental.</p>
+
+    <h3>Regra da Multiplicação (E)</h3>
+    <div class="box blue-top">
+      <div class="box-head">Quando dois eventos são independentes</div>
+      <p>Para calcular a probabilidade de dois eventos <em>ocorrerem juntos</em>, <strong>multiplique as probabilidades</strong>.</p>
+      <div class="big-prop">
+        <span>P(A <em>e</em> B)</span>
+        <span class="op">=</span>
+        <span>P(A)</span>
+        <span class="op">×</span>
+        <span>P(B)</span>
+      </div>
+      <p><strong>Exemplo:</strong> Probabilidade de filho saudável E ser menina:</p>
+      <div class="formula-line">
+        P(saudável) × P(menina) =
+        <span class="frac"><span class="num">3</span><span class="den">4</span></span>
+        ×
+        <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+        =
+        <span class="frac"><span class="num">3</span><span class="den">8</span></span>
+      </div>
+    </div>
+
+    <h3>Regra da Adição (OU)</h3>
+    <div class="box black-top">
+      <div class="box-head">Quando dois eventos são mutuamente exclusivos</div>
+      <p>Para calcular a probabilidade de um evento OU outro ocorrer, <strong>some as probabilidades</strong>.</p>
+      <div class="big-prop">
+        <span>P(A <em>ou</em> B)</span>
+        <span class="op">=</span>
+        <span>P(A)</span>
+        <span class="op">+</span>
+        <span>P(B)</span>
+      </div>
+      <p><strong>Exemplo:</strong> Probabilidade de filho ter genótipo AA ou Aa (ambos dominantes) em Aa × Aa:</p>
+      <div class="formula-line">
+        P(AA) + P(Aa) =
+        <span class="frac"><span class="num">1</span><span class="den">4</span></span>
+        +
+        <span class="frac"><span class="num">2</span><span class="den">4</span></span>
+        =
+        <span class="frac"><span class="num">3</span><span class="den">4</span></span>
+      </div>
+    </div>
+
+    <h3>Como Ler Proporções como Frações e Porcentagens</h3>
+    <table class="tbl">
+      <thead>
+        <tr><th>Proporção</th><th>Fração</th><th>Porcentagem</th><th>Interpretação</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1 em 4</td><td>1/4</td><td>25%</td><td>1 de cada 4 filhos</td></tr>
+        <tr><td>2 em 4</td><td>2/4 = 1/2</td><td>50%</td><td>1 de cada 2 filhos</td></tr>
+        <tr><td>3 em 4</td><td>3/4</td><td>75%</td><td>3 de cada 4 filhos</td></tr>
+        <tr><td>1 em 8</td><td>1/8</td><td>12,5%</td><td>Produto de dois eventos de 1/4 ou 1/2 × 1/4</td></tr>
+        <tr><td>3 em 8</td><td>3/8</td><td>37,5%</td><td>Produto 3/4 × 1/2</td></tr>
+        <tr><td>3 em 16</td><td>3/16</td><td>18,75%</td><td>Produto 3/4 × 1/4 (diibrídico)</td></tr>
+        <tr><td>9 em 16</td><td>9/16</td><td>56,25%</td><td>Produto 3/4 × 3/4 (diibrídico)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Método Rápido — Sem Montar o Punnett</h3>
+    <div class="box blue-top">
+      <div class="box-head">Princípio: calcule cada gene separadamente, depois multiplique</div>
+      <p>Para qualquer cruzamento envolvendo genes independentes, você pode calcular a probabilidade de cada fenótipo individualmente e multiplicar os resultados.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <div class="step-body">
+            <h5>Calcule P(fenótipo do gene 1)</h5>
+            <p>De Pp × Pp: P(branco = pp) = 1/4</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div class="step-body">
+            <h5>Calcule P(fenótipo do gene 2)</h5>
+            <p>De Cc × Cc: P(curto = C_) = 3/4</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div class="step-body">
+            <h5>Multiplique os resultados</h5>
+            <p>P(branco E curto) = 1/4 × 3/4 = <strong>3/16</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Visualização da Proporção 9:3:3:1 (Diibrídico)</h3>
+    <div class="prop-bar">
+      <div class="prop-seg" style="flex:9;background:var(--black);color:var(--white)">9/16 ■■</div>
+      <div class="prop-seg" style="flex:3;background:var(--gray5);color:var(--white)">3/16</div>
+      <div class="prop-seg" style="flex:3;background:var(--gray3);color:var(--black)">3/16</div>
+      <div class="prop-seg" style="flex:1;background:var(--gray1);color:var(--black);border-left:1px solid #ccc">1</div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gray4);margin-top:4px">
+      9/16 dom/dom · 3/16 dom/rec · 3/16 rec/dom · 1/16 rec/rec
+    </div>
+
+    <h3>Combinando Probabilidade + Sexo</h3>
+    <div class="box-red">
+      <div class="box-head" style="color:var(--red)">Atenção — Regra Fundamental</div>
+      <p>Quando a questão pede "<strong>menino</strong> com tal fenótipo" ou "<strong>menina</strong> com tal fenótipo", você <em>sempre multiplica</em> pela probabilidade de ser aquele sexo.</p>
+      <table class="tbl" style="margin-top:12px">
+        <thead><tr><th>O que a questão pede</th><th>Operação</th></tr></thead>
+        <tbody>
+          <tr><td>Filho saudável (qualquer sexo)</td><td>Apenas P(saudável) = 3/4</td></tr>
+          <tr><td>Menina saudável</td><td>P(saudável) × P(menina) = 3/4 × 1/2 = <strong>3/8</strong></td></tr>
+          <tr><td>Menino saudável</td><td>P(saudável) × P(menino) = 3/4 × 1/2 = <strong>3/8</strong></td></tr>
+          <tr><td>Menina doente</td><td>P(doente) × P(menina) = 1/4 × 1/2 = <strong>1/8</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 5 ═══════════════════════════ -->
+<section class="section" id="s5">
+  <div class="section-banner">
+    <span class="sec-num">05</span>
+    <h2>Dominância Incompleta</h2>
+    <span class="sec-tag">Tipo de Herança</span>
+  </div>
+  <div class="section-body">
+
+    <p>Na dominância incompleta, <strong>nenhum alelo é completamente dominante</strong> sobre o outro. O heterozigoto apresenta um fenótipo <em>intermediário</em> entre os dois homozigotos.</p>
+
+    <div class="col3">
+      <div style="text-align:center">
+        <div class="col-head">Homozigoto 1</div>
+        <div style="font-size:48px;margin:12px 0">🌹</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;margin-bottom:8px">A¹A¹</div>
+        <p style="font-size:13px">Flor <strong>Vermelha</strong></p>
+      </div>
+      <div style="text-align:center;border-left:var(--rule-thin);border-right:var(--rule-thin)">
+        <div class="col-head">Heterozigoto</div>
+        <div style="font-size:48px;margin:12px 0">🌸</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;margin-bottom:8px;color:var(--red)">A¹A²</div>
+        <p style="font-size:13px">Flor <strong>Rosa</strong> — intermediário!</p>
+      </div>
+      <div style="text-align:center">
+        <div class="col-head">Homozigoto 2</div>
+        <div style="font-size:48px;margin:12px 0">🤍</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;margin-bottom:8px;color:var(--gray4)">A²A²</div>
+        <p style="font-size:13px">Flor <strong>Branca</strong></p>
+      </div>
+    </div>
+
+    <h3>Proporções na Dominância Incompleta</h3>
+    <div class="box-blue">
+      <div class="box-head" style="color:var(--blue)">Diferença-chave da proporção</div>
+      <p>Na dominância incompleta, como cada genótipo produz um fenótipo diferente, a <strong>proporção fenotípica = proporção genotípica</strong> = <strong>1:2:1</strong></p>
+    </div>
+
+    <div class="col2">
+      <div>
+        <div class="punnett-title">F2 — A¹A² × A¹A²</div>
+        <div class="punnett-wrap">
+          <table class="punnett">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>A¹</th><th>A²</th></tr>
+            <tr><th>A¹</th><td class="dom">A¹A¹<br><small>vermelho</small></td><td class="het">A¹A²<br><small>rosa</small></td></tr>
+            <tr><th>A²</th><td class="het">A¹A²<br><small>rosa</small></td><td class="rec">A²A²<br><small>branco</small></td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Resultado</div>
+        <div class="formula-line">
+          <span class="frac"><span class="num">1</span><span class="den">4</span></span> vermelho
+          <span style="color:var(--gray3)">+</span>
+          <span class="frac"><span class="num">2</span><span class="den">4</span></span> rosa
+          <span style="color:var(--gray3)">+</span>
+          <span class="frac"><span class="num">1</span><span class="den">4</span></span> branco
+        </div>
+        <p style="font-size:13px">Proporção fenotípica: <strong>1:2:1</strong></p>
+        <p style="font-size:13px">Aqui, <strong>fenótipo ≡ genótipo</strong>: 3 fenótipos diferentes = 3 genótipos diferentes.</p>
+        <div class="box-gray" style="margin-top:12px;font-size:13px">
+          <strong>Compare com dominância completa:</strong><br>
+          Dom. completa → 3:1 (2 fenótipos)<br>
+          Dom. incompleta → 1:2:1 (3 fenótipos)
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 6 ═══════════════════════════ -->
+<section class="section" id="s6">
+  <div class="section-banner">
+    <span class="sec-num">06</span>
+    <h2>Codominância</h2>
+    <span class="sec-tag">Tipo de Herança</span>
+  </div>
+  <div class="section-body">
+
+    <div class="col2">
+      <div>
+        <div class="col-head">O que é Codominância?</div>
+        <p>Na codominância, <strong>ambos os alelos se expressam completamente e simultaneamente</strong> no heterozigoto. Não há mistura — os dois traços aparecem ao mesmo tempo.</p>
+      </div>
+      <div>
+        <div class="col-head">Diferença Crítica vs Dom. Incompleta</div>
+        <table class="tbl">
+          <thead><tr><th>Tipo</th><th>Heterozigoto</th></tr></thead>
+          <tbody>
+            <tr><td>Dom. Incompleta</td><td>Fenótipo <em>intermediário</em> (mistura)</td></tr>
+            <tr><td>Codominância</td><td>Ambos os fenótipos <em>simultaneamente</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3>Exemplo: Gado Shorthorn</h3>
+    <div class="col3">
+      <div style="text-align:center">
+        <div style="font-size:40px;margin:10px 0">🔴🔴</div>
+        <div style="font-family:'IBM Plex Mono',monospace">RR</div>
+        <p style="font-size:13px">Pelagem <strong>Vermelha</strong><br>Pelos todos vermelhos</p>
+      </div>
+      <div style="border-left:var(--rule-thin);border-right:var(--rule-thin);text-align:center">
+        <div style="font-size:40px;margin:10px 0">🔴⚪</div>
+        <div style="font-family:'IBM Plex Mono',monospace">Rr</div>
+        <p style="font-size:13px">Pelagem <strong>Ruã</strong><br>Pelos vermelhos E brancos intercalados — ambos os alelos expressos!</p>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:40px;margin:10px 0">⚪⚪</div>
+        <div style="font-family:'IBM Plex Mono',monospace">rr</div>
+        <p style="font-size:13px">Pelagem <strong>Branca</strong><br>Pelos todos brancos</p>
+      </div>
+    </div>
+
+    <div class="box-red">
+      <div class="box-head" style="color:var(--red)">Por que é codominância e não dom. incompleta?</div>
+      <p>O animal ruão não é "rosado" (mistura). Ele tem pelos literalmente <em>vermelhos</em> ao lado de pelos <em>brancos</em>. São dois fenótipos distintos ocorrendo no mesmo indivíduo ao mesmo tempo. Isso define codominância.</p>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 3 — Resposta</div>
+      O heterozigoto expressa simultaneamente os dois fenótipos. Isso é <strong>Codominância</strong>. Resposta: <strong>D</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 7 ═══════════════════════════ -->
+<section class="section" id="s7">
+  <div class="section-banner">
+    <span class="sec-num">07</span>
+    <h2>Genes Letais</h2>
+    <span class="sec-tag">Tipo de Herança</span>
+  </div>
+  <div class="section-body">
+
+    <p>Alguns alelos, quando em homozigose, causam a <strong>morte do embrião</strong> antes do nascimento. Isso elimina uma classe de descendentes e altera as proporções esperadas.</p>
+
+    <h3>Exemplo: Camundongo Amarelo (Yy × Yy)</h3>
+
+    <div class="col2">
+      <div>
+        <div class="punnett-title">Cruzamento esperado — Yy × Yy</div>
+        <div class="punnett-wrap">
+          <table class="punnett">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>Y</th><th>y</th></tr>
+            <tr>
+              <th>Y</th>
+              <td class="dead">YY ← LETAL<br><small>embrião morre</small></td>
+              <td class="het">Yy<br><small>amarelo</small></td>
+            </tr>
+            <tr>
+              <th>y</th>
+              <td class="het">Yy<br><small>amarelo</small></td>
+              <td class="rec">yy<br><small>cinza</small></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Cálculo da Proporção</div>
+        <p>Das 4 combinações esperadas, 1 (YY) é letal e nunca nasce. As 3 restantes são os descendentes vivos:</p>
+        <table class="tbl" style="margin-top:12px">
+          <thead><tr><th>Genótipo</th><th>Vivos?</th><th>Fração (dos vivos)</th></tr></thead>
+          <tbody>
+            <tr><td><span class="mono" style="color:var(--red)">YY</span></td><td style="color:var(--red)">Não (letal)</td><td style="color:var(--red)">0/3</td></tr>
+            <tr><td><span class="mono">Yy</span></td><td>Sim</td><td>2/3</td></tr>
+            <tr><td><span class="mono">yy</span></td><td>Sim</td><td>1/3</td></tr>
+          </tbody>
+        </table>
+        <div class="formula-line" style="margin-top:12px">
+          Proporção dos vivos: <strong>2 amarelos : 1 cinza</strong>
+        </div>
+        <div class="box-gray" style="font-size:13px;margin-top:8px">
+          <strong>Atenção:</strong> A proporção normal seria 3:1. Com o gene letal, ela passa a ser 2:1. Esse é o sinal típico nas questões!
+        </div>
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 4 — Resposta</div>
+      YY é letal → de 4 combinações, sobram 3 vivos: 2 Yy (amarelos) e 1 yy (cinza). Proporção dos vivos: <strong>2 amarelos : 1 cinza</strong>. Resposta: <strong>C</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 8 ═══════════════════════════ -->
+<section class="section" id="s8">
+  <div class="section-banner">
+    <span class="sec-num">08</span>
+    <h2>Polialelia — Alelos Múltiplos</h2>
+    <span class="sec-tag">Tipo de Herança</span>
+  </div>
+  <div class="section-body">
+
+    <p>Quando um gene possui <strong>3 ou mais alelos diferentes</strong> circulando na população. Cada indivíduo ainda carrega apenas 2 alelos (um por cromossomo homólogo), mas a variedade de combinações aumenta.</p>
+
+    <h3>Sistema de Pelagem em Coelhos — 4 Alelos</h3>
+
+    <div class="dom-chain">
+      <div class="dc-item first">
+        <div class="dc-rank">1° mais dominante</div>
+        <div class="dc-sym">C</div>
+        <div style="font-size:10px;margin-top:4px">Selvagem</div>
+      </div>
+      <div class="dc-arrow">→</div>
+      <div class="dc-item">
+        <div class="dc-rank">2°</div>
+        <div class="dc-sym">c<sup>ch</sup></div>
+        <div style="font-size:10px;margin-top:4px">Chinchila</div>
+      </div>
+      <div class="dc-arrow">→</div>
+      <div class="dc-item">
+        <div class="dc-rank">3°</div>
+        <div class="dc-sym">c<sup>h</sup></div>
+        <div style="font-size:10px;margin-top:4px">Himalaia</div>
+      </div>
+      <div class="dc-arrow">→</div>
+      <div class="dc-item">
+        <div class="dc-rank">4° menos dominante</div>
+        <div class="dc-sym">c</div>
+        <div style="font-size:10px;margin-top:4px">Albino</div>
+      </div>
+    </div>
+
+    <div class="formula-line"><strong>Hierarquia:</strong> C > c<sup>ch</sup> > c<sup>h</sup> > c</div>
+
+    <h3>Como Determinar o Fenótipo</h3>
+    <table class="tbl">
+      <thead><tr><th>Genótipo</th><th>Fenótipo</th><th>Por quê?</th></tr></thead>
+      <tbody>
+        <tr><td><span class="mono">CC</span> ou <span class="mono">Cc<sup>ch</sup></span> ou <span class="mono">Cc<sup>h</sup></span> ou <span class="mono">Cc</span></td><td>Selvagem</td><td>C é dominante sobre todos</td></tr>
+        <tr><td><span class="mono">c<sup>ch</sup>c<sup>ch</sup></span> ou <span class="mono">c<sup>ch</sup>c<sup>h</sup></span> ou <span class="mono">c<sup>ch</sup>c</span></td><td>Chinchila</td><td>c<sup>ch</sup> domina c<sup>h</sup> e c</td></tr>
+        <tr><td><span class="mono">c<sup>h</sup>c<sup>h</sup></span> ou <span class="mono">c<sup>h</sup>c</span></td><td>Himalaia</td><td>c<sup>h</sup> domina c</td></tr>
+        <tr><td><span class="mono">cc</span></td><td>Albino</td><td>c é recessivo a todos</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Resolvendo o Cruzamento da Questão 5</h3>
+    <p>Chinchila <span class="mono">c<sup>ch</sup>c</span> × Himalaia <span class="mono">c<sup>h</sup>c</span></p>
+
+    <div class="col2">
+      <div>
+        <div class="punnett-title">Quadro de Punnett</div>
+        <div class="punnett-wrap">
+          <table class="punnett">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>c<sup>ch</sup></th><th>c</th></tr>
+            <tr>
+              <th>c<sup>h</sup></th>
+              <td class="het">c<sup>ch</sup>c<sup>h</sup><br><small>chinchila</small></td>
+              <td class="rec">c<sup>h</sup>c<br><small>himalaia</small></td>
+            </tr>
+            <tr>
+              <th>c</th>
+              <td class="het">c<sup>ch</sup>c<br><small>chinchila</small></td>
+              <td class="dom" style="color:var(--red)">cc<br><small>albino!</small></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Resultado</div>
+        <table class="tbl">
+          <thead><tr><th>Genótipo</th><th>Fenótipo</th><th>Fração</th></tr></thead>
+          <tbody>
+            <tr><td>c<sup>ch</sup>c<sup>h</sup></td><td>Chinchila</td><td>1/4 = 25%</td></tr>
+            <tr><td>c<sup>h</sup>c</td><td>Himalaia</td><td>1/4 = 25%</td></tr>
+            <tr><td>c<sup>ch</sup>c</td><td>Chinchila</td><td>1/4 = 25%</td></tr>
+            <tr><td>cc</td><td>Albino</td><td><strong>1/4 = 25%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 5 — Resposta</div>
+      Probabilidade de albino (cc) = <strong>1/4 = 25%</strong>. Resposta: <strong>A</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 9 ═══════════════════════════ -->
+<section class="section" id="s9">
+  <div class="section-banner">
+    <span class="sec-num">09</span>
+    <h2>Herança Ligada ao Cromossomo X</h2>
+    <span class="sec-tag">Herança Especial</span>
+  </div>
+  <div class="section-body">
+
+    <div class="col2">
+      <div>
+        <div class="col-head">Por que o X é especial?</div>
+        <p>Genes localizados no cromossomo X se comportam diferente nos dois sexos: <strong>mulheres (XX)</strong> têm duas cópias e podem ser portadoras; <strong>homens (XY)</strong> têm apenas uma cópia e expressam qualquer alelo presente.</p>
+      </div>
+      <div>
+        <div class="col-head">Hemizigoto</div>
+        <p>O homem é chamado <strong>hemizigoto</strong> para genes ligados ao X: ele possui apenas <em>um</em> alelo. Por isso, um homem com o alelo recessivo do daltonismo <em>sempre</em> é daltônico.</p>
+      </div>
+    </div>
+
+    <h3>Daltonismo — Tabela de Genótipos</h3>
+    <table class="tbl">
+      <thead><tr><th>Genótipo</th><th>Sexo</th><th>Fenótipo</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td><span class="mono">X<sup>D</sup>X<sup>D</sup></span></td><td>Mulher</td><td>Normal</td><td>Homozigota dominante</td></tr>
+        <tr><td><span class="mono">X<sup>D</sup>X<sup>d</sup></span></td><td>Mulher</td><td>Normal</td><td><strong>Portadora</strong> — transmite mas não manifesta</td></tr>
+        <tr><td><span class="mono">X<sup>d</sup>X<sup>d</sup></span></td><td>Mulher</td><td>Daltônica</td><td>Raro — precisa de dois alelos recessivos</td></tr>
+        <tr><td><span class="mono">X<sup>D</sup>Y</span></td><td>Homem</td><td>Normal</td><td>—</td></tr>
+        <tr><td><span class="mono">X<sup>d</sup>Y</span></td><td>Homem</td><td>Daltônico</td><td>Hemizigoto — 1 cópia já basta</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Resolução da Questão 7 — Passo a Passo</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <h5>Determine o genótipo da mãe</h5>
+          <p>Ela tem visão normal, mas seu pai era daltônico (X<sup>d</sup>Y). Ela <em>obrigatoriamente</em> herdou um X<sup>d</sup> do pai. Logo: mãe = <strong>X<sup>D</sup>X<sup>d</sup></strong> (portadora)</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <h5>Determine o genótipo do pai</h5>
+          <p>Visão normal → <strong>X<sup>D</sup>Y</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <h5>Monte o Punnett</h5>
+          <div class="punnett-wrap" style="margin-top:8px">
+            <table class="punnett punnett-wide">
+              <tr><td class="corner" style="background:var(--gray2)"></td><th>X<sup>D</sup></th><th>Y</th></tr>
+              <tr>
+                <th>X<sup>D</sup></th>
+                <td class="dom">X<sup>D</sup>X<sup>D</sup><br><small>Menina normal</small></td>
+                <td class="dom">X<sup>D</sup>Y<br><small>Menino normal</small></td>
+              </tr>
+              <tr>
+                <th>X<sup>d</sup></th>
+                <td class="het">X<sup>D</sup>X<sup>d</sup><br><small>Menina portadora</small></td>
+                <td class="rec" style="color:var(--red)">X<sup>d</sup>Y<br><small>Menino daltônico!</small></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body">
+          <h5>Calcule</h5>
+          <p>1 de 4 filhos é daltônico = <strong>1/4 = 25%</strong>. Todos os filhos daltônicos serão homens.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-blue">
+      <div class="box-head" style="color:var(--blue)">Herança Cruzada — Regra do X ligado</div>
+      <ul style="padding-left:20px;line-height:2;font-size:14px">
+        <li>Pai daltônico (X<sup>d</sup>Y) → passa X<sup>d</sup> para <em>todas as filhas</em> (nunca para os filhos)</li>
+        <li>Mãe portadora (X<sup>D</sup>X<sup>d</sup>) → passa X<sup>d</sup> para 50% dos filhos e 50% das filhas</li>
+        <li>Filho homem daltônico → necessariamente herdou o X<sup>d</sup> da <em>mãe</em></li>
+      </ul>
+    </div>
+
+    <h3>Questão 6 — Fibrose Cística (autossômica recessiva)</h3>
+    <p>Gene autossômico (não ligado ao X). Casal normal com filho doente → ambos são portadores (Ff).</p>
+
+    <div class="col2">
+      <div>
+        <div class="punnett-title">Cruzamento Ff × Ff</div>
+        <div class="punnett-wrap">
+          <table class="punnett">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>F</th><th>f</th></tr>
+            <tr><th>F</th><td class="dom">FF<br><small>normal</small></td><td class="het">Ff<br><small>portador</small></td></tr>
+            <tr><th>f</th><td class="het">Ff<br><small>portador</small></td><td class="rec" style="color:var(--red)">ff<br><small>doente</small></td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Cálculo — Menina Saudável</div>
+        <div class="steps" style="margin-top:8px">
+          <div class="step">
+            <div class="step-n">1</div>
+            <div class="step-body">
+              <h5>P(saudável) = ?</h5>
+              <p>FF + Ff = 1/4 + 2/4 = <strong>3/4</strong></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">2</div>
+            <div class="step-body">
+              <h5>P(menina) = ?</h5>
+              <p>Sexo é independente do gene → <strong>1/2</strong></p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-n">3</div>
+            <div class="step-body">
+              <h5>P(menina saudável)</h5>
+              <div class="formula-line">
+                <span class="frac"><span class="num">3</span><span class="den">4</span></span>
+                ×
+                <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+                =
+                <strong><span class="frac"><span class="num">3</span><span class="den">8</span></span></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 6 — Resposta</div>
+      P(menina saudável) = 3/4 × 1/2 = <strong>3/8</strong>. Resposta: <strong>B</strong>
+    </div>
+    <div class="box-answer" style="margin-top:8px">
+      <div class="ba-label">Questão 7 — Resposta</div>
+      P(daltônico) = <strong>1/4 = 25%</strong>. Resposta: <strong>D</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 10 ═══════════════════════════ -->
+<section class="section" id="s10">
+  <div class="section-banner">
+    <span class="sec-num">10</span>
+    <h2>Herança Mitocondrial</h2>
+    <span class="sec-tag">Herança Especial</span>
+  </div>
+  <div class="section-body">
+
+    <p>As mitocôndrias têm seu próprio DNA (DNAmt) — separado do DNA nuclear. Esse sistema tem regras de herança completamente diferentes de Mendel.</p>
+
+    <h3>Por que é exclusivamente materna?</h3>
+    <div class="box black-top">
+      <div class="box-head">A física da fertilização</div>
+      <p>Durante a fertilização, o espermatozoide entra no óvulo levando apenas o <strong>núcleo</strong> (DNA nuclear). O citoplasma — com todas as mitocôndrias — vem <em>exclusivamente do óvulo</em> (da mãe).</p>
+      <div class="formula-line" style="margin-top:12px;justify-content:center">
+        Zigoto = Núcleo (pai + mãe) + Citoplasma (apenas mãe) + Mitocôndrias (apenas mãe)
+      </div>
+    </div>
+
+    <h3>Características Obrigatórias</h3>
+    <div class="summary-grid">
+      <div class="sg-item">
+        <div class="sg-label">Transmissão</div>
+        <div class="sg-val">Exclusivamente Materna</div>
+        <div class="sg-desc">A mãe passa para todos os filhos, homens e mulheres</div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-label">Proporção</div>
+        <div class="sg-val">Não Mendeliana</div>
+        <div class="sg-desc">Não produz 3:1 nem 1:1. Se mãe afetada, todos os filhos serão afetados</div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-label">Pai</div>
+        <div class="sg-val">Não Transmite</div>
+        <div class="sg-desc">Homens herdam da mãe mas não passam adiante para nenhum filho</div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-label">Sexo Afetado</div>
+        <div class="sg-val">Ambos</div>
+        <div class="sg-desc">Homens e mulheres podem ter doenças mitocondriais</div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-label">Heredograma</div>
+        <div class="sg-val">Matrilinear</div>
+        <div class="sg-desc">Toda a descendência de uma mãe afetada será afetada</div>
+      </div>
+      <div class="sg-item">
+        <div class="sg-label">Exemplos</div>
+        <div class="sg-val">Doença de Leber</div>
+        <div class="sg-desc">Neuropatia óptica hereditária de Leber, Síndrome de Leigh</div>
+      </div>
+    </div>
+
+    <h3>Heredograma Típico de Herança Mitocondrial</h3>
+    <div class="hered">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray4);margin-bottom:8px;letter-spacing:2px">GERAÇÃO I</div>
+      <div class="hered-gen">
+        <div class="hered-person">
+          <div class="hered-circle hered-fill">♀</div>
+          <div class="hered-label">Mãe<br>afetada</div>
+        </div>
+        <div style="font-size:16px;color:var(--gray4);padding:0 8px;align-self:center">×</div>
+        <div class="hered-person">
+          <div class="hered-square">♂</div>
+          <div class="hered-label">Pai<br>normal</div>
+        </div>
+      </div>
+      <div class="hered-line"></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray4);margin-bottom:8px;letter-spacing:2px">GERAÇÃO II — TODOS AFETADOS</div>
+      <div class="hered-gen" style="gap:16px">
+        <div class="hered-person">
+          <div class="hered-circle hered-fill">♀</div>
+          <div class="hered-label">Filha<br>afetada</div>
+        </div>
+        <div class="hered-person">
+          <div class="hered-square hered-fill">♂</div>
+          <div class="hered-label">Filho<br>afetado</div>
+        </div>
+        <div class="hered-person">
+          <div class="hered-circle hered-fill">♀</div>
+          <div class="hered-label">Filha<br>afetada</div>
+        </div>
+        <div class="hered-person">
+          <div class="hered-square hered-fill">♂</div>
+          <div class="hered-label">Filho<br>afetado</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gray4)">
+        100% dos filhos da mãe afetada são afetados — mas nenhum deles transmite se forem homens
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 8 — Resposta</div>
+      É transmitida <strong>exclusivamente pela linhagem materna a todos os filhos e filhas</strong>. Resposta: <strong>C</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 11 ═══════════════════════════ -->
+<section class="section" id="s11">
+  <div class="section-banner">
+    <span class="sec-num">11</span>
+    <h2>Sistema ABO e Fator Rh</h2>
+    <span class="sec-tag">Herança Especial</span>
+  </div>
+  <div class="section-body">
+
+    <h3>Sistema ABO — Polialelia + Codominância</h3>
+    <p>O sistema ABO combina dois conceitos: é controlado por <strong>3 alelos</strong> (polialelia), mas I<sup>A</sup> e I<sup>B</sup> são <strong>codominantes</strong> entre si, e ambos dominam sobre i.</p>
+
+    <div class="formula-line">I<sup>A</sup> = codominante com I<sup>B</sup> &nbsp; | &nbsp; I<sup>B</sup> = codominante com I<sup>A</sup> &nbsp; | &nbsp; i = recessivo a ambos</div>
+
+    <div class="blood-row">
+      <div class="blood-cell">
+        <div class="bt-letter a">A</div>
+        <p><strong>Genótipos:</strong></p>
+        <p>I<sup>A</sup>I<sup>A</sup> ou I<sup>A</sup>i</p>
+        <p><strong>Antígeno:</strong> A</p>
+        <p><strong>Anticorpo:</strong> anti-B</p>
+      </div>
+      <div class="blood-cell">
+        <div class="bt-letter b">B</div>
+        <p><strong>Genótipos:</strong></p>
+        <p>I<sup>B</sup>I<sup>B</sup> ou I<sup>B</sup>i</p>
+        <p><strong>Antígeno:</strong> B</p>
+        <p><strong>Anticorpo:</strong> anti-A</p>
+      </div>
+      <div class="blood-cell">
+        <div class="bt-letter ab">AB</div>
+        <p><strong>Genótipo:</strong></p>
+        <p>I<sup>A</sup>I<sup>B</sup></p>
+        <p><strong>Antígenos:</strong> A e B</p>
+        <p><strong>Anticorpos:</strong> nenhum</p>
+      </div>
+      <div class="blood-cell">
+        <div class="bt-letter o">O</div>
+        <p><strong>Genótipo:</strong></p>
+        <p>ii</p>
+        <p><strong>Antígenos:</strong> nenhum</p>
+        <p><strong>Anticorpos:</strong> anti-A e anti-B</p>
+      </div>
+    </div>
+
+    <h3>Fator Rh — Gene Independente</h3>
+    <p>O fator Rh é determinado por um gene <strong>autossômico independente</strong> do ABO, com dominância completa.</p>
+    <div class="formula-line">DD = Rh+ &nbsp;|&nbsp; Dd = Rh+ &nbsp;|&nbsp; dd = Rh− &nbsp;|&nbsp; D (dominante) > d (recessivo)</div>
+
+    <h3>Questão 10 — Cruzamento ABO</h3>
+    <p>Pai tipo B com pai tipo O → genótipo: <strong>I<sup>B</sup>i</strong>. Mãe tipo A com mãe tipo O → genótipo: <strong>I<sup>A</sup>i</strong>.</p>
+    <div class="col2">
+      <div>
+        <div class="punnett-title">I<sup>B</sup>i × I<sup>A</sup>i</div>
+        <div class="punnett-wrap">
+          <table class="punnett punnett-wide">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>I<sup>B</sup></th><th>i</th></tr>
+            <tr>
+              <th>I<sup>A</sup></th>
+              <td class="dom">I<sup>A</sup>I<sup>B</sup> = <strong>AB</strong></td>
+              <td class="het">I<sup>A</sup>i = <strong>A</strong></td>
+            </tr>
+            <tr>
+              <th>i</th>
+              <td class="het">I<sup>B</sup>i = <strong>B</strong></td>
+              <td class="rec">ii = <strong>O</strong></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Filhos possíveis</div>
+        <table class="tbl">
+          <thead><tr><th>Tipo</th><th>Fração</th><th>%</th></tr></thead>
+          <tbody>
+            <tr><td>AB</td><td>1/4</td><td>25%</td></tr>
+            <tr><td>A</td><td>1/4</td><td>25%</td></tr>
+            <tr><td>B</td><td>1/4</td><td>25%</td></tr>
+            <tr><td>O</td><td>1/4</td><td>25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3>Questão 11a — Transfusão no Paciente A−</h3>
+    <p>Paciente A−: tem antígeno A, anticorpo anti-B, e <em>não</em> tem antígeno D (Rh−).</p>
+    <div class="box-red">
+      <div class="box-head" style="color:var(--red)">Regra de Compatibilidade</div>
+      <p>O receptor não pode receber sangue que contenha <strong>antígenos ausentes nele</strong>. Seus anticorpos atacarão esses antígenos, causando aglutinação.</p>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Tipo Disponível</th><th>Antígenos presentes</th><th>Compatível com A−?</th><th>Justificativa</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag-fill" style="background:var(--red)">O+</span></td><td>D (Rh)</td><td style="color:var(--red)"><strong>NÃO</strong></td><td>Paciente Rh− não tem anti-D ainda, mas formará. Risco de hemólise futura. Em urgência: risco.</td></tr>
+        <tr><td><span class="tag-fill" style="background:var(--red)">A+</span></td><td>A e D</td><td style="color:var(--red)"><strong>NÃO</strong></td><td>Antígeno D: incompatível Rh</td></tr>
+        <tr><td><span class="tag-fill" style="background:var(--black)">O−</span></td><td>Nenhum</td><td style="color:var(--blue)"><strong>SIM ✓</strong></td><td>Sem antígenos → sem reação → doador universal para Rh−</td></tr>
+        <tr><td><span class="tag" style="border-color:var(--black)">AB−</span></td><td>A e B</td><td style="color:var(--red)"><strong>NÃO</strong></td><td>Paciente tem anti-B → atacará antígeno B do AB−</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Questão 11b — Cruzamento com Rh</h3>
+    <p>Pai A− (Rh−) = <strong>dd</strong> × Mãe O+ com genótipo informado <strong>DD</strong> (Rh+)</p>
+    <div class="col2">
+      <div>
+        <div class="punnett-title">Cruzamento Rh: dd × DD</div>
+        <div class="punnett-wrap">
+          <table class="punnett">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>D</th><th>D</th></tr>
+            <tr><th>d</th><td class="het">Dd</td><td class="het">Dd</td></tr>
+            <tr><th>d</th><td class="het">Dd</td><td class="het">Dd</td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Análise</div>
+        <p>100% dos filhos são <strong>Dd</strong> = Rh+. Nenhum filho pode ser Rh−, pois <em>todos herdam obrigatoriamente um D da mãe DD</em>.</p>
+        <div class="formula-line">P(filho O−) = 0/4 = <strong>0%</strong></div>
+        <div class="box-red" style="margin-top:8px">
+          <p style="font-size:13px">Para ter filho Rh−, a mãe precisaria ser pelo menos <strong>Dd</strong> (heterozigota), pois o d só pode vir de um pai Dd ou dd.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 10 — Resposta</div>
+      Filhos possíveis: <strong>A, B, AB e O</strong>. Resposta: <strong>A</strong>
+    </div>
+    <div class="box-answer" style="margin-top:8px">
+      <div class="ba-label">Questão 11 — Resposta</div>
+      a) Apenas <strong>O−</strong> pode ser transfundido. &nbsp;|&nbsp; b) Probabilidade = <strong>0%</strong> (mãe é DD, todos os filhos serão Rh+)
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 12 ═══════════════════════════ -->
+<section class="section" id="s12">
+  <div class="section-banner">
+    <span class="sec-num">12</span>
+    <h2>Diibridismo — Dois Genes Simultâneos</h2>
+    <span class="sec-tag">Avançado</span>
+  </div>
+  <div class="section-body">
+
+    <p>Quando analisamos duas características ao mesmo tempo, usando a 2ª Lei de Mendel. Um indivíduo duplamente heterozigoto (<span class="mono">AaBb</span>) produz 4 tipos de gametas.</p>
+
+    <h3>Gametas do Diibrídico AaBb</h3>
+    <div class="formula-line">
+      AaBb → gametas: <strong>AB</strong> (1/4) · <strong>Ab</strong> (1/4) · <strong>aB</strong> (1/4) · <strong>ab</strong> (1/4)
+    </div>
+
+    <h3>Punnett 4×4 — AaBb × AaBb</h3>
+    <div style="overflow-x:auto">
+      <div class="punnett-wrap">
+        <table class="punnett" style="font-size:11px">
+          <tr>
+            <td class="corner" style="background:var(--gray2);width:40px"></td>
+            <th style="width:108px">AB</th>
+            <th style="width:108px">Ab</th>
+            <th style="width:108px">aB</th>
+            <th style="width:108px">ab</th>
+          </tr>
+          <tr>
+            <th>AB</th>
+            <td class="dom">AABB<br><small>Dom Dom</small></td>
+            <td class="dom">AABb<br><small>Dom Dom</small></td>
+            <td class="dom">AaBB<br><small>Dom Dom</small></td>
+            <td class="dom">AaBb<br><small>Dom Dom</small></td>
+          </tr>
+          <tr>
+            <th>Ab</th>
+            <td class="dom">AABb<br><small>Dom Dom</small></td>
+            <td class="het">AAbb<br><small>Dom rec</small></td>
+            <td class="dom">AaBb<br><small>Dom Dom</small></td>
+            <td class="het">Aabb<br><small>Dom rec</small></td>
+          </tr>
+          <tr>
+            <th>aB</th>
+            <td class="dom">AaBB<br><small>Dom Dom</small></td>
+            <td class="dom">AaBb<br><small>Dom Dom</small></td>
+            <td class="het">aaBB<br><small>rec Dom</small></td>
+            <td class="het">aaBb<br><small>rec Dom</small></td>
+          </tr>
+          <tr>
+            <th>ab</th>
+            <td class="dom">AaBb<br><small>Dom Dom</small></td>
+            <td class="het">Aabb<br><small>Dom rec</small></td>
+            <td class="het">aaBb<br><small>rec Dom</small></td>
+            <td class="rec">aabb<br><small>rec rec</small></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col2" style="margin-top:16px">
+      <div>
+        <div class="col-head">Proporção Fenotípica — 9:3:3:1</div>
+        <table class="tbl">
+          <thead><tr><th>Fenótipo</th><th>Qtd. em 16</th><th>Fração</th></tr></thead>
+          <tbody>
+            <tr><td>A_B_ (dom/dom)</td><td>9</td><td><strong>9/16</strong></td></tr>
+            <tr><td>A_bb (dom/rec)</td><td>3</td><td><strong>3/16</strong></td></tr>
+            <tr><td>aaB_ (rec/dom)</td><td>3</td><td><strong>3/16</strong></td></tr>
+            <tr><td>aabb (rec/rec)</td><td>1</td><td><strong>1/16</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="col-head">De onde vem o 9:3:3:1?</div>
+        <div class="formula-block">
+          <div class="fb-title">Raciocínio matemático</div>
+          P(A_) = 3/4 &nbsp;|&nbsp; P(aa) = 1/4<br>
+          P(B_) = 3/4 &nbsp;|&nbsp; P(bb) = 1/4<br><br>
+          P(A_ e B_) = 3/4 × 3/4 = <strong>9/16</strong><br>
+          P(A_ e bb) = 3/4 × 1/4 = <strong>3/16</strong><br>
+          P(aa e B_) = 1/4 × 3/4 = <strong>3/16</strong><br>
+          P(aa e bb) = 1/4 × 1/4 = <strong>1/16</strong>
+        </div>
+      </div>
+    </div>
+
+    <h3>Questão 9 — Porquinhos-da-Índia PpCc × PpCc</h3>
+    <p>P = preto (dominante), p = branco (recessivo). C = curto (dominante), c = longo (recessivo).</p>
+    <p>Queremos: <strong>branco (pp) E curto (C_)</strong></p>
+    <div class="formula-block">
+      <div class="fb-title">Cálculo rápido sem Punnett 4×4</div>
+      P(pp) de Pp × Pp = 1/4<br>
+      P(C_) de Cc × Cc = 3/4<br><br>
+      P(branco e curto) = <span class="frac"><span class="num">1</span><span class="den">4</span></span> × <span class="frac"><span class="num">3</span><span class="den">4</span></span> = <strong><span class="frac"><span class="num">3</span><span class="den">16</span></span></strong>
+    </div>
+
+    <h3>Questão 12 — Tomateiro AaRr × aarr</h3>
+    <p>A = roxo (dom), a = verde (rec). R = recortado (dom), r = liso (rec).</p>
+    <p>Cruzamento: duplo-heterozigoto <span class="mono">AaRr</span> × duplo-recessivo <span class="mono">aarr</span></p>
+    <div class="box-gray" style="font-family:'IBM Plex Mono',monospace;font-size:13px;margin-bottom:16px">
+      Gametas de AaRr: AR · Ar · aR · ar (25% cada)<br>
+      Gametas de aarr: ar (100%)
+    </div>
+
+    <div class="col2">
+      <div>
+        <div class="punnett-title">Quadro de Punnett</div>
+        <div class="punnett-wrap">
+          <table class="punnett punnett-wide" style="font-size:11px">
+            <tr><td class="corner" style="background:var(--gray2)"></td><th>AR</th><th>Ar</th><th>aR</th><th>ar</th></tr>
+            <tr>
+              <th>ar</th>
+              <td class="dom">AaRr<br><small>Roxo/Recort.</small></td>
+              <td class="het">Aarr<br><small>Roxo/Liso</small></td>
+              <td class="het">aaRr<br><small>Verde/Recort.</small></td>
+              <td class="rec">aarr<br><small>Verde/Liso</small></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="col-head">Resultados</div>
+        <table class="tbl">
+          <thead><tr><th>Genótipo</th><th>Fenótipo</th><th>Fração</th></tr></thead>
+          <tbody>
+            <tr><td>AaRr</td><td>Roxo / Recortado</td><td>1/4</td></tr>
+            <tr><td>Aarr</td><td>Roxo / Liso</td><td>1/4</td></tr>
+            <tr><td>aaRr</td><td>Verde / Recortado</td><td>1/4</td></tr>
+            <tr><td>aarr</td><td>Verde / Liso</td><td>1/4</td></tr>
+          </tbody>
+        </table>
+        <div class="formula-line" style="margin-top:8px"><strong>Proporção Fenotípica:</strong> 1:1:1:1</div>
+        <div class="formula-line"><strong>Proporção Genotípica:</strong> 1:1:1:1</div>
+      </div>
+    </div>
+
+    <div class="box-answer">
+      <div class="ba-label">Questão 9 — Resposta</div>
+      P(branco e curto) = 1/4 × 3/4 = <strong>3/16</strong>. Resposta: <strong>C</strong>
+    </div>
+    <div class="box-answer" style="margin-top:8px">
+      <div class="ba-label">Questão 12 — Resposta</div>
+      Proporção genotípica: <strong>1:1:1:1</strong> (AaRr : Aarr : aaRr : aarr). Proporção fenotípica: <strong>1 Roxo/Recortado : 1 Roxo/Liso : 1 Verde/Recortado : 1 Verde/Liso</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 13 ═══════════════════════════ -->
+<section class="section" id="s13">
+  <div class="section-banner">
+    <span class="sec-num">13</span>
+    <h2>Calculadora de Punnett Interativa</h2>
+    <span class="sec-tag">Ferramenta</span>
+  </div>
+  <div class="section-body">
+
+    <div class="calc-wrap">
+      <div class="calc-head">
+        <div>
+          <div class="calc-head-sub">Ferramenta Interativa</div>
+          <div class="calc-head-title">Gerador de Quadro de Punnett</div>
+        </div>
+        <span class="tag">Monoidrídico</span>
+      </div>
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="ci">
+            <label>Genótipo do Pai (ex: Aa, AA, aa)</label>
+            <input type="text" id="cpai" value="Aa" maxlength="2">
+          </div>
+          <div class="ci">
+            <label>Genótipo da Mãe (ex: Aa, AA, aa)</label>
+            <input type="text" id="cmae" value="Aa" maxlength="2">
+          </div>
+        </div>
+        <button class="calc-btn" onclick="runCalc()">CALCULAR CRUZAMENTO</button>
+        <div class="calc-out" id="calcout">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gray4);margin-bottom:12px">RESULTADO</div>
+          <div id="cout-table" style="overflow-x:auto"></div>
+          <div style="margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray4);margin-bottom:8px">PROPORÇÕES</div>
+          <div class="ratio-grid" id="cout-ratios"></div>
+          <div id="cout-extra" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SEÇÃO 14 ═══════════════════════════ -->
+<section class="section" id="s14">
+  <div class="section-banner">
+    <span class="sec-num">14</span>
+    <h2>Gabarito Completo e Tabela de Referência</h2>
+    <span class="sec-tag">Resumo Final</span>
+  </div>
+  <div class="section-body">
+
+    <h3>Gabarito das 12 Questões</h3>
+    <table class="tbl">
+      <thead><tr><th>Questão</th><th>Resposta</th><th>Conceito-chave</th><th>Cálculo</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>B</strong></td><td>Loco = posição; Alelo = versão</td><td>—</td></tr>
+        <tr><td>2</td><td><strong>A</strong></td><td>Aa × Aa → F2 = 3:1</td><td>Padrão Mendeliano</td></tr>
+        <tr><td>3</td><td><strong>D</strong></td><td>Codominância (ambos simultâneos)</td><td>—</td></tr>
+        <tr><td>4</td><td><strong>C</strong></td><td>Gene letal: YY morre → 2:1</td><td>3 combinações vivas: 2 Yy + 1 yy</td></tr>
+        <tr><td>5</td><td><strong>A</strong></td><td>Polialelia: c<sup>ch</sup>c × c<sup>h</sup>c → cc = 1/4</td><td>1/4 = 25%</td></tr>
+        <tr><td>6</td><td><strong>B</strong></td><td>Autossômica recessiva + sexo</td><td>3/4 × 1/2 = 3/8</td></tr>
+        <tr><td>7</td><td><strong>D</strong></td><td>X-ligado: portadora × normal</td><td>1/4 = 25%</td></tr>
+        <tr><td>8</td><td><strong>C</strong></td><td>Herança mitocondrial = materna total</td><td>100% dos filhos</td></tr>
+        <tr><td>9</td><td><strong>C</strong></td><td>Diibridismo: branco(pp) e curto(C_)</td><td>1/4 × 3/4 = 3/16</td></tr>
+        <tr><td>10</td><td><strong>A</strong></td><td>ABO: I<sup>B</sup>i × I<sup>A</sup>i → A, B, AB, O</td><td>1/4 cada</td></tr>
+        <tr><td>11a</td><td><strong>O−</strong></td><td>Compatibilidade ABO + Rh</td><td>Sem antígenos incompatíveis</td></tr>
+        <tr><td>11b</td><td><strong>0%</strong></td><td>dd × DD → 100% Dd (Rh+)</td><td>Impossível ser Rh−</td></tr>
+        <tr><td>12</td><td><strong>1:1:1:1</strong></td><td>Teste diibrídico: AaRr × aarr</td><td>1/4 cada fenótipo</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Tabela Geral dos Tipos de Herança</h3>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Tipo de Herança</th>
+          <th>Heterozigoto</th>
+          <th>Proporção Aa × Aa</th>
+          <th>Genótipo ≡ Fenótipo?</th>
+          <th>Exemplo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="tag-fill">Dom. Completa</span></td><td>= Dominante</td><td><strong>3:1</strong></td><td>Não</td><td>Ervilhas de Mendel</td></tr>
+        <tr><td><span class="tag">Dom. Incompleta</span></td><td>Intermediário</td><td><strong>1:2:1</strong></td><td>Sim</td><td>Flor de boca-de-leão</td></tr>
+        <tr><td><span class="tag">Codominância</span></td><td>Ambos expressos</td><td><strong>1:2:1</strong></td><td>Sim</td><td>Gado Shorthorn, ABO</td></tr>
+        <tr><td><span class="tag tag-red">Gene Letal</span></td><td>= Dominante</td><td><strong>2:1</strong> (vivos)</td><td>Não</td><td>Camundongo amarelo</td></tr>
+        <tr><td><span class="tag">Polialelia</span></td><td>Depende dos alelos</td><td>Variável</td><td>Depende</td><td>ABO, coelhos</td></tr>
+        <tr><td><span class="tag tag-blue">Ligada ao X (rec.)</span></td><td>Portadora (mulher)</td><td>Varia por sexo</td><td>Nos homens: sim</td><td>Daltonismo, hemofilia</td></tr>
+        <tr><td><span class="tag">Mitocondrial</span></td><td>Todos afetados</td><td>100% (mãe afet.)</td><td>—</td><td>D. de Leber</td></tr>
+        <tr><td><span class="tag">Diibrídica</span></td><td>Dom/Dom</td><td><strong>9:3:3:1</strong></td><td>Não</td><td>Cor+textura ervilha</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Frações-Chave para Memorizar</h3>
+    <div class="col3" style="font-family:'IBM Plex Mono',monospace;font-size:12px">
+      <div>
+        <div class="col-head">Cruzamento Aa × Aa</div>
+        P(AA) = 1/4 = 25%<br>
+        P(Aa) = 2/4 = 50%<br>
+        P(aa) = 1/4 = 25%<br>
+        P(dom.) = 3/4 = 75%<br>
+        P(rec.) = 1/4 = 25%
+      </div>
+      <div style="border-left:var(--rule-thin)">
+        <div class="col-head">Combinações com Sexo</div>
+        P(menina dom.) = 3/4 × 1/2 = 3/8<br>
+        P(menino dom.) = 3/4 × 1/2 = 3/8<br>
+        P(menina rec.) = 1/4 × 1/2 = 1/8<br>
+        P(menino rec.) = 1/4 × 1/2 = 1/8<br>
+        <em>Soma: 3/8+3/8+1/8+1/8 = 1</em>
+      </div>
+      <div style="border-left:var(--rule-thin)">
+        <div class="col-head">Diibrídico AaBb × AaBb</div>
+        P(A_B_) = 9/16<br>
+        P(A_bb) = 3/16<br>
+        P(aaB_) = 3/16<br>
+        P(aabb) = 1/16<br>
+        <em>Soma: 16/16 = 1</em>
+      </div>
+    </div>
+
+    <div class="box black-top" style="margin-top:24px">
+      <div class="box-head">Checklist para qualquer questão de genética</div>
+      <div class="steps">
+        <div class="step"><div class="step-n">?</div><div class="step-body"><h5>Identifique o padrão de herança</h5><p>É mendeliana simples? Ligada ao X? Mitocondrial? ABO?</p></div></div>
+        <div class="step"><div class="step-n">?</div><div class="step-body"><h5>Determine os genótipos dos pais</h5><p>Use as informações dadas (pais, avós, filhos doentes) para deduzir o genótipo.</p></div></div>
+        <div class="step"><div class="step-n">?</div><div class="step-body"><h5>Escreva os gametas</h5><p>Monte o Punnett ou use o método rápido de multiplicação.</p></div></div>
+        <div class="step"><div class="step-n">?</div><div class="step-body"><h5>Calcule a fração pedida</h5><p>A questão pede fenótipo? Genótipo? Inclui sexo? Multiplique se necessário.</p></div></div>
+        <div class="step"><div class="step-n">?</div><div class="step-body"><h5>Verifique se a soma dá 1</h5><p>Todas as frações somadas devem dar 1 (ou 100%). Se não der, algo está errado.</p></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+</div>
+
+<button class="scrolltop" id="stbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── NAV ACTIVE STATE
+const secs = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(n => n.classList.remove('active'));
+      const a = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+secs.forEach(s => obs.observe(s));
+
+// ── SCROLL TOP
+window.addEventListener('scroll', () => {
+  document.getElementById('stbtn').classList.toggle('show', window.scrollY > 400);
+});
+
+// ── CALCULATOR
+function runCalc() {
+  const paiRaw = document.getElementById('cpai').value.trim();
+  const maeRaw = document.getElementById('cmae').value.trim();
+
+  if (paiRaw.length !== 2 || maeRaw.length !== 2) {
+    alert('Digite exatamente 2 letras para cada genótipo. Ex: Aa, AA, aa');
+    return;
+  }
+
+  // Normalise: first letter uppercase, second lowercase or same case
+  const p1 = paiRaw[0];
+  const p2 = paiRaw[1];
+  const m1 = maeRaw[0];
+  const m2 = maeRaw[1];
+
+  const sortPair = (a, b) => {
+    const aUp = a === a.toUpperCase();
+    const bUp = b === b.toUpperCase();
+    if (aUp && !bUp) return [a, b];
+    if (!aUp && bUp) return [b, a];
+    return [a, b];
+  };
+
+  const combos = [];
+  for (const gm of [m1, m2]) {
+    for (const gp of [p1, p2]) {
+      const sorted = sortPair(gm, gp);
+      combos.push(sorted.join(''));
+    }
+  }
+
+  // Table
+  const [gp1, gp2] = [p1, p2];
+  const [gm1, gm2] = [m1, m2];
+
+  let tableHTML = `<table class="result-punnett"><tr><th style="background:var(--gray2);color:var(--black)"></th><th>${gp1}</th><th>${gp2}</th></tr>`;
+  for (const gm of [gm1, gm2]) {
+    tableHTML += `<tr><th>${gm}</th>`;
+    for (const gp of [gp1, gp2]) {
+      const sorted = sortPair(gm, gp);
+      const pair = sorted.join('');
+      const isDom = pair[0] === pair[0].toUpperCase();
+      tableHTML += `<td class="${isDom ? 'd' : 'r'}">${pair}</td>`;
+    }
+    tableHTML += `</tr>`;
+  }
+  tableHTML += '</table>';
+  document.getElementById('cout-table').innerHTML = tableHTML;
+
+  // Count
+  const counts = {};
+  combos.forEach(c => counts[c] = (counts[c] || 0) + 1);
+
+  let domCount = 0, recCount = 0;
+  combos.forEach(c => {
+    if (c[0] === c[0].toUpperCase()) domCount++;
+    else recCount++;
+  });
+
+  let ratioHTML = '';
+  for (const [geno, cnt] of Object.entries(counts)) {
+    ratioHTML += `<div class="rg-item">
+      <div class="rg-val">${cnt}/4</div>
+      <div class="rg-label">${geno} (${cnt * 25}%)</div>
+    </div>`;
+  }
+
+  // Pad to 4 if needed
+  const items = Object.keys(counts).length;
+  if (items < 4) {
+    for (let i = items; i < 4; i++) ratioHTML += `<div class="rg-item"><div class="rg-val">—</div><div class="rg-label">—</div></div>`;
+  }
+
+  document.getElementById('cout-ratios').innerHTML = ratioHTML;
+
+  document.getElementById('cout-extra').innerHTML = `
+    <div class="formula-line"><strong>Proporção Fenotípica:</strong> ${domCount} Dom. : ${recCount} Rec. &nbsp;=&nbsp; <strong>${domCount}:${recCount}</strong></div>
+  `;
+
+  document.getElementById('calcout').classList.add('show');
+}
+</script>
+</body>
+</html>
