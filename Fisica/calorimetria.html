@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calorimetria — Conceitos, Equações e Gráficos</title>
+
+<script>
+MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #fafaf8;
+    --paper: #ffffff;
+    --ink: #1d1c1a;
+    --ink-soft: #54514c;
+    --rule: #e3e0d8;
+    --accent: #c84b2f;
+    --accent-soft: #f3e2dc;
+    --accent-deep: #8e3520;
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Source Serif 4', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header.hero{
+    border-bottom: 3px solid var(--ink);
+    padding: 56px 0 28px;
+    margin-bottom: 12px;
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px; height: 2px;
+    background: var(--accent);
+    display:inline-block;
+  }
+  h1.title{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    line-height: 1.08;
+    margin: 14px 0 10px;
+    letter-spacing: -0.01em;
+  }
+  h1.title em{
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+  .subtitle{
+    font-family: var(--sans);
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 620px;
+  }
+  .meta-row{
+    display:flex;
+    gap: 22px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .meta-row span b{ color: var(--ink); }
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 28px 0 48px;
+  }
+  nav.toc .toc-label{
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 10px;
+    display:block;
+  }
+  nav.toc ol{
+    margin:0; padding:0;
+    list-style:none;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 24px;
+  }
+  nav.toc a{
+    color: var(--ink);
+    text-decoration:none;
+    font-size: 0.92rem;
+    display:flex;
+    gap: 10px;
+  }
+  nav.toc a:hover{ color: var(--accent-deep); }
+  nav.toc a .n{
+    font-family: var(--mono);
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 22px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.block{
+    margin: 56px 0;
+    scroll-margin-top: 24px;
+  }
+  .sec-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .sec-num{
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 6px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  h2.sec-title{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.65rem;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  h3.sub-title{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.18rem;
+    margin: 26px 0 10px;
+    color: var(--accent-deep);
+  }
+  p{ margin: 0 0 14px; color: var(--ink); }
+  .lead{
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+  strong{ color: var(--ink); font-weight: 700; }
+
+  /* ---------- EQUATION BLOCK ---------- */
+  .eq-block{
+    background: var(--paper);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 24px;
+    margin: 18px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .eq-block .eq-label{
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 6px;
+    display:block;
+  }
+  .eq-block .eq-main{
+    font-size: 1.15rem;
+    text-align: center;
+    padding: 6px 0;
+  }
+
+  /* ---------- VARIABLE TABLE ---------- */
+  .var-grid{
+    display:grid;
+    grid-template-columns: 88px 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 14px 0 22px;
+  }
+  .var-grid .cell{
+    background: var(--paper);
+    padding: 10px 14px;
+  }
+  .var-grid .var-sym{
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent-deep);
+    display:flex;
+    align-items:center;
+  }
+  .var-grid .var-desc{ font-size: 0.92rem; color: var(--ink-soft); }
+  .var-grid .var-desc b{ color: var(--ink); }
+
+  /* ---------- DATA TABLE ---------- */
+  table.data{
+    width:100%;
+    border-collapse: collapse;
+    margin: 16px 0 22px;
+    font-size: 0.92rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow:hidden;
+  }
+  table.data caption{
+    text-align:left;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 10px 4px;
+  }
+  table.data th{
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    text-align: left;
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  table.data td{
+    padding: 9px 14px;
+    border-top: 1px solid var(--rule);
+  }
+  table.data tr:nth-child(even) td{ background: #fcfbf9; }
+
+  /* ---------- CALLOUT ---------- */
+  .callout{
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 0.94rem;
+    display:flex;
+    gap: 12px;
+  }
+  .callout .ico{
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent-deep);
+  }
+
+  /* ---------- TRANSFER CARDS ---------- */
+  .triad{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 18px 0 8px;
+  }
+  .triad .card{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .triad .card .tag{
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .triad .card h4{
+    font-family: var(--serif);
+    margin: 6px 0 6px;
+    font-size: 1.05rem;
+  }
+  .triad .card p{ font-size: 0.88rem; color: var(--ink-soft); margin:0; }
+
+  /* ---------- WORKED EXAMPLE ---------- */
+  .example{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+  .example .ex-tag{
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 6px;
+    display:block;
+  }
+  .example .ex-statement{
+    font-family: var(--serif);
+    font-size: 1.04rem;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .step{
+    display:grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .step .step-num{
+    font-family: var(--mono);
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    width: 26px; height:26px;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 0.8rem;
+  }
+  .step .step-body{ font-size: 0.95rem; }
+  .step .step-math{ margin-top: 4px; }
+  .result-box{
+    margin-top: 8px;
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+
+  /* ---------- GRAPH ---------- */
+  .graph-wrap{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 18px 0;
+  }
+  .graph-wrap svg{ width:100%; height:auto; display:block; }
+  .graph-caption{
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    text-align:center;
+  }
+
+  /* ---------- SUMMARY ---------- */
+  .summary-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .summary-card{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+  }
+  .summary-card .s-name{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .summary-card .s-eq{ font-size: 1.02rem; }
+
+  footer{
+    margin-top: 70px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    gap: 8px;
+  }
+
+  ul.plain{ margin: 0 0 14px; padding-left: 20px; }
+  ul.plain li{ margin-bottom: 6px; }
+
+  @media (max-width: 620px){
+    nav.toc ol{ grid-template-columns: 1fr; }
+    .var-grid{ grid-template-columns: 70px 1fr; }
+    .triad{ grid-template-columns: 1fr; }
+    .summary-grid{ grid-template-columns: 1fr; }
+    h1.title{ font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Física · Termologia</span>
+    <h1 class="title">Calorimetria <em>I</em><br>conceitos, equação e gráficos</h1>
+    <p class="subtitle">Material de apoio reunindo tudo o que foi tratado no encontro: calor, caloria, calor específico, capacidade térmica, a equação fundamental da calorimetria e os gráficos de mudança de fase.</p>
+    <div class="meta-row">
+      <span>Encontro: <b>21/05/2026</b></span>
+      <span>Disciplina: <b>Física — Termologia</b></span>
+      <span>Tema: <b>Calorimetria 1</b></span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <span class="toc-label">Conteúdo</span>
+    <ol>
+      <li><a href="#s00"><span class="n">00</span>Calor x temperatura</a></li>
+      <li><a href="#s01"><span class="n">01</span>Transferência de calor</a></li>
+      <li><a href="#s02"><span class="n">02</span>Caloria e unidades</a></li>
+      <li><a href="#s03"><span class="n">03</span>Calor específico</a></li>
+      <li><a href="#s04"><span class="n">04</span>Capacidade térmica</a></li>
+      <li><a href="#s05"><span class="n">05</span>Equação fundamental</a></li>
+      <li><a href="#s06"><span class="n">06</span>Calor latente e mudança de fase</a></li>
+      <li><a href="#s07"><span class="n">07</span>Gráfico T x Q</a></li>
+      <li><a href="#s08"><span class="n">08</span>Exemplos resolvidos</a></li>
+      <li><a href="#s09"><span class="n">09</span>Quadro-resumo</a></li>
+    </ol>
+  </nav>
+
+  <!-- 00 ---------------------------------------------------------- -->
+  <section class="block" id="s00">
+    <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">O que é calor</h2></div>
+    <p class="lead">Calor não é "uma coisa quente". É energia em movimento.</p>
+    <p><strong>Calor (Q)</strong> é a energia térmica que se transfere espontaneamente de um corpo de maior temperatura para um de menor temperatura, enquanto existir diferença de temperatura entre eles. Quando as temperaturas se igualam, os corpos atingem o <strong>equilíbrio térmico</strong> e a transferência de calor cessa.</p>
+    <p>É comum confundir calor com temperatura, mas são grandezas diferentes:</p>
+    <div class="var-grid">
+      <div class="cell var-sym">T</div>
+      <div class="cell var-desc"><b>Temperatura</b> — mede o grau de agitação das partículas (energia cinética média) de um corpo. É uma grandeza de <i>estado</i>: o corpo "tem" uma temperatura em um instante.</div>
+      <div class="cell var-sym">Q</div>
+      <div class="cell var-desc"><b>Calor</b> — é energia <i>em trânsito</i>. Só existe enquanto está sendo transferida de um corpo para o outro. Não faz sentido dizer que um corpo "tem" calor armazenado.</div>
+    </div>
+    <div class="callout">
+      <span class="ico">!</span>
+      <span>Um corpo pequeno e muito quente pode ceder menos calor total que um corpo grande e mais frio — temperatura indica "o quão agitado", não "quanta energia térmica existe".</span>
+    </div>
+  </section>
+
+  <!-- 01 ---------------------------------------------------------- -->
+  <section class="block" id="s01">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Manifestações e transferência de calor</h2></div>
+    <p>O calor se propaga de três formas, dependendo do meio disponível entre os corpos envolvidos:</p>
+    <div class="triad">
+      <div class="card">
+        <span class="tag">Condução</span>
+        <h4>Contato direto</h4>
+        <p>Energia passa de partícula a partícula por colisões, sem transporte de matéria. Predomina em sólidos. Ex.: o cabo de uma colher de metal esquentando dentro de um café.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Convecção</span>
+        <h4>Correntes de fluido</h4>
+        <p>Ocorre em líquidos e gases. O fluido aquecido fica menos denso, sobe, e o fluido frio desce, criando correntes de convecção. Ex.: aquecimento de uma sala por um ar-condicionado.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Radiação</span>
+        <h4>Ondas eletromagnéticas</h4>
+        <p>Não exige meio material — propaga-se até no vácuo. É como a energia do Sol chega à Terra atravessando o espaço.</p>
+      </div>
+    </div>
+    <p>Esses três mecanismos explicam por que sentimos calor de formas distintas: o metal "esfria" mais rápido ao toque (boa condução), o ambiente de uma casa se aquece por convecção do ar, e a radiação solar aquece mesmo sem contato.</p>
+  </section>
+
+  <!-- 02 ---------------------------------------------------------- -->
+  <section class="block" id="s02">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Caloria e unidades de calor</h2></div>
+    <p>No SI, calor é medido em <strong>joule (J)</strong>, como qualquer forma de energia. Em calorimetria, no entanto, é tradicional usar a <strong>caloria (cal)</strong>:</p>
+    <div class="eq-block">
+      <span class="eq-label">Definição de caloria</span>
+      <div class="eq-main">$$1\ \text{cal} = \text{quantidade de calor necessária para elevar em } 1^{\circ}\text{C a temperatura de } 1\,\text{g de água pura}$$</div>
+    </div>
+    <p>A relação entre as duas unidades é a <strong>equivalência mecânica do calor</strong>, medida experimentalmente por Joule:</p>
+    <div class="eq-block">
+      <span class="eq-label">Equivalência</span>
+      <div class="eq-main">$$1\ \text{cal} \approx 4{,}186\ \text{J} \quad (\text{frequentemente arredondado para } 4{,}18\ \text{J})$$</div>
+    </div>
+    <p>Uma confusão comum: a <strong>caloria de alimentos</strong> (escrita com "C" maiúsculo) é, na verdade, a quilocaloria:</p>
+    <div class="eq-block">
+      <div class="eq-main">$$1\ \text{kcal} = 1000\ \text{cal}$$</div>
+    </div>
+  </section>
+
+  <!-- 03 ---------------------------------------------------------- -->
+  <section class="block" id="s03">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Calor específico</h2></div>
+    <p>O <strong>calor específico (c)</strong> é uma propriedade <i>do material</i>, não do objeto. Indica quanto calor é preciso fornecer a 1 g (ou 1 kg) dessa substância para variar sua temperatura em 1 °C.</p>
+    <div class="eq-block">
+      <span class="eq-label">Definição</span>
+      <div class="eq-main">$$c = \dfrac{Q}{m \cdot \Delta T}$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">c</div>
+      <div class="cell var-desc"><b>Calor específico</b> da substância — cal/g°C ou J/kg·K</div>
+      <div class="cell var-sym">Q</div>
+      <div class="cell var-desc"><b>Calor</b> trocado — cal ou J</div>
+      <div class="cell var-sym">m</div>
+      <div class="cell var-desc"><b>Massa</b> da substância — g ou kg</div>
+      <div class="cell var-sym">ΔT</div>
+      <div class="cell var-desc"><b>Variação de temperatura</b> — °C ou K</div>
+    </div>
+    <p>Quanto <strong>maior</strong> o calor específico, mais energia a substância "exige" para mudar de temperatura — ou seja, ela é mais resistente a variações térmicas. É por isso que a água demora mais para esquentar (e para esfriar) do que metais.</p>
+    <table class="data">
+      <caption>Calores específicos usuais (cal/g°C)</caption>
+      <thead>
+        <tr><th>Substância</th><th>c (cal/g°C)</th><th>c (J/kg°C)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Água líquida</td><td>1,00</td><td>4186</td></tr>
+        <tr><td>Gelo</td><td>0,50</td><td>2090</td></tr>
+        <tr><td>Vapor de água</td><td>0,48</td><td>2010</td></tr>
+        <tr><td>Alumínio</td><td>0,22</td><td>920</td></tr>
+        <tr><td>Ferro</td><td>0,11</td><td>460</td></tr>
+        <tr><td>Cobre</td><td>0,09</td><td>390</td></tr>
+        <tr><td>Chumbo</td><td>0,03</td><td>130</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 04 ---------------------------------------------------------- -->
+  <section class="block" id="s04">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Capacidade térmica</h2></div>
+    <p>Enquanto o calor específico descreve o <i>material</i>, a <strong>capacidade térmica (C)</strong> descreve <i>o corpo inteiro</i> — depende da massa total daquele objeto específico.</p>
+    <div class="eq-block">
+      <span class="eq-label">Definição</span>
+      <div class="eq-main">$$C = m \cdot c = \dfrac{Q}{\Delta T}$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">C</div>
+      <div class="cell var-desc"><b>Capacidade térmica</b> do corpo — cal/°C ou J/K</div>
+      <div class="cell var-sym">m</div>
+      <div class="cell var-desc"><b>Massa</b> total do corpo</div>
+      <div class="cell var-sym">c</div>
+      <div class="cell var-desc"><b>Calor específico</b> do material que compõe o corpo</div>
+    </div>
+    <p>Dois objetos do mesmo material, mas com massas diferentes, têm o <strong>mesmo c</strong> (é a mesma substância), mas <strong>capacidades térmicas diferentes</strong> — o objeto mais massivo exige mais calor total para a mesma variação de temperatura.</p>
+  </section>
+
+  <!-- 05 ---------------------------------------------------------- -->
+  <section class="block" id="s05">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Equação fundamental da calorimetria</h2></div>
+    <p>Juntando calor específico, massa e variação de temperatura, chegamos à equação central deste tema — usada sempre que <strong>não há mudança de fase</strong>, apenas variação de temperatura (calor sensível):</p>
+    <div class="eq-block">
+      <span class="eq-label">Equação fundamental</span>
+      <div class="eq-main">$$Q = m \cdot c \cdot \Delta T \qquad \text{com} \qquad \Delta T = T_f - T_i$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">Q</div>
+      <div class="cell var-desc"><b>Quantidade de calor</b> trocada — cal ou J</div>
+      <div class="cell var-sym">m</div>
+      <div class="cell var-desc"><b>Massa</b> do corpo</div>
+      <div class="cell var-sym">c</div>
+      <div class="cell var-desc"><b>Calor específico</b> do material</div>
+      <div class="cell var-sym">T<sub>f</sub>, T<sub>i</sub></div>
+      <div class="cell var-desc"><b>Temperatura final e inicial</b></div>
+    </div>
+    <h3 class="sub-title">Convenção de sinais</h3>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="s-name">Corpo recebe calor</div>
+        <div class="s-eq">$Q > 0$ — a temperatura aumenta ($T_f > T_i$)</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Corpo perde calor</div>
+        <div class="s-eq">$Q < 0$ — a temperatura diminui ($T_f < T_i$)</div>
+      </div>
+    </div>
+    <p style="margin-top:14px;">Note que a mesma relação pode ser escrita com a capacidade térmica: $Q = C \cdot \Delta T$. As duas formas são equivalentes — a primeira separa massa e material, a segunda já os combina.</p>
+  </section>
+
+  <!-- 06 ---------------------------------------------------------- -->
+  <section class="block" id="s06">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Calor latente e mudança de fase</h2></div>
+    <p>A equação $Q = m \cdot c \cdot \Delta T$ só funciona enquanto a substância <strong>permanece na mesma fase</strong> (sólida, líquida ou gasosa). Durante uma <strong>mudança de fase</strong> — fusão, vaporização, solidificação, condensação — a temperatura fica <strong>constante</strong>, mesmo que o corpo continue recebendo ou cedendo calor.</p>
+    <p>Esse calor "investido" na transição (e não no aumento de temperatura) é chamado <strong>calor latente</strong>:</p>
+    <div class="eq-block">
+      <span class="eq-label">Calor latente</span>
+      <div class="eq-main">$$Q = m \cdot L$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">L</div>
+      <div class="cell var-desc"><b>Calor latente</b> da mudança de fase — cal/g ou J/kg. Depende da substância e do tipo de transição (fusão, vaporização...).</div>
+      <div class="cell var-sym">m</div>
+      <div class="cell var-desc"><b>Massa</b> que muda de fase</div>
+    </div>
+    <table class="data">
+      <caption>Calores latentes da água (à pressão normal)</caption>
+      <thead><tr><th>Transição</th><th>Calor latente</th><th>Temperatura</th></tr></thead>
+      <tbody>
+        <tr><td>Fusão (gelo → água) / Solidificação</td><td>$L_f = 80$ cal/g</td><td>0 °C</td></tr>
+        <tr><td>Vaporização (água → vapor) / Condensação</td><td>$L_v = 540$ cal/g</td><td>100 °C</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <span class="ico">!</span>
+      <span>O sinal de L segue a mesma lógica de Q: positivo quando a substância recebe calor (fusão, vaporização) e negativo quando cede calor (solidificação, condensação).</span>
+    </div>
+  </section>
+
+  <!-- 07 ---------------------------------------------------------- -->
+  <section class="block" id="s07">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Gráfico temperatura × calor</h2></div>
+    <p>O gráfico clássico de mudança de fase mostra a temperatura de uma substância no eixo vertical e o calor total fornecido (ou o tempo, a uma taxa constante de fornecimento) no eixo horizontal. Ele alterna entre dois tipos de trecho:</p>
+    <ul class="plain">
+      <li><strong>Trechos inclinados</strong> — a substância está em uma única fase e absorve <i>calor sensível</i>: a temperatura sobe, regida por $Q = mc\Delta T$. A inclinação depende de $c$: quanto maior o calor específico, mais "deitada" é a reta (precisa de mais Q para a mesma variação de T).</li>
+      <li><strong>Trechos horizontais (platôs)</strong> — a substância está mudando de fase e absorve <i>calor latente</i>: a temperatura não varia, regida por $Q = mL$. A largura do platô depende de $L$ e da massa.</li>
+    </ul>
+    <div class="graph-wrap">
+      <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+        <!-- axes -->
+        <line x1="70" y1="330" x2="730" y2="330" stroke="#1d1c1a" stroke-width="2"/>
+        <line x1="70" y1="330" x2="70" y2="30" stroke="#1d1c1a" stroke-width="2"/>
+        <text x="400" y="368" font-family="DM Sans" font-size="14" fill="#54514c" text-anchor="middle">calor fornecido, Q (cal)</text>
+        <text x="22" y="180" font-family="DM Sans" font-size="14" fill="#54514c" text-anchor="middle" transform="rotate(-90 22 180)">temperatura, T (°C)</text>
+
+        <!-- guide lines for 0 and 100 -->
+        <line x1="70" y1="230" x2="730" y2="230" stroke="#e3e0d8" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="70" y1="90" x2="730" y2="90" stroke="#e3e0d8" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="60" y="234" font-family="JetBrains Mono" font-size="12" fill="#54514c" text-anchor="end">0</text>
+        <text x="60" y="94" font-family="JetBrains Mono" font-size="12" fill="#54514c" text-anchor="end">100</text>
+
+        <!-- curve: solid heating (sloped) -->
+        <polyline points="70,300 180,230" fill="none" stroke="#c84b2f" stroke-width="3.5"/>
+        <!-- fusion plateau -->
+        <polyline points="180,230 320,230" fill="none" stroke="#c84b2f" stroke-width="3.5"/>
+        <!-- liquid heating (sloped) -->
+        <polyline points="320,230 480,90" fill="none" stroke="#c84b2f" stroke-width="3.5"/>
+        <!-- vaporization plateau -->
+        <polyline points="480,90 650,90" fill="none" stroke="#c84b2f" stroke-width="3.5"/>
+        <!-- gas heating (sloped) -->
+        <polyline points="650,90 730,55" fill="none" stroke="#c84b2f" stroke-width="3.5"/>
+
+        <!-- labels under each segment -->
+        <text x="125" y="320" font-family="DM Sans" font-size="12.5" fill="#1d1c1a" text-anchor="middle">gelo</text>
+        <text x="250" y="218" font-family="DM Sans" font-size="12.5" fill="#8e3520" text-anchor="middle" font-weight="600">fusão</text>
+        <text x="400" y="155" font-family="DM Sans" font-size="12.5" fill="#1d1c1a" text-anchor="middle">água líquida</text>
+        <text x="565" y="78" font-family="DM Sans" font-size="12.5" fill="#8e3520" text-anchor="middle" font-weight="600">vaporização</text>
+        <text x="690" y="44" font-family="DM Sans" font-size="12.5" fill="#1d1c1a" text-anchor="middle">vapor</text>
+
+        <!-- points -->
+        <circle cx="180" cy="230" r="4" fill="#1d1c1a"/>
+        <circle cx="320" cy="230" r="4" fill="#1d1c1a"/>
+        <circle cx="480" cy="90" r="4" fill="#1d1c1a"/>
+        <circle cx="650" cy="90" r="4" fill="#1d1c1a"/>
+      </svg>
+      <p class="graph-caption">curva de aquecimento da água, de gelo a vapor — inclinado = calor sensível, plano = calor latente</p>
+    </div>
+    <p>Para ler exercícios desse gráfico: identifique em qual eixo está Q (ou tempo) e T; trechos planos sempre correspondem a uma mudança de fase, e os "cantos" do gráfico são as temperaturas de fusão e de ebulição da substância.</p>
+  </section>
+
+  <!-- 08 ---------------------------------------------------------- -->
+  <section class="block" id="s08">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Exemplos resolvidos</h2></div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 1 — calor sensível</span>
+      <p class="ex-statement">Qual a quantidade de calor necessária para elevar a temperatura de 200 g de água de 20 °C para 80 °C?</p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">Não há mudança de fase (água permanece líquida) → usar a equação fundamental.
+          <div class="step-math">$$Q = m \cdot c \cdot \Delta T$$</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">Substituir os valores: $m = 200$ g, $c_{água} = 1$ cal/g°C, $\Delta T = 80 - 20 = 60$ °C.
+          <div class="step-math">$$Q = 200 \cdot 1 \cdot 60$$</div>
+        </div>
+      </div>
+      <div class="result-box">Q = 12.000 cal = 12 kcal</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 2 — calor latente</span>
+      <p class="ex-statement">Quanto calor é necessário para fundir completamente 50 g de gelo que já está a 0 °C?</p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">É mudança de fase (sólido → líquido) na temperatura de fusão → usar calor latente.
+          <div class="step-math">$$Q = m \cdot L_f$$</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">Substituir: $m = 50$ g, $L_f = 80$ cal/g.
+          <div class="step-math">$$Q = 50 \cdot 80$$</div>
+        </div>
+      </div>
+      <div class="result-box">Q = 4.000 cal</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 3 — calor sensível + latente</span>
+      <p class="ex-statement">Quanto calor é necessário para transformar 100 g de gelo a −10 °C em água líquida a 20 °C? <i>(c<sub>gelo</sub> = 0,5 cal/g°C, L<sub>f</sub> = 80 cal/g, c<sub>água</sub> = 1 cal/g°C)</i></p>
+      <p style="font-size:0.9rem; color:var(--ink-soft); margin-top:-6px; margin-bottom:16px;">Esse é exatamente o trajeto do gráfico da seção anterior, do início até a marca de 0°C a 20°C — três etapas em sequência.</p>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">Aquecer o gelo de −10 °C até 0 °C (ainda sólido, calor sensível):
+          <div class="step-math">$$Q_1 = m \cdot c_{gelo} \cdot \Delta T = 100 \cdot 0{,}5 \cdot 10 = 500\ \text{cal}$$</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">Fundir o gelo a 0 °C (mudança de fase, calor latente):
+          <div class="step-math">$$Q_2 = m \cdot L_f = 100 \cdot 80 = 8.000\ \text{cal}$$</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">Aquecer a água líquida de 0 °C até 20 °C (calor sensível):
+          <div class="step-math">$$Q_3 = m \cdot c_{água} \cdot \Delta T = 100 \cdot 1 \cdot 20 = 2.000\ \text{cal}$$</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">Somar todas as etapas, já que o calor total é a soma do que foi gasto em cada trecho:
+          <div class="step-math">$$Q = Q_1 + Q_2 + Q_3 = 500 + 8.000 + 2.000$$</div>
+        </div>
+      </div>
+      <div class="result-box">Q = 10.500 cal = 10,5 kcal</div>
+    </div>
+  </section>
+
+  <!-- 09 ---------------------------------------------------------- -->
+  <section class="block" id="s09">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Quadro-resumo</h2></div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="s-name">Equivalência</div>
+        <div class="s-eq">$1\ \text{cal} \approx 4{,}18\ \text{J}$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Calor específico</div>
+        <div class="s-eq">$c = \dfrac{Q}{m\Delta T}$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Capacidade térmica</div>
+        <div class="s-eq">$C = m \cdot c$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Equação fundamental</div>
+        <div class="s-eq">$Q = m \cdot c \cdot \Delta T$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Calor latente</div>
+        <div class="s-eq">$Q = m \cdot L$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Convenção de sinal</div>
+        <div class="s-eq">$Q>0$ recebe · $Q<0$ cede</div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:22px;">
+      <span class="ico">→</span>
+      <span><strong>Para depois da aula:</strong> procure exercícios resolvidos sobre misturas de líquidos a temperaturas diferentes (equilíbrio térmico, $\sum Q = 0$) e sobre leitura do gráfico T×Q — esses costumam ser os mais cobrados e ligam todos os conceitos vistos aqui.</span>
+    </div>
+  </section>
+
+  <footer>
+    <span>Calorimetria 1 — material de apoio</span>
+    <span>encontro de 21/05/2026</span>
+  </footer>
+
+</div>
+</body>
+</html>

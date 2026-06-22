@@ -1,208 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resumos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resumos</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    :root {
-      --bg: #faf4eb;
-      --surface: #ffffff;
-      --text: #1f1b14;
-      --muted: #6b6760;
-      --border: #e4e0d8;
-      --accent: #6d4c2a;
-      --accent-strong: #2d5a3d;
-      --shadow: rgba(45, 35, 24, 0.12);
-    }
+      :root {
+        --bg: #faf4eb;
+        --surface: #ffffff;
+        --text: #1f1b14;
+        --muted: #6b6760;
+        --border: #e4e0d8;
+        --accent: #6d4c2a;
+        --accent-strong: #2d5a3d;
+        --shadow: rgba(45, 35, 24, 0.12);
+      }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Source Serif 4', Georgia, serif;
-      min-height: 100vh;
-      line-height: 1.75;
-    }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Source Serif 4", Georgia, serif;
+        min-height: 100vh;
+        line-height: 1.75;
+      }
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: radial-gradient(circle at 20% 10%, rgba(45, 90, 61, 0.08), transparent 30%),
-                        radial-gradient(circle at 80% 20%, rgba(109, 76, 42, 0.08), transparent 24%);
-      pointer-events: none;
-      z-index: 0;
-    }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          radial-gradient(
+            circle at 20% 10%,
+            rgba(45, 90, 61, 0.08),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(109, 76, 42, 0.08),
+            transparent 24%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
 
-    .wrapper {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 40px 24px 72px;
-      position: relative;
-      z-index: 1;
-    }
+      .wrapper {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 40px 24px 72px;
+        position: relative;
+        z-index: 1;
+      }
 
-    .header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
+      .header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
 
-    .label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
+      .label {
+        font-family: "DM Sans", sans-serif;
+        font-size: 11px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
 
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 5vw, 3.4rem);
-      line-height: 1.05;
-      margin-bottom: 18px;
-      color: var(--text);
-    }
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.6rem, 5vw, 3.4rem);
+        line-height: 1.05;
+        margin-bottom: 18px;
+        color: var(--text);
+      }
 
-    h1 span {
-      color: var(--accent-strong);
-    }
+      h1 span {
+        color: var(--accent-strong);
+      }
 
-    .subtitle {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 720px;
-      margin: 0 auto;
-    }
+      .subtitle {
+        font-family: "DM Sans", sans-serif;
+        font-size: 1rem;
+        color: var(--muted);
+        max-width: 720px;
+        margin: 0 auto;
+      }
 
-    .cards {
-      display: grid;
-      gap: 22px;
-    }
+      .cards {
+        display: grid;
+        gap: 22px;
+      }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 30px 28px;
-      box-shadow: 0 22px 48px var(--shadow);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
-    }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        padding: 30px 28px;
+        box-shadow: 0 22px 48px var(--shadow);
+        transition:
+          transform 0.22s ease,
+          box-shadow 0.22s ease;
+      }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 32px 68px rgba(45, 35, 24, 0.16);
-    }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 32px 68px rgba(45, 35, 24, 0.16);
+      }
 
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
+      .card-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+        color: var(--text);
+      }
 
-    .card-desc {
-      color: var(--muted);
-      margin-bottom: 22px;
-      font-size: 1rem;
-      max-width: 640px;
-    }
+      .card-desc {
+        color: var(--muted);
+        margin-bottom: 22px;
+        font-size: 1rem;
+        max-width: 640px;
+      }
 
-    .card-links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+      .card-links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
 
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      border: 1px solid #ede8df;
-      border-radius: 14px;
-      background: #faf7f1;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        border: 1px solid #ede8df;
+        border-radius: 14px;
+        background: #faf7f1;
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        font-size: 1rem;
+        text-decoration: none;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease;
+      }
 
-    .card-link:hover {
-      background: #fff7e2;
-      border-color: #dbc8a4;
-    }
+      .card-link:hover {
+        background: #fff7e2;
+        border-color: #dbc8a4;
+      }
 
-    .card-link::after {
-      content: '→';
-      color: var(--accent);
-      font-size: 1rem;
-      margin-left: 10px;
-    }
+      .card-link::after {
+        content: "→";
+        color: var(--accent);
+        font-size: 1rem;
+        margin-left: 10px;
+      }
 
-    .note {
-      margin-top: 30px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
+      .note {
+        margin-top: 30px;
+        font-family: "DM Sans", sans-serif;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
 
-    @media (max-width: 700px) {
-      .wrapper { padding: 28px 18px 56px; }
-      .card { padding: 26px 22px; }
-    }
+      @media (max-width: 700px) {
+        .wrapper {
+          padding: 28px 18px 56px;
+        }
+        .card {
+          padding: 26px 22px;
+        }
+      }
 
-    @media (max-width: 520px) {
-      .cards { gap: 18px; }
-      h1 { font-size: 2.4rem; }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <header class="header">
-      <p class="label">Painel de Acesso</p>
-      <h1>Entre nos seus <span>resumos</span></h1>
-      <p class="subtitle">Selecione a disciplina abaixo para abrir diretamente o resumo já preparado. Esta tela foi refeita para ser apenas um ponto de acesso simples e elegante.</p>
-    </header>
+      @media (max-width: 520px) {
+        .cards {
+          gap: 18px;
+        }
+        h1 {
+          font-size: 2.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <p class="label">Painel de Acesso</p>
+        <h1>Entre nos seus <span>resumos</span></h1>
+        <p class="subtitle">
+          Selecione a disciplina abaixo para abrir diretamente o resumo já
+          preparado. Esta tela foi refeita para ser apenas um ponto de acesso
+          simples e elegante.
+        </p>
+      </header>
 
-    <main class="cards">
-      <article class="card">
-        <h2 class="card-title">Geografia</h2>
-        <p class="card-desc">Resumo de Geografia com os conteúdos já organizados. Abra a página para revisar os conceitos do tópico.</p>
-        <div class="card-links">
-          <a class="card-link" href="Geografia/resumo_geografia01.html">Resumo de Geografia I</a>
-        </div>
-      </article>
+      <main class="cards">
+        <article class="card">
+          <h2 class="card-title">Geografia</h2>
+          <p class="card-desc">
+            Resumo de Geografia com os conteúdos já organizados. Abra a página
+            para revisar os conceitos do tópico.
+          </p>
+          <div class="card-links">
+            <a class="card-link" href="Geografia/resumo_geografia01.html"
+              >Resumo de Geografia I</a
+            >
+          </div>
+        </article>
 
-      <article class="card">
-        <h2 class="card-title">História</h2>
-        <p class="card-desc">Resumo de História focado no Iluminismo e no século XX. Clique para acessar o material de estudo.</p>
-        <div class="card-links">
-          <a class="card-link" href="Historia/resumo_historico_iluminismo_seculo20.html">Resumo de História IV</a>
-        </div>
-      </article>
+        <article class="card">
+          <h2 class="card-title">História</h2>
+          <p class="card-desc">
+            Resumo de História focado no Iluminismo e no século XX. Clique para
+            acessar o material de estudo.
+          </p>
+          <div class="card-links">
+            <a
+              class="card-link"
+              href="Historia/resumo_historico_iluminismo_seculo20.html"
+              >Resumo de História IV</a
+            >
+          </div>
+        </article>
 
-         <article class="card">
-        <h2 class="card-title">Biologia</h2>
-        <p class="card-desc">Resumo de Biologia focado nas Leis Mendelianas. Clique para acessar o material de estudo.</p>
-        <div class="card-links">
-          <a class="card-link" href="Biologia/genetica_editorial.html">Resumo de biologia</a>
-        </div>
-      </article>
+        <article class="card">
+          <h2 class="card-title">Biologia</h2>
+          <p class="card-desc">
+            Resumo de Biologia focado nas Leis Mendelianas. Clique para acessar
+            o material de estudo.
+          </p>
+          <div class="card-links">
+            <a class="card-link" href="Biologia/genetica_editorial.html"
+              >Resumo de biologia</a
+            >
+          </div>
+        </article>
 
-    </main>
+        <article class="card">
+          <h2 class="card-title">Física</h2>
+          <p class="card-desc">Resumo de Física</p>
+          <div class="card-links">
+            <a class="card-link" href="Fisica/calorimetria.html"
+              >Resumo de Física</a
+            >
+          </div>
+        </article>
+      </main>
 
-    <p class="note">Observação: se quiser, posso ajudar a adicionar mais resumos e organizar as matérias na página inicial.</p>
-  </div>
-</body>
+      <p class="note">
+        Observação: se quiser, posso ajudar a adicionar mais resumos e organizar
+        as matérias na página inicial.
+      </p>
+    </div>
+  </body>
 </html>
