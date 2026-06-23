@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termologia II — Calorimetria, Transferência de Calor e Termodinâmica</title>
+
+<script>
+MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #fafaf8;
+    --paper: #ffffff;
+    --ink: #1d1c1a;
+    --ink-soft: #54514c;
+    --muted: #777269;
+    --rule: #e3e0d8;
+    --accent: #c84b2f;
+    --accent-soft: #f3e2dc;
+    --accent-deep: #8e3520;
+    --accent-2: #264f73;
+    --accent-2-soft: #e2edf5;
+    --good: #2c6b4f;
+    --good-soft: #e3f0e9;
+    --warn: #9a6a10;
+    --warn-soft: #f8efd8;
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Source Serif 4', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap{
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  header.hero{
+    border-bottom: 3px solid var(--ink);
+    padding: 58px 0 30px;
+    margin-bottom: 12px;
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    display:flex;
+    align-items:center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    display:inline-block;
+  }
+  h1.title{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 5vw, 3.25rem);
+    line-height: 1.05;
+    margin: 14px 0 12px;
+    letter-spacing: -0.015em;
+  }
+  h1.title em{
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+  .subtitle{
+    font-family: var(--sans);
+    font-size: 1.03rem;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+  .meta-row{
+    display:flex;
+    gap: 22px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+  .meta-row span b{ color: var(--ink); }
+
+  nav.toc{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 28px 0 48px;
+  }
+  nav.toc .toc-label{
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 10px;
+    display:block;
+  }
+  nav.toc ol{
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px 24px;
+  }
+  nav.toc a{
+    color: var(--ink);
+    text-decoration:none;
+    font-size: 0.92rem;
+    display:flex;
+    gap: 10px;
+  }
+  nav.toc a:hover{ color: var(--accent-deep); }
+  nav.toc a .n{
+    font-family: var(--mono);
+    color: var(--accent);
+    font-weight: 700;
+    min-width: 26px;
+  }
+
+  section.block{
+    margin: 58px 0;
+    scroll-margin-top: 24px;
+  }
+  .sec-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .sec-num{
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 6px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+  h2.sec-title{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.72rem;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  h3.sub-title{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.18rem;
+    margin: 28px 0 10px;
+    color: var(--accent-deep);
+  }
+  h4.mini-title{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.03rem;
+    margin: 16px 0 8px;
+    color: var(--ink);
+  }
+  p{ margin: 0 0 14px; color: var(--ink); }
+  .lead{
+    font-family: var(--serif);
+    font-size: 1.09rem;
+    color: var(--ink-soft);
+  }
+  strong{ color: var(--ink); font-weight: 700; }
+  code{
+    font-family: var(--mono);
+    background: #f1eee8;
+    padding: 0.1rem 0.28rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  .eq-block{
+    background: var(--paper);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 24px;
+    margin: 18px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .eq-block.blue{ border-left-color: var(--accent-2); }
+  .eq-block.green{ border-left-color: var(--good); }
+  .eq-block .eq-label{
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 6px;
+    display:block;
+  }
+  .eq-block.blue .eq-label{ color: var(--accent-2); }
+  .eq-block.green .eq-label{ color: var(--good); }
+  .eq-block .eq-main{
+    font-size: 1.15rem;
+    text-align: center;
+    padding: 6px 0;
+  }
+
+  .var-grid{
+    display:grid;
+    grid-template-columns: 110px 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 14px 0 22px;
+  }
+  .var-grid.compact{ grid-template-columns: 150px 1fr; }
+  .var-grid .cell{
+    background: var(--paper);
+    padding: 10px 14px;
+  }
+  .var-grid .var-sym{
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent-deep);
+    display:flex;
+    align-items:center;
+  }
+  .var-grid .var-desc{ font-size: 0.92rem; color: var(--ink-soft); }
+  .var-grid .var-desc b{ color: var(--ink); }
+
+  table.data{
+    width:100%;
+    border-collapse: collapse;
+    margin: 16px 0 22px;
+    font-size: 0.92rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow:hidden;
+  }
+  table.data caption{
+    text-align:left;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 10px 4px;
+  }
+  table.data th{
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    text-align: left;
+    padding: 10px 14px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  table.data.blue th{
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+  }
+  table.data.green th{
+    background: var(--good-soft);
+    color: var(--good);
+  }
+  table.data td{
+    padding: 9px 14px;
+    border-top: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  table.data tr:nth-child(even) td{ background: #fcfbf9; }
+
+  .callout{
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 0.94rem;
+    display:flex;
+    gap: 12px;
+  }
+  .callout .ico{
+    font-family: var(--mono);
+    font-weight: 700;
+    color: var(--accent-deep);
+  }
+  .callout.blue{ background: var(--accent-2-soft); }
+  .callout.blue .ico{ color: var(--accent-2); }
+  .callout.green{ background: var(--good-soft); }
+  .callout.green .ico{ color: var(--good); }
+  .callout.warn{ background: var(--warn-soft); }
+  .callout.warn .ico{ color: var(--warn); }
+
+  .triad, .quad, .duo{
+    display:grid;
+    gap: 14px;
+    margin: 18px 0 8px;
+  }
+  .triad{ grid-template-columns: repeat(3, 1fr); }
+  .quad{ grid-template-columns: repeat(4, 1fr); }
+  .duo{ grid-template-columns: repeat(2, 1fr); }
+  .card{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .card .tag{
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .card.blue .tag{ color: var(--accent-2); }
+  .card.green .tag{ color: var(--good); }
+  .card h4{
+    font-family: var(--serif);
+    margin: 6px 0 6px;
+    font-size: 1.05rem;
+  }
+  .card p{ font-size: 0.88rem; color: var(--ink-soft); margin:0; }
+
+  .example{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 20px 0;
+  }
+  .example .ex-tag{
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 6px;
+    display:block;
+  }
+  .example .ex-statement{
+    font-family: var(--serif);
+    font-size: 1.04rem;
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .step{
+    display:grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .step .step-num{
+    font-family: var(--mono);
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent);
+    width: 26px;
+    height:26px;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 0.8rem;
+  }
+  .step.blue .step-num{ background: var(--accent-2); }
+  .step.green .step-num{ background: var(--good); }
+  .step .step-body{ font-size: 0.95rem; }
+  .step .step-math{ margin-top: 4px; }
+  .result-box{
+    margin-top: 8px;
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--accent-deep);
+    font-weight: 700;
+  }
+  .result-box.blue{
+    background: var(--accent-2-soft);
+    color: var(--accent-2);
+  }
+  .result-box.green{
+    background: var(--good-soft);
+    color: var(--good);
+  }
+
+  .graph-wrap{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 18px 0;
+  }
+  .graph-wrap svg{ width:100%; height:auto; display:block; }
+  .graph-caption{
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    text-align:center;
+  }
+
+  .summary-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .summary-card{
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+  }
+  .summary-card.blue{ border-left-color: var(--accent-2); }
+  .summary-card.green{ border-left-color: var(--good); }
+  .summary-card .s-name{
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .summary-card .s-eq{ font-size: 1.02rem; }
+
+  .timeline{
+    position:relative;
+    margin: 22px 0;
+    padding-left: 22px;
+    border-left: 2px solid var(--rule);
+  }
+  .timeline .item{
+    position:relative;
+    margin: 0 0 18px;
+    padding: 0 0 0 16px;
+  }
+  .timeline .item::before{
+    content:"";
+    position:absolute;
+    left:-29px;
+    top:4px;
+    width: 11px;
+    height: 11px;
+    border-radius:50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+  }
+  .timeline .date{
+    font-family: var(--mono);
+    font-size:0.75rem;
+    color:var(--accent-deep);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .timeline h4{
+    margin: 2px 0 4px;
+    font-family: var(--serif);
+    font-size:1.1rem;
+  }
+  .timeline p{ color: var(--ink-soft); font-size:0.92rem; }
+
+  .link-list{
+    margin: 14px 0 20px;
+    padding: 0;
+    list-style: none;
+    display:grid;
+    gap:8px;
+  }
+  .link-list li{
+    background: var(--paper);
+    border:1px solid var(--rule);
+    border-radius:8px;
+    padding:10px 14px;
+    font-size:0.92rem;
+  }
+  .link-list a{ color: var(--accent-deep); text-decoration:none; font-family:var(--mono); font-size:0.82rem; word-break: break-all; }
+  .link-list a:hover{ text-decoration:underline; }
+
+  ul.plain, ol.plain{ margin: 0 0 14px; padding-left: 20px; }
+  ul.plain li, ol.plain li{ margin-bottom: 6px; }
+
+  .formula-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin: 14px 0;
+  }
+  .formula-pill{
+    background: var(--paper);
+    border:1px solid var(--rule);
+    border-radius:999px;
+    padding:6px 11px;
+    font-family:var(--mono);
+    font-size:0.79rem;
+    color:var(--ink-soft);
+  }
+
+  .page-break{
+    border-top:1px dashed var(--rule);
+    margin: 48px 0;
+  }
+
+  footer{
+    margin-top: 70px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    gap: 8px;
+  }
+
+  @media print{
+    body{ background:#fff; }
+    .wrap{ max-width: 100%; padding: 0 20mm 25mm; }
+    nav.toc a{ color: var(--ink); }
+    section.block{ page-break-inside: avoid; }
+    .example, .eq-block, .graph-wrap, .card, table.data{ break-inside: avoid; }
+  }
+
+  @media (max-width: 720px){
+    nav.toc ol{ grid-template-columns: 1fr; }
+    .var-grid, .var-grid.compact{ grid-template-columns: 90px 1fr; }
+    .triad, .quad, .duo, .summary-grid{ grid-template-columns: 1fr; }
+    h1.title{ font-size: 2rem; }
+    .wrap{ padding-left:20px; padding-right:20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Física · Termologia</span>
+    <h1 class="title">Calorimetria <em>II</em>,<br>transferência de calor e termodinâmica</h1>
+    <p class="subtitle">Material de apoio expandido para os encontros sobre equações da calorimetria, mudanças de fase, condução, convecção, irradiação, estudo dos gases, transformações gasosas, trabalho, energia interna e leis da termodinâmica.</p>
+    <div class="meta-row">
+      <span>Encontros: <b>28/05 · 11/06 · 18/06/2026</b></span>
+      <span>Disciplina: <b>Física — Termologia</b></span>
+      <span>Tema: <b>Calorimetria 2 + Termodinâmica</b></span>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <span class="toc-label">Conteúdo</span>
+    <ol>
+      <li><a href="#s00"><span class="n">00</span>Roteiro dos encontros</a></li>
+      <li><a href="#s01"><span class="n">01</span>Como estudar antes e depois</a></li>
+      <li><a href="#s02"><span class="n">02</span>Revisão de calorimetria</a></li>
+      <li><a href="#s03"><span class="n">03</span>Equações fundamentais</a></li>
+      <li><a href="#s04"><span class="n">04</span>Equilíbrio térmico</a></li>
+      <li><a href="#s05"><span class="n">05</span>Mudanças de fase</a></li>
+      <li><a href="#s06"><span class="n">06</span>Gráfico T × Q</a></li>
+      <li><a href="#s07"><span class="n">07</span>Condução térmica</a></li>
+      <li><a href="#s08"><span class="n">08</span>Convecção térmica</a></li>
+      <li><a href="#s09"><span class="n">09</span>Irradiação térmica</a></li>
+      <li><a href="#s10"><span class="n">10</span>Transformações de unidades</a></li>
+      <li><a href="#s11"><span class="n">11</span>Propriedades dos gases</a></li>
+      <li><a href="#s12"><span class="n">12</span>Variáveis de estado</a></li>
+      <li><a href="#s13"><span class="n">13</span>Equação de Clapeyron</a></li>
+      <li><a href="#s14"><span class="n">14</span>Transformações gasosas</a></li>
+      <li><a href="#s15"><span class="n">15</span>Lei geral dos gases</a></li>
+      <li><a href="#s16"><span class="n">16</span>Gráficos P × V</a></li>
+      <li><a href="#s17"><span class="n">17</span>Trabalho termodinâmico</a></li>
+      <li><a href="#s18"><span class="n">18</span>Energia interna</a></li>
+      <li><a href="#s19"><span class="n">19</span>Primeira lei</a></li>
+      <li><a href="#s20"><span class="n">20</span>Segunda lei</a></li>
+      <li><a href="#s21"><span class="n">21</span>Máquinas térmicas</a></li>
+      <li><a href="#s22"><span class="n">22</span>Exemplos resolvidos</a></li>
+      <li><a href="#s23"><span class="n">23</span>Exercícios propostos</a></li>
+      <li><a href="#s24"><span class="n">24</span>Quadro-resumo geral</a></li>
+    </ol>
+  </nav>
+
+  <section class="block" id="s00">
+    <div class="sec-head"><span class="sec-num">00</span><h2 class="sec-title">Roteiro dos encontros</h2></div>
+    <p class="lead">A sequência do conteúdo sai da calorimetria, passa pelas formas de transferência de calor e chega à termodinâmica dos gases.</p>
+    <div class="timeline">
+      <div class="item">
+        <div class="date">28/05/2026</div>
+        <h4>Estudo do calor 2 — equações da calorimetria e formas de transferência</h4>
+        <p>Equações de calor sensível e calor latente, gráficos das mudanças de fase e mecanismos de propagação do calor: condução, convecção e irradiação.</p>
+      </div>
+      <div class="item">
+        <div class="date">11/06/2026</div>
+        <h4>Termodinâmica — estudo dos gases e transformações gasosas</h4>
+        <p>Propriedades dos gases, equação de Clapeyron, transformações gasosas, trabalho termodinâmico e energia interna de um sistema.</p>
+      </div>
+      <div class="item">
+        <div class="date">18/06/2026</div>
+        <h4>Termodinâmica 2 — trabalho, energia interna e leis da termodinâmica</h4>
+        <p>Interpretação dos gráficos, primeira lei, segunda lei, rendimento de máquinas térmicas e relação entre calor, trabalho e energia interna.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <span class="ico">→</span>
+      <span>Ideia central da unidade: calor é energia em trânsito; termodinâmica estuda como essa energia pode aquecer, mudar fases, mover pistões, realizar trabalho e transformar sistemas.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s01">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Como se preparar para a aula</h2></div>
+    <p>Antes das aulas, o foco é chegar com o vocabulário básico pronto. Depois das aulas, o foco muda para exercícios resolvidos e problemas difíceis.</p>
+    <h3 class="sub-title">Antes da aula de calorimetria e transferência de calor</h3>
+    <ol class="plain">
+      <li>Pesquisar e resumir: calor sensível, calor latente, equilíbrio térmico, mudanças de fase, condução, convecção e irradiação.</li>
+      <li>Rever os gráficos de mudança de fase, principalmente os trechos inclinados e horizontais.</li>
+      <li>Anotar dúvidas sobre quando usar $Q=mc\Delta T$ e quando usar $Q=mL$.</li>
+    </ol>
+    <ul class="link-list">
+      <li><strong>Processos de transferência de calor:</strong><br><a href="https://www.youtube.com/watch?v=iH27UvmOHvo&t=329s">https://www.youtube.com/watch?v=iH27UvmOHvo&t=329s</a></li>
+      <li><strong>Diagrama das mudanças de fase:</strong><br><a href="https://www.youtube.com/watch?v=anK-BYR9PDk">https://www.youtube.com/watch?v=anK-BYR9PDk</a></li>
+      <li><strong>Mudanças de fase:</strong><br><a href="https://www.youtube.com/watch?v=JkC6LKkf95w">https://www.youtube.com/watch?v=JkC6LKkf95w</a></li>
+      <li><strong>Trocas de calor e equilíbrio térmico:</strong><br><a href="https://www.youtube.com/watch?v=Qv_LOyFf8_I">https://www.youtube.com/watch?v=Qv_LOyFf8_I</a></li>
+    </ul>
+
+    <h3 class="sub-title">Antes da aula de gases e transformações gasosas</h3>
+    <ol class="plain">
+      <li>Pesquisar propriedades de um gás: pressão, volume, temperatura absoluta e quantidade de matéria.</li>
+      <li>Escrever a equação de Clapeyron e identificar cada unidade possível de $R$.</li>
+      <li>Listar as transformações: isotérmica, isobárica, isovolumétrica e adiabática.</li>
+      <li>Definir trabalho termodinâmico e energia interna.</li>
+    </ol>
+    <ul class="link-list">
+      <li><a href="https://www.youtube.com/watch?v=gVCZjnOhxiw">https://www.youtube.com/watch?v=gVCZjnOhxiw</a></li>
+      <li><a href="https://www.youtube.com/watch?v=q75HFKTzWJA">https://www.youtube.com/watch?v=q75HFKTzWJA</a></li>
+      <li><a href="https://www.youtube.com/watch?v=acRAei94fHE">https://www.youtube.com/watch?v=acRAei94fHE</a></li>
+      <li><a href="https://www.youtube.com/watch?v=HdWbCh3O340">https://www.youtube.com/watch?v=HdWbCh3O340</a></li>
+    </ul>
+
+    <h3 class="sub-title">Antes da aula de leis da termodinâmica</h3>
+    <ol class="plain">
+      <li>Revisar as transformações gasosas e seus gráficos.</li>
+      <li>Revisar o conceito de trabalho termodinâmico: área sob o gráfico $P \times V$.</li>
+      <li>Pesquisar as leis da termodinâmica, especialmente a primeira lei: $Q = \Delta U + \tau$.</li>
+    </ol>
+    <ul class="link-list">
+      <li><a href="https://www.youtube.com/watch?v=GYxXCr6HXcw&t=18s">https://www.youtube.com/watch?v=GYxXCr6HXcw&t=18s</a></li>
+      <li><a href="https://www.youtube.com/watch?v=vo2x6LJK1fM">https://www.youtube.com/watch?v=vo2x6LJK1fM</a></li>
+      <li><a href="https://www.youtube.com/watch?v=A4kL763ger0&t=648s">https://www.youtube.com/watch?v=A4kL763ger0&t=648s</a></li>
+      <li><a href="https://www.youtube.com/watch?v=U_2AJc1mcas&t=237s">https://www.youtube.com/watch?v=U_2AJc1mcas&t=237s</a></li>
+      <li><a href="https://www.youtube.com/watch?v=qjHfkfIs1Ug">https://www.youtube.com/watch?v=qjHfkfIs1Ug</a></li>
+      <li><a href="https://www.youtube.com/watch?v=Hs0WmivIVRU">https://www.youtube.com/watch?v=Hs0WmivIVRU</a></li>
+    </ul>
+
+    <div class="callout green">
+      <span class="ico">✓</span>
+      <span>Depois de cada aula: transcreva exercícios resolvidos no caderno, procure um exercício mais difícil do tema e leve a dúvida para a sala. Esse método força você a enxergar o passo a passo, não só decorar fórmulas.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s02">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Revisão essencial de calorimetria</h2></div>
+    <p class="lead">A calorimetria estuda a quantidade de calor trocada por corpos, substâncias ou sistemas.</p>
+    <p>O ponto de partida é separar três ideias que aparecem juntas nos exercícios, mas não significam a mesma coisa:</p>
+    <div class="triad">
+      <div class="card">
+        <span class="tag">Temperatura</span>
+        <h4>Estado térmico</h4>
+        <p>Mede o grau médio de agitação das partículas. No estudo dos gases, deve ser usada em kelvin.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Calor</span>
+        <h4>Energia em trânsito</h4>
+        <p>Energia que passa espontaneamente do corpo mais quente para o mais frio enquanto existe diferença de temperatura.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Energia interna</span>
+        <h4>Energia microscópica</h4>
+        <p>Soma das energias associadas ao movimento e às interações das partículas do sistema.</p>
+      </div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$Q>0$</div>
+      <div class="cell var-desc"><b>Calor recebido:</b> o sistema ganha energia térmica.</div>
+      <div class="cell var-sym">$Q<0$</div>
+      <div class="cell var-desc"><b>Calor cedido:</b> o sistema perde energia térmica.</div>
+      <div class="cell var-sym">$\Delta T$</div>
+      <div class="cell var-desc"><b>Variação de temperatura:</b> $T_f-T_i$. Se for positiva, o corpo aquece; se for negativa, esfria.</div>
+    </div>
+    <p>Em calorimetria básica, os problemas costumam cair em três tipos: aquecer ou esfriar uma substância, mudar a fase da substância ou misturar corpos até atingir equilíbrio térmico.</p>
+  </section>
+
+  <section class="block" id="s03">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Equações fundamentais da calorimetria</h2></div>
+    <p>Existem duas fórmulas principais. A escolha depende do que está acontecendo com a substância.</p>
+    <div class="duo">
+      <div class="summary-card">
+        <div class="s-name">Calor sensível</div>
+        <div class="s-eq">$Q = m\cdot c\cdot \Delta T$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Calor latente</div>
+        <div class="s-eq">$Q = m\cdot L$</div>
+      </div>
+    </div>
+    <h3 class="sub-title">Calor sensível</h3>
+    <p>Use quando a substância <strong>muda de temperatura</strong>, mas permanece na mesma fase.</p>
+    <div class="eq-block">
+      <span class="eq-label">Aquecimento ou resfriamento sem mudança de fase</span>
+      <div class="eq-main">$$Q = m\cdot c\cdot (T_f-T_i)$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$Q$</div>
+      <div class="cell var-desc">Quantidade de calor, em cal ou J.</div>
+      <div class="cell var-sym">$m$</div>
+      <div class="cell var-desc">Massa, geralmente em g ou kg.</div>
+      <div class="cell var-sym">$c$</div>
+      <div class="cell var-desc">Calor específico, em cal/g°C ou J/kg·K.</div>
+      <div class="cell var-sym">$\Delta T$</div>
+      <div class="cell var-desc">Variação de temperatura. Para variações, $1\ ^\circ\text{C}$ tem o mesmo tamanho de $1\ \text{K}$.</div>
+    </div>
+    <h3 class="sub-title">Calor latente</h3>
+    <p>Use quando a substância <strong>muda de fase</strong> e sua temperatura fica constante durante o processo.</p>
+    <div class="eq-block">
+      <span class="eq-label">Mudança de fase</span>
+      <div class="eq-main">$$Q = m\cdot L$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$L$</div>
+      <div class="cell var-desc">Calor latente da transformação, em cal/g ou J/kg.</div>
+      <div class="cell var-sym">$L_f$</div>
+      <div class="cell var-desc">Calor latente de fusão ou solidificação.</div>
+      <div class="cell var-sym">$L_v$</div>
+      <div class="cell var-desc">Calor latente de vaporização ou condensação.</div>
+    </div>
+    <table class="data">
+      <caption>Quando usar cada equação</caption>
+      <thead><tr><th>Situação</th><th>Temperatura varia?</th><th>Fase muda?</th><th>Fórmula</th></tr></thead>
+      <tbody>
+        <tr><td>Água de 20 °C para 80 °C</td><td>Sim</td><td>Não</td><td>$Q=mc\Delta T$</td></tr>
+        <tr><td>Gelo a 0 °C derretendo</td><td>Não</td><td>Sim</td><td>$Q=mL_f$</td></tr>
+        <tr><td>Água a 100 °C virando vapor</td><td>Não</td><td>Sim</td><td>$Q=mL_v$</td></tr>
+        <tr><td>Vapor de 100 °C para 130 °C</td><td>Sim</td><td>Não</td><td>$Q=mc\Delta T$</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block" id="s04">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Trocas de calor e equilíbrio térmico</h2></div>
+    <p class="lead">Quando corpos em temperaturas diferentes entram em contato térmico, eles trocam calor até chegarem à mesma temperatura final.</p>
+    <p>Em um sistema termicamente isolado, o calor não sai para o ambiente. Então, tudo que um corpo perde é recebido por outro corpo.</p>
+    <div class="eq-block green">
+      <span class="eq-label">Princípio das trocas de calor</span>
+      <div class="eq-main">$$\sum Q = 0$$</div>
+    </div>
+    <p>Essa equação não diz que ninguém trocou calor. Ela diz que a <strong>soma algébrica</strong> das trocas é zero: calores positivos e negativos se compensam.</p>
+    <div class="duo">
+      <div class="card green">
+        <span class="tag">Corpo quente</span>
+        <h4>Cede calor</h4>
+        <p>Como ele esfria, $T_f<T_i$, então $\Delta T<0$ e $Q<0$.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Corpo frio</span>
+        <h4>Recebe calor</h4>
+        <p>Como ele aquece, $T_f>T_i$, então $\Delta T>0$ e $Q>0$.</p>
+      </div>
+    </div>
+    <h3 class="sub-title">Mistura de substâncias sem mudança de fase</h3>
+    <p>Para dois corpos trocando calor, normalmente montamos:</p>
+    <div class="eq-block green">
+      <div class="eq-main">$$m_1c_1(T_f-T_1)+m_2c_2(T_f-T_2)=0$$</div>
+    </div>
+    <p>A incógnita costuma ser $T_f$, a temperatura de equilíbrio.</p>
+    <div class="callout warn">
+      <span class="ico">!</span>
+      <span>Se houver mudança de fase no meio do processo, não dá para usar só uma equação de calor sensível. É preciso quebrar o problema em etapas: aquecer/esfriar, mudar fase, aquecer/esfriar de novo.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s05">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Mudanças de fase</h2></div>
+    <p>As fases mais comuns são sólido, líquido e gasoso. Uma substância muda de fase quando a energia fornecida ou retirada altera a organização das partículas.</p>
+    <table class="data">
+      <caption>Principais mudanças de fase</caption>
+      <thead><tr><th>Processo</th><th>Transformação</th><th>Recebe ou cede calor?</th><th>Exemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Fusão</td><td>Sólido → líquido</td><td>Recebe calor</td><td>Gelo derretendo</td></tr>
+        <tr><td>Solidificação</td><td>Líquido → sólido</td><td>Cede calor</td><td>Água congelando</td></tr>
+        <tr><td>Vaporização</td><td>Líquido → gás</td><td>Recebe calor</td><td>Água fervendo</td></tr>
+        <tr><td>Condensação</td><td>Gás → líquido</td><td>Cede calor</td><td>Vapor virando gotículas</td></tr>
+        <tr><td>Sublimação</td><td>Sólido → gás</td><td>Recebe calor</td><td>Gelo seco sublimando</td></tr>
+        <tr><td>Ressublimação</td><td>Gás → sólido</td><td>Cede calor</td><td>Formação de geada</td></tr>
+      </tbody>
+    </table>
+    <h3 class="sub-title">Por que a temperatura fica constante?</h3>
+    <p>Durante a mudança de fase, a energia recebida não aumenta a agitação média das partículas. Ela é usada para vencer ou reorganizar interações entre partículas. Por isso, enquanto a mudança de fase está ocorrendo, a temperatura permanece constante.</p>
+    <div class="eq-block">
+      <span class="eq-label">Água sob pressão normal</span>
+      <div class="eq-main">$$L_f = 80\ \text{cal/g} \qquad L_v = 540\ \text{cal/g}$$</div>
+    </div>
+    <div class="callout">
+      <span class="ico">→</span>
+      <span>Para a água, vaporizar exige muito mais calor do que fundir: $540\ \text{cal/g}$ contra $80\ \text{cal/g}$. Por isso a vaporização costuma ter um platô maior no gráfico.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s06">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Gráfico temperatura × calor</h2></div>
+    <p>O gráfico $T \times Q$ mostra a temperatura no eixo vertical e a quantidade de calor fornecida no eixo horizontal. A curva alterna entre trechos inclinados e trechos horizontais.</p>
+    <ul class="plain">
+      <li><strong>Trechos inclinados:</strong> há calor sensível; a temperatura muda; usa-se $Q=mc\Delta T$.</li>
+      <li><strong>Trechos horizontais:</strong> há calor latente; a fase muda; a temperatura fica constante; usa-se $Q=mL$.</li>
+    </ul>
+    <div class="graph-wrap">
+      <svg viewBox="0 0 820 410" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="820" height="410" fill="#ffffff"/>
+        <line x1="80" y1="350" x2="780" y2="350" stroke="#1d1c1a" stroke-width="2"/>
+        <line x1="80" y1="350" x2="80" y2="40" stroke="#1d1c1a" stroke-width="2"/>
+        <text x="430" y="392" font-family="DM Sans" font-size="14" fill="#54514c" text-anchor="middle">calor fornecido, Q</text>
+        <text x="28" y="198" font-family="DM Sans" font-size="14" fill="#54514c" text-anchor="middle" transform="rotate(-90 28 198)">temperatura, T</text>
+        <line x1="80" y1="250" x2="780" y2="250" stroke="#e3e0d8" stroke-width="1" stroke-dasharray="5 5"/>
+        <line x1="80" y1="105" x2="780" y2="105" stroke="#e3e0d8" stroke-width="1" stroke-dasharray="5 5"/>
+        <text x="66" y="254" font-family="JetBrains Mono" font-size="12" fill="#54514c" text-anchor="end">0 °C</text>
+        <text x="66" y="109" font-family="JetBrains Mono" font-size="12" fill="#54514c" text-anchor="end">100 °C</text>
+        <polyline points="80,325 185,250 330,250 500,105 690,105 780,60" fill="none" stroke="#c84b2f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="185" cy="250" r="4" fill="#1d1c1a"/>
+        <circle cx="330" cy="250" r="4" fill="#1d1c1a"/>
+        <circle cx="500" cy="105" r="4" fill="#1d1c1a"/>
+        <circle cx="690" cy="105" r="4" fill="#1d1c1a"/>
+        <text x="132" y="317" font-family="DM Sans" font-size="13" fill="#1d1c1a" text-anchor="middle">sólido</text>
+        <text x="257" y="237" font-family="DM Sans" font-size="13" fill="#8e3520" font-weight="700" text-anchor="middle">fusão</text>
+        <text x="415" y="170" font-family="DM Sans" font-size="13" fill="#1d1c1a" text-anchor="middle">líquido</text>
+        <text x="595" y="92" font-family="DM Sans" font-size="13" fill="#8e3520" font-weight="700" text-anchor="middle">vaporização</text>
+        <text x="736" y="53" font-family="DM Sans" font-size="13" fill="#1d1c1a" text-anchor="middle">gasoso</text>
+      </svg>
+      <p class="graph-caption">Curva de aquecimento: inclinado = calor sensível; horizontal = mudança de fase.</p>
+    </div>
+    <h3 class="sub-title">Como ler o gráfico em exercícios</h3>
+    <ol class="plain">
+      <li>Identifique em qual trecho o corpo está: sólido, fusão, líquido, vaporização ou vapor.</li>
+      <li>Nos trechos inclinados, calcule calor sensível.</li>
+      <li>Nos platôs, calcule calor latente.</li>
+      <li>Se o problema passar por vários trechos, some o calor de cada etapa.</li>
+    </ol>
+  </section>
+
+  <section class="block" id="s07">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Transferência de calor por condução</h2></div>
+    <p class="lead">Condução é a propagação de calor por contato microscópico entre partículas, sem transporte de matéria.</p>
+    <p>Ela predomina em sólidos, especialmente nos metais. Quando uma extremidade de uma barra metálica é aquecida, as partículas daquela região vibram mais e transferem energia para as partículas vizinhas.</p>
+    <div class="eq-block blue">
+      <span class="eq-label">Lei de Fourier em regime estacionário</span>
+      <div class="eq-main">$$\Phi = \dfrac{Q}{\Delta t}=k\cdot A\cdot \dfrac{\Delta T}{L}$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$\Phi$</div>
+      <div class="cell var-desc">Fluxo de calor ou potência térmica, em watt (W).</div>
+      <div class="cell var-sym">$k$</div>
+      <div class="cell var-desc">Condutividade térmica do material. Quanto maior, melhor condutor.</div>
+      <div class="cell var-sym">$A$</div>
+      <div class="cell var-desc">Área atravessada pelo calor.</div>
+      <div class="cell var-sym">$\Delta T$</div>
+      <div class="cell var-desc">Diferença de temperatura entre as extremidades.</div>
+      <div class="cell var-sym">$L$</div>
+      <div class="cell var-desc">Espessura ou comprimento atravessado pelo calor.</div>
+    </div>
+    <div class="duo">
+      <div class="card blue">
+        <span class="tag">Aumenta o fluxo</span>
+        <h4>$k$, $A$ e $\Delta T$ grandes</h4>
+        <p>Materiais bons condutores, grande área e grande diferença de temperatura facilitam a passagem de calor.</p>
+      </div>
+      <div class="card blue">
+        <span class="tag">Diminui o fluxo</span>
+        <h4>$L$ grande</h4>
+        <p>Quanto maior a espessura, mais difícil é o calor atravessar o material.</p>
+      </div>
+    </div>
+    <div class="graph-wrap">
+      <svg viewBox="0 0 760 270" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="760" height="270" fill="#ffffff"/>
+        <rect x="170" y="100" width="420" height="70" rx="8" fill="#f3e2dc" stroke="#c84b2f" stroke-width="2"/>
+        <rect x="160" y="85" width="18" height="100" fill="#8e3520"/>
+        <rect x="590" y="85" width="18" height="100" fill="#264f73"/>
+        <text x="126" y="82" font-family="JetBrains Mono" font-size="14" fill="#8e3520" text-anchor="middle">T quente</text>
+        <text x="638" y="82" font-family="JetBrains Mono" font-size="14" fill="#264f73" text-anchor="middle">T fria</text>
+        <line x1="220" y1="135" x2="540" y2="135" stroke="#1d1c1a" stroke-width="3" marker-end="url(#arrow)"/>
+        <text x="380" y="124" font-family="DM Sans" font-size="14" fill="#1d1c1a" text-anchor="middle">fluxo de calor</text>
+        <line x1="170" y1="205" x2="590" y2="205" stroke="#54514c" stroke-width="1.5"/>
+        <line x1="170" y1="198" x2="170" y2="212" stroke="#54514c" stroke-width="1.5"/>
+        <line x1="590" y1="198" x2="590" y2="212" stroke="#54514c" stroke-width="1.5"/>
+        <text x="380" y="228" font-family="JetBrains Mono" font-size="13" fill="#54514c" text-anchor="middle">comprimento L</text>
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#1d1c1a"/>
+          </marker>
+        </defs>
+      </svg>
+      <p class="graph-caption">Condução em uma barra: o calor flui da extremidade mais quente para a mais fria.</p>
+    </div>
+  </section>
+
+  <section class="block" id="s08">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Transferência de calor por convecção</h2></div>
+    <p class="lead">Convecção é a transferência de calor com transporte de matéria, ocorrendo em fluidos: líquidos e gases.</p>
+    <p>Quando uma porção do fluido aquece, sua densidade geralmente diminui. A parte mais quente sobe, enquanto a parte mais fria desce. Isso cria correntes de convecção.</p>
+    <div class="triad">
+      <div class="card blue">
+        <span class="tag">Aquecimento de água</span>
+        <h4>Água quente sobe</h4>
+        <p>A água no fundo da panela aquece, fica menos densa e sobe; a água fria desce.</p>
+      </div>
+      <div class="card blue">
+        <span class="tag">Brisa marítima</span>
+        <h4>Ar se desloca</h4>
+        <p>Diferenças de aquecimento entre terra e mar criam correntes de ar.</p>
+      </div>
+      <div class="card blue">
+        <span class="tag">Ar-condicionado</span>
+        <h4>Ar frio desce</h4>
+        <p>Como o ar frio é mais denso, aparelhos de ar-condicionado costumam ficar em regiões altas.</p>
+      </div>
+    </div>
+    <div class="eq-block blue">
+      <span class="eq-label">Modelo simplificado para convecção</span>
+      <div class="eq-main">$$\Phi = h\cdot A\cdot \Delta T$$</div>
+    </div>
+    <p>Em muitos cursos básicos, a convecção é mais cobrada conceitualmente do que por cálculo. Mesmo assim, a expressão acima ajuda a entender que o fluxo aumenta com a área, com a diferença de temperatura e com as condições do fluido, representadas por $h$.</p>
+    <div class="callout blue">
+      <span class="ico">!</span>
+      <span>Condução não transporta matéria; convecção transporta. Essa é a diferença mais importante para provas conceituais.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s09">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Transferência de calor por irradiação</h2></div>
+    <p class="lead">Irradiação é a transferência de calor por ondas eletromagnéticas. Ela não precisa de meio material.</p>
+    <p>É por irradiação que a energia do Sol chega à Terra atravessando o vácuo do espaço. Todo corpo com temperatura acima de zero kelvin emite radiação térmica.</p>
+    <div class="eq-block blue">
+      <span class="eq-label">Lei de Stefan-Boltzmann</span>
+      <div class="eq-main">$$P = \varepsilon\sigma A T^4$$</div>
+    </div>
+    <div class="eq-block blue">
+      <span class="eq-label">Troca líquida com o ambiente</span>
+      <div class="eq-main">$$P_{líq}=\varepsilon\sigma A\left(T^4-T_{amb}^4\right)$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$P$</div>
+      <div class="cell var-desc">Potência irradiada, em watt.</div>
+      <div class="cell var-sym">$\varepsilon$</div>
+      <div class="cell var-desc">Emissividade da superfície, entre 0 e 1.</div>
+      <div class="cell var-sym">$\sigma$</div>
+      <div class="cell var-desc">Constante de Stefan-Boltzmann: $5{,}67\times10^{-8}\ \text{W/m}^2\text{K}^4$.</div>
+      <div class="cell var-sym">$T$</div>
+      <div class="cell var-desc">Temperatura absoluta, sempre em kelvin.</div>
+    </div>
+    <table class="data blue">
+      <caption>Superfícies e radiação térmica</caption>
+      <thead><tr><th>Superfície</th><th>Absorção</th><th>Emissão</th><th>Exemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Escura e fosca</td><td>Alta</td><td>Alta</td><td>Roupa preta esquenta mais ao sol.</td></tr>
+        <tr><td>Clara e polida</td><td>Baixa</td><td>Baixa</td><td>Superfícies metálicas refletem melhor a radiação.</td></tr>
+        <tr><td>Preto ideal</td><td>Máxima</td><td>Máxima</td><td>Modelo teórico usado em física.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block" id="s10">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Transformações de unidades de medição</h2></div>
+    <p class="lead">Em calorimetria e termodinâmica, errar unidade geralmente destrói o exercício. Esta seção junta as conversões mais usadas.</p>
+
+    <h3 class="sub-title">Temperatura: Celsius, Kelvin e Fahrenheit</h3>
+    <div class="eq-block">
+      <span class="eq-label">Celsius ↔ Kelvin</span>
+      <div class="eq-main">$$T(K)=T(^\circ C)+273{,}15 \qquad T(^\circ C)=T(K)-273{,}15$$</div>
+    </div>
+    <div class="eq-block">
+      <span class="eq-label">Celsius ↔ Fahrenheit</span>
+      <div class="eq-main">$$T(^\circ F)=\dfrac{9}{5}T(^\circ C)+32 \qquad T(^\circ C)=\dfrac{5}{9}\left[T(^\circ F)-32\right]$$</div>
+    </div>
+    <div class="callout warn">
+      <span class="ico">!</span>
+      <span>Em gases, use sempre temperatura absoluta em kelvin. Nunca use Celsius diretamente em $PV=nRT$ ou em $\frac{P_1V_1}{T_1}=\frac{P_2V_2}{T_2}$.</span>
+    </div>
+
+    <h3 class="sub-title">Pressão: Pa, kPa, atm, mmHg e cmHg</h3>
+    <table class="data">
+      <caption>Conversões de pressão</caption>
+      <thead><tr><th>Unidade</th><th>Equivalência</th><th>Uso comum</th></tr></thead>
+      <tbody>
+        <tr><td>pascal</td><td>$1\ \text{Pa}=1\ \text{N/m}^2$</td><td>Sistema Internacional</td></tr>
+        <tr><td>quilopascal</td><td>$1\ \text{kPa}=1000\ \text{Pa}$</td><td>Pressões em problemas modernos</td></tr>
+        <tr><td>atmosfera</td><td>$1\ \text{atm}=101325\ \text{Pa}=101{,}325\ \text{kPa}$</td><td>Gases ideais em química/física</td></tr>
+        <tr><td>milímetro de mercúrio</td><td>$1\ \text{atm}=760\ \text{mmHg}$</td><td>Pressão atmosférica e manômetros</td></tr>
+        <tr><td>centímetro de mercúrio</td><td>$1\ \text{atm}=76\ \text{cmHg}$</td><td>Mesma ideia do mmHg, mas em cm</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-title">Sobre “K para kPa”</h3>
+    <p><strong>Kelvin (K)</strong> mede temperatura. <strong>Quilopascal (kPa)</strong> mede pressão. Portanto, não existe uma conversão direta de K para kPa, porque são grandezas diferentes.</p>
+    <p>O que pode existir é uma <strong>relação</strong> entre temperatura e pressão dentro de uma transformação gasosa. Por exemplo, se o volume e o número de mols permanecem constantes, vale:</p>
+    <div class="eq-block blue">
+      <span class="eq-label">Transformação isovolumétrica</span>
+      <div class="eq-main">$$\dfrac{P_1}{T_1}=\dfrac{P_2}{T_2}$$</div>
+    </div>
+    <div class="example">
+      <span class="ex-tag">Exemplo — relação entre K e kPa em um gás</span>
+      <p class="ex-statement">Um gás está a $300\ \text{K}$ e $100\ \text{kPa}$. Mantendo o volume constante, qual será a pressão a $450\ \text{K}$?</p>
+      <div class="step blue">
+        <div class="step-num">1</div>
+        <div class="step-body">Como o volume é constante, usamos $P/T=\text{constante}$.
+          <div class="step-math">$$\dfrac{100}{300}=\dfrac{P_2}{450}$$</div>
+        </div>
+      </div>
+      <div class="step blue">
+        <div class="step-num">2</div>
+        <div class="step-body">Isolando $P_2$:
+          <div class="step-math">$$P_2=\dfrac{100\cdot450}{300}=150\ \text{kPa}$$</div>
+        </div>
+      </div>
+      <div class="result-box blue">Não foi uma conversão de K para kPa; foi uma relação física entre pressão e temperatura.</div>
+    </div>
+
+    <h3 class="sub-title">Volume: L, mL, cm³ e m³</h3>
+    <table class="data">
+      <caption>Conversões de volume</caption>
+      <thead><tr><th>Conversão</th><th>Valor</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td>litro para metro cúbico</td><td>$1\ \text{L}=10^{-3}\ \text{m}^3$</td><td>Use com $R=8{,}314\ \text{J/mol·K}$.</td></tr>
+        <tr><td>metro cúbico para litro</td><td>$1\ \text{m}^3=1000\ \text{L}$</td><td>Útil em gases.</td></tr>
+        <tr><td>mililitro e centímetro cúbico</td><td>$1\ \text{mL}=1\ \text{cm}^3$</td><td>Equivalência comum em líquidos.</td></tr>
+        <tr><td>litro e mililitro</td><td>$1\ \text{L}=1000\ \text{mL}$</td><td>Conversão direta.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-title">Energia, calor e trabalho</h3>
+    <table class="data">
+      <caption>Conversões de energia</caption>
+      <thead><tr><th>Conversão</th><th>Valor</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td>caloria para joule</td><td>$1\ \text{cal}\approx4{,}186\ \text{J}$</td><td>Calorimetria</td></tr>
+        <tr><td>quilocaloria para caloria</td><td>$1\ \text{kcal}=1000\ \text{cal}$</td><td>Alimentos e calorimetria</td></tr>
+        <tr><td>litro-atmosfera para joule</td><td>$1\ \text{L·atm}=101{,}325\ \text{J}$</td><td>Trabalho de gás</td></tr>
+        <tr><td>pascal metro cúbico</td><td>$1\ \text{Pa·m}^3=1\ \text{J}$</td><td>Trabalho em unidades SI</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-title">Massa e quantidade de matéria</h3>
+    <div class="eq-block green">
+      <span class="eq-label">Massa</span>
+      <div class="eq-main">$$1\ \text{kg}=1000\ \text{g} \qquad 1\ \text{g}=10^{-3}\ \text{kg}$$</div>
+    </div>
+    <div class="eq-block green">
+      <span class="eq-label">Número de mols</span>
+      <div class="eq-main">$$n=\dfrac{m}{M}$$</div>
+    </div>
+    <p>Na fórmula $n=m/M$, $m$ é a massa da amostra e $M$ é a massa molar. As unidades precisam combinar: se $M$ está em g/mol, use $m$ em gramas.</p>
+
+    <h3 class="sub-title">Escolhendo o valor certo de R</h3>
+    <table class="data blue">
+      <caption>Constante dos gases ideais</caption>
+      <thead><tr><th>Valor de R</th><th>Use quando</th><th>Equação</th></tr></thead>
+      <tbody>
+        <tr><td>$0{,}082\ \text{atm·L/mol·K}$</td><td>Pressão em atm e volume em L</td><td>$PV=nRT$</td></tr>
+        <tr><td>$8{,}314\ \text{J/mol·K}$</td><td>Pressão em Pa e volume em m³</td><td>$Pa\cdot m^3=J$</td></tr>
+        <tr><td>$62{,}3\ \text{mmHg·L/mol·K}$</td><td>Pressão em mmHg e volume em L</td><td>$PV=nRT$</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block" id="s11">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Propriedades de um gás</h2></div>
+    <p class="lead">Um gás é descrito macroscopicamente por pressão, volume, temperatura e quantidade de matéria.</p>
+    <div class="quad">
+      <div class="card green">
+        <span class="tag">Pressão</span>
+        <h4>$P$</h4>
+        <p>Resultado das colisões das moléculas do gás contra as paredes do recipiente.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Volume</span>
+        <h4>$V$</h4>
+        <p>Espaço ocupado pelo gás. O gás ocupa todo o recipiente disponível.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Temperatura</span>
+        <h4>$T$</h4>
+        <p>Relacionada à energia cinética média das moléculas. Em gases, use kelvin.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Mols</span>
+        <h4>$n$</h4>
+        <p>Quantidade de matéria do gás, ligada ao número de partículas.</p>
+      </div>
+    </div>
+    <h3 class="sub-title">Modelo de gás ideal</h3>
+    <p>Um gás ideal é um modelo simplificado em que as partículas são consideradas muito pequenas, com interações desprezíveis entre si, exceto durante colisões. Ele funciona melhor em baixa pressão e alta temperatura.</p>
+    <div class="callout green">
+      <span class="ico">✓</span>
+      <span>Mesmo sendo uma aproximação, o modelo de gás ideal é suficiente para a maior parte dos exercícios escolares de transformações gasosas.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s12">
+    <div class="sec-head"><span class="sec-num">12</span><h2 class="sec-title">Variáveis de estado</h2></div>
+    <p>Uma variável de estado descreve a condição atual de um sistema. Para gases, as principais são $P$, $V$, $T$ e $n$.</p>
+    <table class="data green">
+      <caption>Variáveis de estado de um gás</caption>
+      <thead><tr><th>Grandeza</th><th>Símbolo</th><th>Unidades comuns</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td>Pressão</td><td>$P$</td><td>Pa, kPa, atm, mmHg</td><td>Força por área causada pelas colisões moleculares.</td></tr>
+        <tr><td>Volume</td><td>$V$</td><td>m³, L, mL</td><td>Volume ocupado pelo gás.</td></tr>
+        <tr><td>Temperatura</td><td>$T$</td><td>K</td><td>Em equações de gases, sempre kelvin.</td></tr>
+        <tr><td>Quantidade de matéria</td><td>$n$</td><td>mol</td><td>$n=m/M$.</td></tr>
+      </tbody>
+    </table>
+    <p>Quando uma ou mais dessas variáveis mudam, dizemos que o gás sofreu uma <strong>transformação gasosa</strong>.</p>
+  </section>
+
+  <section class="block" id="s13">
+    <div class="sec-head"><span class="sec-num">13</span><h2 class="sec-title">Equação de Clapeyron</h2></div>
+    <p class="lead">A equação de Clapeyron relaciona as variáveis de estado de um gás ideal.</p>
+    <div class="eq-block green">
+      <span class="eq-label">Gás ideal</span>
+      <div class="eq-main">$$PV=nRT$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$P$</div>
+      <div class="cell var-desc">Pressão do gás.</div>
+      <div class="cell var-sym">$V$</div>
+      <div class="cell var-desc">Volume ocupado pelo gás.</div>
+      <div class="cell var-sym">$n$</div>
+      <div class="cell var-desc">Número de mols.</div>
+      <div class="cell var-sym">$R$</div>
+      <div class="cell var-desc">Constante universal dos gases ideais.</div>
+      <div class="cell var-sym">$T$</div>
+      <div class="cell var-desc">Temperatura absoluta em kelvin.</div>
+    </div>
+    <h3 class="sub-title">Como não errar a unidade de R</h3>
+    <p>O valor de $R$ deve combinar com as unidades de pressão e volume. Se você usa $P$ em atm e $V$ em L, use $R=0{,}082\ \text{atm·L/mol·K}$. Se usa $P$ em Pa e $V$ em m³, use $R=8{,}314\ \text{J/mol·K}$.</p>
+    <div class="example">
+      <span class="ex-tag">Exemplo — usando Clapeyron</span>
+      <p class="ex-statement">Qual o volume ocupado por 2 mol de um gás ideal a 300 K e 1 atm?</p>
+      <div class="step green">
+        <div class="step-num">1</div>
+        <div class="step-body">Como a pressão está em atm, vamos usar $R=0{,}082\ \text{atm·L/mol·K}$.
+          <div class="step-math">$$PV=nRT$$</div>
+        </div>
+      </div>
+      <div class="step green">
+        <div class="step-num">2</div>
+        <div class="step-body">Substituindo os valores:
+          <div class="step-math">$$1\cdot V=2\cdot0{,}082\cdot300$$</div>
+        </div>
+      </div>
+      <div class="result-box green">$V=49{,}2\ \text{L}$</div>
+    </div>
+  </section>
+
+  <section class="block" id="s14">
+    <div class="sec-head"><span class="sec-num">14</span><h2 class="sec-title">Transformações gasosas</h2></div>
+    <p class="lead">Uma transformação gasosa ocorre quando o estado do gás muda. O nome da transformação indica qual grandeza permanece constante.</p>
+    <table class="data green">
+      <caption>Transformações principais</caption>
+      <thead><tr><th>Transformação</th><th>Grandeza constante</th><th>Relação</th><th>Lei associada</th></tr></thead>
+      <tbody>
+        <tr><td>Isotérmica</td><td>Temperatura constante</td><td>$PV=\text{constante}$</td><td>Boyle-Mariotte</td></tr>
+        <tr><td>Isobárica</td><td>Pressão constante</td><td>$\dfrac{V}{T}=\text{constante}$</td><td>Charles/Gay-Lussac</td></tr>
+        <tr><td>Isovolumétrica</td><td>Volume constante</td><td>$\dfrac{P}{T}=\text{constante}$</td><td>Gay-Lussac</td></tr>
+        <tr><td>Adiabática</td><td>Sem troca de calor</td><td>$Q=0$</td><td>Processo rápido ou isolado</td></tr>
+      </tbody>
+    </table>
+    <div class="duo">
+      <div class="card green">
+        <span class="tag">Isotérmica</span>
+        <h4>$T$ constante</h4>
+        <p>Se o volume aumenta, a pressão diminui. O produto $PV$ permanece constante.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Isobárica</span>
+        <h4>$P$ constante</h4>
+        <p>Se a temperatura aumenta, o volume aumenta proporcionalmente.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Isovolumétrica</span>
+        <h4>$V$ constante</h4>
+        <p>Se a temperatura aumenta, a pressão aumenta proporcionalmente.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Adiabática</span>
+        <h4>$Q=0$</h4>
+        <p>Não há troca de calor com o meio. A variação de energia interna vem do trabalho.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="s15">
+    <div class="sec-head"><span class="sec-num">15</span><h2 class="sec-title">Lei geral dos gases</h2></div>
+    <p>Quando a quantidade de gás não muda, ou seja, $n$ é constante, a equação de Clapeyron permite comparar dois estados do mesmo gás.</p>
+    <div class="eq-block green">
+      <span class="eq-label">Lei geral dos gases</span>
+      <div class="eq-main">$$\dfrac{P_1V_1}{T_1}=\dfrac{P_2V_2}{T_2}$$</div>
+    </div>
+    <p>Essa fórmula é muito útil quando o problema fornece estado inicial e estado final. Dependendo da transformação, ela se simplifica:</p>
+    <div class="summary-grid">
+      <div class="summary-card green">
+        <div class="s-name">Isotérmica</div>
+        <div class="s-eq">$P_1V_1=P_2V_2$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Isobárica</div>
+        <div class="s-eq">$\dfrac{V_1}{T_1}=\dfrac{V_2}{T_2}$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Isovolumétrica</div>
+        <div class="s-eq">$\dfrac{P_1}{T_1}=\dfrac{P_2}{T_2}$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Atenção</div>
+        <div class="s-eq">$T$ sempre em kelvin</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="s16">
+    <div class="sec-head"><span class="sec-num">16</span><h2 class="sec-title">Gráficos P × V em termodinâmica</h2></div>
+    <p>O gráfico $P \times V$ é essencial porque a área sob a curva representa o trabalho realizado pelo gás.</p>
+    <div class="graph-wrap">
+      <svg viewBox="0 0 820 430" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="820" height="430" fill="#ffffff"/>
+        <line x1="85" y1="360" x2="760" y2="360" stroke="#1d1c1a" stroke-width="2"/>
+        <line x1="85" y1="360" x2="85" y2="50" stroke="#1d1c1a" stroke-width="2"/>
+        <text x="420" y="398" font-family="DM Sans" font-size="14" fill="#54514c" text-anchor="middle">volume, V</text>
+        <text x="35" y="205" font-family="DM Sans" font-size="14" fill="#54514c" text-anchor="middle" transform="rotate(-90 35 205)">pressão, P</text>
+        <path d="M150,105 C250,145 390,210 610,315" fill="none" stroke="#c84b2f" stroke-width="4"/>
+        <line x1="155" y1="240" x2="680" y2="240" stroke="#264f73" stroke-width="4"/>
+        <line x1="330" y1="330" x2="330" y2="90" stroke="#2c6b4f" stroke-width="4"/>
+        <text x="260" y="125" font-family="JetBrains Mono" font-size="13" fill="#8e3520">isotérmica</text>
+        <text x="590" y="226" font-family="JetBrains Mono" font-size="13" fill="#264f73">isobárica</text>
+        <text x="345" y="100" font-family="JetBrains Mono" font-size="13" fill="#2c6b4f">isovolumétrica</text>
+        <path d="M155,240 L680,240 L680,360 L155,360 Z" fill="#e2edf5" opacity="0.55"/>
+        <text x="420" y="312" font-family="DM Sans" font-size="14" fill="#264f73" text-anchor="middle">área = trabalho em processo isobárico</text>
+      </svg>
+      <p class="graph-caption">No gráfico $P \times V$, área sob a curva indica trabalho realizado pelo gás.</p>
+    </div>
+    <table class="data green">
+      <caption>Forma no gráfico P × V</caption>
+      <thead><tr><th>Transformação</th><th>Formato no gráfico</th><th>Trabalho</th></tr></thead>
+      <tbody>
+        <tr><td>Isobárica</td><td>Reta horizontal</td><td>$\tau=P\Delta V$</td></tr>
+        <tr><td>Isovolumétrica</td><td>Reta vertical</td><td>$\tau=0$, pois $\Delta V=0$</td></tr>
+        <tr><td>Isotérmica</td><td>Hipérbole</td><td>Área sob a curva</td></tr>
+        <tr><td>Adiabática</td><td>Curva mais inclinada que a isotérmica</td><td>Depende da curva</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block" id="s17">
+    <div class="sec-head"><span class="sec-num">17</span><h2 class="sec-title">Trabalho termodinâmico</h2></div>
+    <p class="lead">Um gás realiza trabalho quando sua expansão ou compressão desloca algo, como um pistão.</p>
+    <div class="eq-block green">
+      <span class="eq-label">Trabalho em pressão constante</span>
+      <div class="eq-main">$$\tau = P\cdot \Delta V$$</div>
+    </div>
+    <div class="var-grid">
+      <div class="cell var-sym">$\tau>0$</div>
+      <div class="cell var-desc"><b>Expansão:</b> o gás aumenta de volume e realiza trabalho sobre o meio externo.</div>
+      <div class="cell var-sym">$\tau<0$</div>
+      <div class="cell var-desc"><b>Compressão:</b> o volume diminui e o meio externo realiza trabalho sobre o gás.</div>
+      <div class="cell var-sym">$\tau=0$</div>
+      <div class="cell var-desc"><b>Volume constante:</b> não há deslocamento, então não há trabalho termodinâmico.</div>
+    </div>
+    <div class="callout warn">
+      <span class="ico">!</span>
+      <span>Use unidades compatíveis: se $P$ estiver em Pa e $V$ em m³, o trabalho sai em joule. Se usar atm e L, converta: $1\ \text{L·atm}=101{,}325\ \text{J}$.</span>
+    </div>
+    <h3 class="sub-title">Trabalho como área</h3>
+    <p>No gráfico $P \times V$, o trabalho corresponde à área sob a curva entre o volume inicial e o volume final.</p>
+    <div class="eq-block green">
+      <span class="eq-label">Interpretação gráfica</span>
+      <div class="eq-main">$$\tau = \text{área sob a curva no gráfico } P\times V$$</div>
+    </div>
+  </section>
+
+  <section class="block" id="s18">
+    <div class="sec-head"><span class="sec-num">18</span><h2 class="sec-title">Energia interna</h2></div>
+    <p class="lead">Energia interna é a energia microscópica associada às partículas de um sistema.</p>
+    <p>Em um gás ideal, a energia interna depende apenas da temperatura. Se a temperatura aumenta, a energia interna aumenta; se a temperatura diminui, a energia interna diminui.</p>
+    <div class="summary-grid">
+      <div class="summary-card green">
+        <div class="s-name">Aquecimento</div>
+        <div class="s-eq">$\Delta T>0 \Rightarrow \Delta U>0$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Resfriamento</div>
+        <div class="s-eq">$\Delta T<0 \Rightarrow \Delta U<0$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Isotérmica</div>
+        <div class="s-eq">$\Delta T=0 \Rightarrow \Delta U=0$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Gás monoatômico ideal</div>
+        <div class="s-eq">$U=\dfrac{3}{2}nRT$</div>
+      </div>
+    </div>
+    <h3 class="sub-title">Energia interna não é calor</h3>
+    <p>Calor é energia em trânsito. Energia interna é energia associada ao estado microscópico do sistema. Um sistema pode ter energia interna, mas não “ter calor”; ele recebe ou cede calor durante uma troca.</p>
+  </section>
+
+  <section class="block" id="s19">
+    <div class="sec-head"><span class="sec-num">19</span><h2 class="sec-title">Primeira lei da termodinâmica</h2></div>
+    <p class="lead">A primeira lei é uma forma da conservação de energia aplicada a sistemas termodinâmicos.</p>
+    <p>Usando a convenção em que $\tau$ é o trabalho realizado pelo gás:</p>
+    <div class="eq-block green">
+      <span class="eq-label">Primeira lei</span>
+      <div class="eq-main">$$Q = \Delta U + \tau$$</div>
+    </div>
+    <p>Equivalente:</p>
+    <div class="eq-block green">
+      <div class="eq-main">$$\Delta U = Q - \tau$$</div>
+    </div>
+    <table class="data green">
+      <caption>Sinais na primeira lei</caption>
+      <thead><tr><th>Grandeza</th><th>Positiva quando...</th><th>Negativa quando...</th></tr></thead>
+      <tbody>
+        <tr><td>$Q$</td><td>O gás recebe calor</td><td>O gás cede calor</td></tr>
+        <tr><td>$\tau$</td><td>O gás expande e realiza trabalho</td><td>O gás é comprimido</td></tr>
+        <tr><td>$\Delta U$</td><td>A temperatura aumenta</td><td>A temperatura diminui</td></tr>
+      </tbody>
+    </table>
+    <h3 class="sub-title">Casos especiais</h3>
+    <div class="summary-grid">
+      <div class="summary-card green">
+        <div class="s-name">Isotérmica</div>
+        <div class="s-eq">$\Delta U=0 \Rightarrow Q=\tau$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Isovolumétrica</div>
+        <div class="s-eq">$\tau=0 \Rightarrow Q=\Delta U$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Adiabática</div>
+        <div class="s-eq">$Q=0 \Rightarrow \Delta U=-\tau$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Cíclica</div>
+        <div class="s-eq">$\Delta U=0 \Rightarrow Q_{total}=\tau_{total}$</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="s20">
+    <div class="sec-head"><span class="sec-num">20</span><h2 class="sec-title">Segunda lei da termodinâmica</h2></div>
+    <p class="lead">A segunda lei indica o sentido natural dos processos térmicos e impõe limites ao rendimento de máquinas térmicas.</p>
+    <p>Ela aparece em várias formulações. Para o nível escolar, as ideias principais são:</p>
+    <div class="triad">
+      <div class="card green">
+        <span class="tag">Sentido natural</span>
+        <h4>Calor flui do quente para o frio</h4>
+        <p>O processo inverso não acontece espontaneamente sem gasto externo de energia.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Máquinas térmicas</span>
+        <h4>Rendimento limitado</h4>
+        <p>Nenhuma máquina térmica transforma 100% do calor recebido em trabalho útil.</p>
+      </div>
+      <div class="card green">
+        <span class="tag">Entropia</span>
+        <h4>Tendência à dispersão</h4>
+        <p>Em processos naturais, a energia tende a se espalhar e a entropia total não diminui.</p>
+      </div>
+    </div>
+    <div class="callout green">
+      <span class="ico">→</span>
+      <span>Primeira lei: energia se conserva. Segunda lei: nem toda energia térmica pode ser convertida em trabalho útil.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s21">
+    <div class="sec-head"><span class="sec-num">21</span><h2 class="sec-title">Máquinas térmicas e rendimento</h2></div>
+    <p>Uma máquina térmica opera em ciclo, recebe calor de uma fonte quente, transforma parte em trabalho e rejeita o restante para uma fonte fria.</p>
+    <div class="graph-wrap">
+      <svg viewBox="0 0 780 350" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="780" height="350" fill="#ffffff"/>
+        <rect x="260" y="35" width="260" height="55" rx="8" fill="#f3e2dc" stroke="#c84b2f" stroke-width="2"/>
+        <text x="390" y="68" font-family="DM Sans" font-size="16" fill="#8e3520" font-weight="700" text-anchor="middle">fonte quente</text>
+        <rect x="280" y="145" width="220" height="80" rx="12" fill="#e3f0e9" stroke="#2c6b4f" stroke-width="2"/>
+        <text x="390" y="190" font-family="DM Sans" font-size="16" fill="#2c6b4f" font-weight="700" text-anchor="middle">máquina térmica</text>
+        <rect x="260" y="280" width="260" height="55" rx="8" fill="#e2edf5" stroke="#264f73" stroke-width="2"/>
+        <text x="390" y="313" font-family="DM Sans" font-size="16" fill="#264f73" font-weight="700" text-anchor="middle">fonte fria</text>
+        <line x1="390" y1="92" x2="390" y2="142" stroke="#1d1c1a" stroke-width="3" marker-end="url(#arr1)"/>
+        <text x="425" y="124" font-family="JetBrains Mono" font-size="13" fill="#1d1c1a">Qq</text>
+        <line x1="390" y1="228" x2="390" y2="278" stroke="#1d1c1a" stroke-width="3" marker-end="url(#arr1)"/>
+        <text x="425" y="262" font-family="JetBrains Mono" font-size="13" fill="#1d1c1a">Qf</text>
+        <line x1="502" y1="185" x2="655" y2="185" stroke="#1d1c1a" stroke-width="3" marker-end="url(#arr1)"/>
+        <text x="585" y="170" font-family="JetBrains Mono" font-size="13" fill="#1d1c1a">τ</text>
+        <defs>
+          <marker id="arr1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L0,6 L9,3 z" fill="#1d1c1a"/>
+          </marker>
+        </defs>
+      </svg>
+      <p class="graph-caption">Esquema de máquina térmica: recebe $Q_q$, rejeita $Q_f$ e realiza trabalho $\tau$.</p>
+    </div>
+    <div class="eq-block green">
+      <span class="eq-label">Trabalho líquido</span>
+      <div class="eq-main">$$\tau = Q_q - Q_f$$</div>
+    </div>
+    <div class="eq-block green">
+      <span class="eq-label">Rendimento</span>
+      <div class="eq-main">$$\eta=\dfrac{\tau}{Q_q}=1-\dfrac{Q_f}{Q_q}$$</div>
+    </div>
+    <h3 class="sub-title">Máquina de Carnot</h3>
+    <p>A máquina de Carnot é uma máquina térmica ideal. Seu rendimento máximo depende apenas das temperaturas absolutas das fontes quente e fria.</p>
+    <div class="eq-block green">
+      <span class="eq-label">Rendimento de Carnot</span>
+      <div class="eq-main">$$\eta_C=1-\dfrac{T_f}{T_q}$$</div>
+    </div>
+    <div class="callout warn">
+      <span class="ico">!</span>
+      <span>No rendimento de Carnot, as temperaturas devem estar em kelvin, não em Celsius.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s22">
+    <div class="sec-head"><span class="sec-num">22</span><h2 class="sec-title">Exemplos resolvidos</h2></div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 1 — calor sensível</span>
+      <p class="ex-statement">Calcule o calor necessário para aquecer 300 g de água de 25 °C até 75 °C. Use $c_{água}=1\ \text{cal/g°C}$.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-body">Não há mudança de fase, então usamos $Q=mc\Delta T$.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">$\Delta T=75-25=50\ ^\circ\text{C}$.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body">$Q=300\cdot1\cdot50=15000\ \text{cal}$.</div></div>
+      <div class="result-box">$Q=15000\ \text{cal}=15\ \text{kcal}$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 2 — calor latente</span>
+      <p class="ex-statement">Quanto calor é necessário para vaporizar 40 g de água a 100 °C? Use $L_v=540\ \text{cal/g}$.</p>
+      <div class="step"><div class="step-num">1</div><div class="step-body">Como a água já está a 100 °C, o calor será usado apenas na mudança de fase.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">$Q=mL_v=40\cdot540=21600\ \text{cal}$.</div></div>
+      <div class="result-box">$Q=21600\ \text{cal}$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 3 — mistura e equilíbrio térmico</span>
+      <p class="ex-statement">Misturam-se 200 g de água a 80 °C com 300 g de água a 20 °C. Despreze perdas. Qual a temperatura final?</p>
+      <div class="step"><div class="step-num">1</div><div class="step-body">Como é a mesma substância, $c$ aparece nos dois termos e pode ser cancelado.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body">Monte $\sum Q=0$:
+        <div class="step-math">$$200c(T_f-80)+300c(T_f-20)=0$$</div>
+      </div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body">Cancele $c$ e resolva:
+        <div class="step-math">$$200T_f-16000+300T_f-6000=0$$</div>
+        <div class="step-math">$$500T_f=22000$$</div>
+      </div></div>
+      <div class="result-box">$T_f=44\ ^\circ\text{C}$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 4 — lei geral dos gases</span>
+      <p class="ex-statement">Um gás ocupa 4 L a 300 K e 2 atm. Se a temperatura passa para 600 K e a pressão para 4 atm, qual o novo volume?</p>
+      <div class="step green"><div class="step-num">1</div><div class="step-body">Use a lei geral:
+        <div class="step-math">$$\dfrac{P_1V_1}{T_1}=\dfrac{P_2V_2}{T_2}$$</div>
+      </div></div>
+      <div class="step green"><div class="step-num">2</div><div class="step-body">Substitua:
+        <div class="step-math">$$\dfrac{2\cdot4}{300}=\dfrac{4\cdot V_2}{600}$$</div>
+      </div></div>
+      <div class="step green"><div class="step-num">3</div><div class="step-body">Resolva:
+        <div class="step-math">$$\dfrac{8}{300}=\dfrac{4V_2}{600} \Rightarrow 4800=1200V_2$$</div>
+      </div></div>
+      <div class="result-box green">$V_2=4\ \text{L}$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 5 — trabalho isobárico</span>
+      <p class="ex-statement">Um gás se expande sob pressão constante de $2\times10^5\ \text{Pa}$, aumentando seu volume de $0{,}010\ \text{m}^3$ para $0{,}030\ \text{m}^3$. Calcule o trabalho.</p>
+      <div class="step green"><div class="step-num">1</div><div class="step-body">Como a pressão é constante, usamos $\tau=P\Delta V$.</div></div>
+      <div class="step green"><div class="step-num">2</div><div class="step-body">$\Delta V=0{,}030-0{,}010=0{,}020\ \text{m}^3$.</div></div>
+      <div class="step green"><div class="step-num">3</div><div class="step-body">$\tau=2\times10^5\cdot0{,}020=4000\ \text{J}$.</div></div>
+      <div class="result-box green">$\tau=4000\ \text{J}$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 6 — primeira lei da termodinâmica</span>
+      <p class="ex-statement">Um gás recebe 800 J de calor e realiza 300 J de trabalho. Qual a variação da energia interna?</p>
+      <div class="step green"><div class="step-num">1</div><div class="step-body">Use $\Delta U=Q-\tau$.</div></div>
+      <div class="step green"><div class="step-num">2</div><div class="step-body">$\Delta U=800-300=500\ \text{J}$.</div></div>
+      <div class="result-box green">$\Delta U=500\ \text{J}$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 7 — rendimento de máquina térmica</span>
+      <p class="ex-statement">Uma máquina térmica recebe 2000 J da fonte quente e rejeita 1200 J para a fonte fria. Calcule o trabalho e o rendimento.</p>
+      <div class="step green"><div class="step-num">1</div><div class="step-body">Trabalho: $\tau=Q_q-Q_f=2000-1200=800\ \text{J}$.</div></div>
+      <div class="step green"><div class="step-num">2</div><div class="step-body">Rendimento: $\eta=\tau/Q_q=800/2000=0{,}40$.</div></div>
+      <div class="result-box green">$\tau=800\ \text{J}$ e $\eta=40\%$</div>
+    </div>
+
+    <div class="example">
+      <span class="ex-tag">Exemplo 8 — Carnot</span>
+      <p class="ex-statement">Uma máquina de Carnot opera entre 600 K e 300 K. Qual o rendimento máximo?</p>
+      <div class="step green"><div class="step-num">1</div><div class="step-body">Use $\eta_C=1-T_f/T_q$.</div></div>
+      <div class="step green"><div class="step-num">2</div><div class="step-body">$\eta_C=1-300/600=1-0{,}5=0{,}5$.</div></div>
+      <div class="result-box green">$\eta_C=50\%$</div>
+    </div>
+  </section>
+
+  <section class="block" id="s23">
+    <div class="sec-head"><span class="sec-num">23</span><h2 class="sec-title">Exercícios propostos</h2></div>
+    <p>Use estes exercícios para treinar a escolha da fórmula antes de calcular.</p>
+    <ol class="plain">
+      <li>Calcule o calor necessário para aquecer 500 g de água de 10 °C para 60 °C.</li>
+      <li>Calcule o calor necessário para fundir 25 g de gelo a 0 °C.</li>
+      <li>Determine o calor total para transformar 100 g de gelo a −20 °C em água líquida a 30 °C.</li>
+      <li>Um corpo de 200 g e calor específico $0{,}2\ \text{cal/g°C}$ recebe 800 cal. Qual a variação de temperatura?</li>
+      <li>Misturam-se 100 g de água a 90 °C com 400 g de água a 20 °C. Desprezando perdas, determine $T_f$.</li>
+      <li>Converta 27 °C para kelvin.</li>
+      <li>Converta 2 atm para kPa.</li>
+      <li>Um gás passa de 300 K para 450 K mantendo volume constante. Se a pressão inicial é 80 kPa, calcule a pressão final.</li>
+      <li>Um gás ideal ocupa 10 L sob 1 atm e 300 K. Qual o volume a 600 K sob pressão constante?</li>
+      <li>Um gás sofre expansão isobárica a 3 atm, indo de 2 L para 5 L. Calcule o trabalho em L·atm e depois em J.</li>
+      <li>Um sistema recebe 1000 J de calor e sua energia interna aumenta 700 J. Qual o trabalho realizado?</li>
+      <li>Uma máquina térmica recebe 5000 J e realiza 1500 J de trabalho. Qual o rendimento e quanto calor é rejeitado?</li>
+      <li>Uma máquina de Carnot opera entre 500 K e 250 K. Calcule o rendimento máximo.</li>
+    </ol>
+    <div class="callout">
+      <span class="ico">→</span>
+      <span>Estratégia: antes de resolver, escreva ao lado de cada exercício se ele é de calor sensível, calor latente, equilíbrio térmico, gás ideal, trabalho, primeira lei ou rendimento.</span>
+    </div>
+  </section>
+
+  <section class="block" id="s24">
+    <div class="sec-head"><span class="sec-num">24</span><h2 class="sec-title">Quadro-resumo geral</h2></div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="s-name">Calor sensível</div>
+        <div class="s-eq">$Q=mc\Delta T$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Calor latente</div>
+        <div class="s-eq">$Q=mL$</div>
+      </div>
+      <div class="summary-card">
+        <div class="s-name">Equilíbrio térmico</div>
+        <div class="s-eq">$\sum Q=0$</div>
+      </div>
+      <div class="summary-card blue">
+        <div class="s-name">Condução</div>
+        <div class="s-eq">$\Phi=kA\dfrac{\Delta T}{L}$</div>
+      </div>
+      <div class="summary-card blue">
+        <div class="s-name">Convecção</div>
+        <div class="s-eq">$\Phi=hA\Delta T$</div>
+      </div>
+      <div class="summary-card blue">
+        <div class="s-name">Irradiação</div>
+        <div class="s-eq">$P=\varepsilon\sigma AT^4$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Clapeyron</div>
+        <div class="s-eq">$PV=nRT$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Lei geral</div>
+        <div class="s-eq">$\dfrac{P_1V_1}{T_1}=\dfrac{P_2V_2}{T_2}$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Trabalho isobárico</div>
+        <div class="s-eq">$\tau=P\Delta V$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Primeira lei</div>
+        <div class="s-eq">$Q=\Delta U+\tau$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Rendimento</div>
+        <div class="s-eq">$\eta=\dfrac{\tau}{Q_q}=1-\dfrac{Q_f}{Q_q}$</div>
+      </div>
+      <div class="summary-card green">
+        <div class="s-name">Carnot</div>
+        <div class="s-eq">$\eta_C=1-\dfrac{T_f}{T_q}$</div>
+      </div>
+    </div>
+    <div class="callout warn" style="margin-top:22px;">
+      <span class="ico">!</span>
+      <span>Checklist final de unidade: em calorimetria, confira massa e calor específico; em gases, converta temperatura para kelvin; em trabalho, confira Pa·m³ ou L·atm; em rendimento, use sempre a mesma unidade de energia para todos os calores.</span>
+    </div>
+  </section>
+
+  <footer>
+    <span>Termologia II — material de apoio</span>
+    <span>calorimetria · transferência de calor · termodinâmica</span>
+  </footer>
+
+</div>
+</body>
+</html>
