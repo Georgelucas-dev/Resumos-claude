@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geografia Urbana — Guia de Estudos</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0e1b2e;
+      --card: rgba(255,255,255,.08);
+      --card-strong: rgba(255,255,255,.12);
+      --text: #edf5ff;
+      --muted: #b7c7dc;
+      --line: rgba(255,255,255,.16);
+      --accent: #45d483;
+      --accent-2: #60a5fa;
+      --accent-3: #fbbf24;
+      --danger: #fb7185;
+      --shadow: 0 24px 80px rgba(0,0,0,.35);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(96,165,250,.26), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(69,212,131,.22), transparent 35%),
+        radial-gradient(circle at 45% 95%, rgba(251,191,36,.14), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    body.light {
+      --bg: #f4f8ff;
+      --bg-soft: #ffffff;
+      --card: rgba(255,255,255,.78);
+      --card-strong: rgba(255,255,255,.95);
+      --text: #122033;
+      --muted: #52657e;
+      --line: rgba(18,32,51,.14);
+      --shadow: 0 20px 60px rgba(16,24,40,.12);
+    }
+
+    a { color: inherit; }
+
+    .page {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 26px 18px;
+      border-right: 1px solid var(--line);
+      background: rgba(7,17,31,.66);
+      backdrop-filter: blur(18px);
+      overflow: auto;
+    }
+
+    body.light aside { background: rgba(255,255,255,.72); }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .logo {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 16px 40px rgba(69,212,131,.25);
+      font-size: 1.45rem;
+    }
+
+    .brand h2 { margin: 0; font-size: 1.05rem; line-height: 1.15; }
+    .brand small { color: var(--muted); }
+
+    .nav-title {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: var(--muted);
+      margin: 22px 8px 10px;
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .94rem;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--text);
+      background: var(--card);
+      border-color: var(--line);
+    }
+
+    .side-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    button, .pill-link {
+      border: 0;
+      cursor: pointer;
+      color: var(--text);
+      border-radius: 999px;
+      padding: 11px 15px;
+      background: var(--card-strong);
+      border: 1px solid var(--line);
+      font: inherit;
+      transition: transform .18s ease, background .18s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    button:hover, .pill-link:hover { transform: translateY(-1px); background: rgba(255,255,255,.16); }
+
+    main { min-width: 0; }
+
+    .hero {
+      position: relative;
+      padding: 70px clamp(22px, 5vw, 70px) 40px;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -140px auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(69,212,131,.24), transparent 68%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 940px;
+      font-size: clamp(2.5rem, 6vw, 5.8rem);
+      line-height: .95;
+      letter-spacing: -.07em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff, #9eeec0 48%, #93c5fd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    body.light .hero h1 span {
+      background: linear-gradient(135deg, #122033, #129a56 48%, #2563eb);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .hero p {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin: 22px 0 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .stat {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.55rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat span { color: var(--muted); font-size: .92rem; }
+
+    .content {
+      padding: 12px clamp(22px, 5vw, 70px) 90px;
+    }
+
+    section {
+      scroll-margin-top: 24px;
+      margin: 26px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .section-kicker {
+      color: var(--accent);
+      font-size: .78rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.75rem, 3vw, 2.55rem);
+      letter-spacing: -.04em;
+      line-height: 1.05;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1.22rem;
+      letter-spacing: -.02em;
+    }
+
+    .lead { color: var(--muted); max-width: 760px; }
+
+    .grid { display: grid; gap: 16px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      position: relative;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--card-strong), var(--card));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      opacity: .85;
+    }
+
+    .card p { color: var(--muted); margin: 0 0 10px; }
+    .card p:last-child { margin-bottom: 0; }
+
+    ul.clean {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    ul.clean li {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      color: var(--muted);
+    }
+
+    ul.clean li::before {
+      content: "✓";
+      flex: 0 0 22px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(69,212,131,.13);
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .warning li::before { content: "!"; background: rgba(251,113,133,.13); color: var(--danger); }
+    .energy li::before { content: "⚡"; background: rgba(251,191,36,.16); color: var(--accent-3); }
+    .city li::before { content: "▣"; }
+
+    .timeline {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 6px;
+      width: 2px;
+      background: linear-gradient(var(--accent), var(--accent-2));
+    }
+
+    .time-item {
+      position: relative;
+      margin-bottom: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+
+    .time-item::before {
+      content: "";
+      position: absolute;
+      left: -23px;
+      top: 20px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(69,212,131,.14);
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .compare-card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .compare-card.good h3 { color: var(--accent); }
+    .compare-card.bad h3 { color: var(--danger); }
+
+    .flow {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .flow-step {
+      min-width: 170px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      font-weight: 800;
+    }
+
+    .arrow {
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      font-size: 1.8rem;
+      min-width: 28px;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .problem-card strong, .energy-card strong {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .mini-label {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(96,165,250,.14);
+      color: #bfdbfe;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    body.light .mini-label { color: #1d4ed8; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--card);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 15px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      font-size: .86rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    td { color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+
+    .note {
+      padding: 20px 22px;
+      border-left: 4px solid var(--accent-3);
+      border-radius: 18px;
+      background: rgba(251,191,36,.1);
+      color: var(--muted);
+    }
+
+    .note strong { color: var(--text); }
+
+    .quiz {
+      display: grid;
+      gap: 14px;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      padding: 15px 18px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    details p { color: var(--muted); margin: 10px 0 0; }
+
+    .glossary-tools {
+      display: flex;
+      gap: 10px;
+      margin: 0 0 14px;
+    }
+
+    .glossary-tools input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      padding: 13px 16px;
+      outline: none;
+      font: inherit;
+    }
+
+    .glossary-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .term {
+      padding: 15px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    .term strong { display: block; margin-bottom: 4px; }
+    .term span { color: var(--muted); font-size: .93rem; }
+
+    .footer {
+      margin-top: 34px;
+      padding: 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(69,212,131,.14), rgba(96,165,250,.14));
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .print-only { display: none; }
+
+    @media (max-width: 1040px) {
+      .page { grid-template-columns: 1fr; }
+      aside { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+      .hero-grid, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid.three, .glossary-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      nav, .grid.two, .grid.three, .grid.four, .hero-grid, .comparison, .glossary-list { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; }
+      .section-head { display: block; }
+      .flow-step { min-width: 145px; }
+    }
+
+    @media print {
+      :root, body.light {
+        --bg: #fff;
+        --bg-soft: #fff;
+        --card: #fff;
+        --card-strong: #fff;
+        --text: #111827;
+        --muted: #374151;
+        --line: #d1d5db;
+        --shadow: none;
+      }
+      body { background: #fff; }
+      .page { display: block; }
+      aside, .side-actions, .glossary-tools { display: none; }
+      .hero, .content { padding: 20px; }
+      .card, .stat, .term, details, .table-wrap, .footer { box-shadow: none; break-inside: avoid; }
+      .print-only { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <aside>
+      <div class="brand">
+        <div class="logo">🌆</div>
+        <div>
+          <h2>Geografia Urbana</h2>
+          <small>Guia completo de revisão</small>
+        </div>
+      </div>
+
+      <div class="nav-title">Conteúdo</div>
+      <nav id="nav">
+        <a href="#urbanizacao">🏙️ Urbanização</a>
+        <a href="#brasil">🇧🇷 Brasil</a>
+        <a href="#rede">🔗 Rede urbana</a>
+        <a href="#hierarquia">📊 Hierarquia</a>
+        <a href="#metropoles">🌃 Metrópoles</a>
+        <a href="#problemas-sociais">🏚️ Problemas sociais</a>
+        <a href="#problemas-ambientais">🌡️ Problemas ambientais</a>
+        <a href="#energia">⚡ Fontes de energia</a>
+        <a href="#matrizes">🔋 Matrizes</a>
+        <a href="#glossario">📚 Glossário</a>
+        <a href="#quiz">✅ Revisão</a>
+      </nav>
+
+      <div class="side-actions">
+        <button id="themeBtn">Alternar tema</button>
+        <button onclick="window.print()">Imprimir / salvar PDF</button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <div class="badge">📌 Revisão para prova • conceitos + exemplos + pegadinhas</div>
+        <h1><span>Geografia Urbana</span><br />e Fontes de Energia</h1>
+        <p>
+          Material organizado para entender os conceitos, reconhecer exemplos em textos e imagens,
+          comparar países desenvolvidos e subdesenvolvidos, e revisar os principais problemas urbanos e ambientais.
+        </p>
+
+        <div class="hero-grid">
+          <div class="stat"><strong>01</strong><span>Urbanização e êxodo rural</span></div>
+          <div class="stat"><strong>02</strong><span>Rede, hierarquia e metrópoles</span></div>
+          <div class="stat"><strong>03</strong><span>Problemas socioambientais</span></div>
+          <div class="stat"><strong>04</strong><span>Fontes e matrizes de energia</span></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="urbanizacao">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 1</div>
+              <h2>Urbanização</h2>
+            </div>
+            <p class="lead">Urbanização é o crescimento das cidades e o aumento da população urbana.</p>
+          </div>
+
+          <div class="grid two">
+            <article class="card">
+              <h3>O que é?</h3>
+              <p>
+                É o processo em que cada vez mais pessoas passam a viver nas cidades em vez do campo.
+                Esse processo costuma estar ligado à industrialização, ao crescimento dos serviços e à busca por melhores condições de vida.
+              </p>
+              <ul class="clean city">
+                <li>Aumento da população urbana.</li>
+                <li>Expansão física das cidades.</li>
+                <li>Crescimento de atividades industriais, comerciais e de serviços.</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <h3>Principais causas</h3>
+              <ul class="clean">
+                <li>Industrialização e criação de fábricas.</li>
+                <li>Êxodo rural.</li>
+                <li>Oferta de empregos nas cidades.</li>
+                <li>Melhor acesso à saúde, educação e serviços.</li>
+                <li>Desenvolvimento dos transportes.</li>
+                <li>Mecanização do campo, reduzindo a necessidade de mão de obra rural.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="comparison" style="margin-top:16px">
+            <div class="compare-card good">
+              <h3>Países desenvolvidos</h3>
+              <p>Urbanização mais lenta, durando aproximadamente 200 anos, associada à Revolução Industrial e com maior planejamento urbano.</p>
+              <ul class="clean">
+                <li>Exemplos: Inglaterra, França e Alemanha.</li>
+                <li>Crescimento mais gradual.</li>
+                <li>Infraestrutura acompanhou melhor o crescimento urbano.</li>
+              </ul>
+            </div>
+
+            <div class="compare-card bad">
+              <h3>Países subdesenvolvidos</h3>
+              <p>Urbanização rápida, em poucas décadas, muitas vezes sem planejamento suficiente.</p>
+              <ul class="clean warning">
+                <li>Exemplos: Brasil, Índia e México.</li>
+                <li>Favelização, trânsito e violência.</li>
+                <li>Poluição e falta de saneamento básico.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="brasil">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 2</div>
+              <h2>Urbanização Brasileira</h2>
+            </div>
+            <p class="lead">Até aproximadamente 1930, o Brasil era majoritariamente rural. Depois, a industrialização acelerou a ida para as cidades.</p>
+          </div>
+
+          <div class="card">
+            <div class="timeline">
+              <div class="time-item">
+                <h3>Até cerca de 1930</h3>
+                <p>A maior parte da população vivia no campo e trabalhava em atividades agrícolas.</p>
+              </div>
+              <div class="time-item">
+                <h3>Industrialização</h3>
+                <p>Com o crescimento das indústrias, as cidades passaram a oferecer mais empregos e salários melhores.</p>
+              </div>
+              <div class="time-item">
+                <h3>Êxodo rural</h3>
+                <p>A população saiu do campo para morar na cidade, buscando trabalho, serviços, estudo e melhores condições de vida.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid two" style="margin-top:16px">
+            <article class="card">
+              <h3>Êxodo rural</h3>
+              <p>É a saída da população do campo para morar na cidade.</p>
+              <ul class="clean">
+                <li>Mecanização da agricultura.</li>
+                <li>Poucas oportunidades no campo.</li>
+                <li>Crescimento das indústrias.</li>
+                <li>Melhores salários na cidade.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Consequência importante</h3>
+              <p>
+                Quando muitas pessoas chegam às cidades em pouco tempo e o poder público não planeja moradia,
+                transporte e saneamento, surgem problemas como periferização, favelização e transporte urbano precário.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="rede">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 3</div>
+              <h2>Rede Urbana</h2>
+            </div>
+            <p class="lead">Rede urbana é o conjunto de cidades conectadas por fluxos de pessoas, mercadorias, serviços e informações.</p>
+          </div>
+
+          <div class="grid two">
+            <article class="card">
+              <h3>Como funciona?</h3>
+              <p>Cidades não existem isoladas. Elas se conectam por estradas, aeroportos, internet, comércio, serviços, universidades, hospitais e empresas.</p>
+              <ul class="clean">
+                <li>Troca de mercadorias.</li>
+                <li>Circulação de pessoas.</li>
+                <li>Oferta de serviços.</li>
+                <li>Fluxo de informações e dinheiro.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Exemplo prático</h3>
+              <p>
+                Uma pessoa mora em Chapecó, faz faculdade em Xanxerê e compra produtos de São Paulo.
+                Esses deslocamentos e relações fazem parte da rede urbana.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="hierarquia">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 4</div>
+              <h2>Hierarquia Urbana</h2>
+            </div>
+            <p class="lead">Mostra a importância e a influência das cidades dentro da rede urbana.</p>
+          </div>
+
+          <div class="card">
+            <div class="flow" aria-label="Hierarquia urbana">
+              <div class="flow-step">Cidade pequena</div><div class="arrow">→</div>
+              <div class="flow-step">Cidade média</div><div class="arrow">→</div>
+              <div class="flow-step">Capital regional</div><div class="arrow">→</div>
+              <div class="flow-step">Metrópole</div><div class="arrow">→</div>
+              <div class="flow-step">Cidade global</div>
+            </div>
+          </div>
+
+          <div class="grid two" style="margin-top:16px">
+            <article class="card">
+              <h3>Ideia central</h3>
+              <p>Quanto maior a influência da cidade, mais alta é sua posição na hierarquia.</p>
+            </article>
+            <article class="card">
+              <h3>O que aumenta a importância?</h3>
+              <ul class="clean">
+                <li>Quantidade de serviços especializados.</li>
+                <li>Hospitais, universidades e centros comerciais.</li>
+                <li>Empresas, bancos e órgãos públicos.</li>
+                <li>Capacidade de atrair pessoas de outras cidades.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="metropoles">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 5</div>
+              <h2>Metrópoles, Conurbação e Cidade Global</h2>
+            </div>
+            <p class="lead">Esses conceitos aparecem muito em questões com mapas, imagens de satélite e textos sobre crescimento urbano.</p>
+          </div>
+
+          <div class="grid three">
+            <article class="card">
+              <span class="mini-label">Metropolização</span>
+              <h3>Crescimento das metrópoles</h3>
+              <p>Uma metrópole influencia várias cidades ao redor. Exemplos: São Paulo e Rio de Janeiro.</p>
+              <ul class="clean">
+                <li>Muita população.</li>
+                <li>Muito comércio e serviços.</li>
+                <li>Trânsito intenso.</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <span class="mini-label">Região Metropolitana</span>
+              <h3>Municípios integrados</h3>
+              <p>É formada por vários municípios ligados a uma cidade principal, como a Região Metropolitana de Curitiba.</p>
+              <p>As cidades continuam independentes, mas funcionam praticamente juntas.</p>
+            </article>
+
+            <article class="card">
+              <span class="mini-label">Conurbação</span>
+              <h3>Cidades que se encontram</h3>
+              <p>Ocorre quando duas cidades crescem tanto que acabam se unindo fisicamente. Parecem uma cidade só, mas seguem sendo municípios diferentes.</p>
+            </article>
+          </div>
+
+          <div class="grid two" style="margin-top:16px">
+            <article class="card">
+              <span class="mini-label">Megalópole</span>
+              <h3>União de várias metrópoles</h3>
+              <p>É uma grande área urbana formada pela conexão de metrópoles e regiões metropolitanas. Um exemplo citado em aulas é o eixo São Paulo + Rio de Janeiro.</p>
+            </article>
+
+            <article class="card">
+              <span class="mini-label">Cidade Global</span>
+              <h3>Influência mundial</h3>
+              <p>São cidades que exercem influência econômica, financeira, política e cultural no mundo.</p>
+              <ul class="clean">
+                <li>Bolsas de valores.</li>
+                <li>Grandes empresas.</li>
+                <li>Centros financeiros.</li>
+                <li>Exemplos: Nova York, Londres e Tóquio.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="problemas-sociais">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 6</div>
+              <h2>Problemas Socioambientais Urbanos</h2>
+            </div>
+            <p class="lead">São problemas causados pelo crescimento das cidades sem planejamento adequado.</p>
+          </div>
+
+          <div class="grid three">
+            <article class="card problem-card">
+              <strong>🏚️ Favelização</strong>
+              <p>Ocorre quando pessoas ocupam áreas irregulares porque não conseguem comprar ou alugar moradia formal.</p>
+              <ul class="clean warning">
+                <li>Causas: pobreza, falta de moradia e crescimento urbano acelerado.</li>
+                <li>Consequências: falta de saneamento, enchentes e risco de deslizamentos.</li>
+              </ul>
+            </article>
+
+            <article class="card problem-card">
+              <strong>🧱 Segregação socioespacial</strong>
+              <p>É a separação das pessoas no espaço urbano conforme a renda.</p>
+              <p>Ricos tendem a morar em áreas com melhor infraestrutura; pobres, em periferias com menos serviços.</p>
+            </article>
+
+            <article class="card problem-card">
+              <strong>🏘️ Gentrificação</strong>
+              <p>Um bairro antigo recebe investimentos, valoriza e fica mais caro. Moradores antigos podem sair por não conseguir pagar.</p>
+            </article>
+
+            <article class="card problem-card">
+              <strong>🚌 Mobilidade urbana</strong>
+              <p>É a facilidade de deslocamento das pessoas pela cidade.</p>
+              <ul class="clean warning">
+                <li>Trânsito.</li>
+                <li>Ônibus lotados.</li>
+                <li>Poucas ciclovias.</li>
+                <li>Transporte público ruim.</li>
+              </ul>
+            </article>
+
+            <article class="card problem-card">
+              <strong>🚨 Violência urbana</strong>
+              <p>Relaciona-se com desigualdade social, desemprego, exclusão social e falta de políticas públicas.</p>
+            </article>
+
+            <article class="card problem-card">
+              <strong>🚰 Saneamento básico</strong>
+              <p>Inclui água tratada, coleta de lixo, rede de esgoto e drenagem da água da chuva.</p>
+              <p>Sem saneamento, aumentam doenças, poluição de rios e piora da qualidade de vida.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="problemas-ambientais">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 7</div>
+              <h2>Problemas Ambientais Urbanos</h2>
+            </div>
+            <p class="lead">A cidade modifica o ambiente. Quando há pouco planejamento, os impactos ficam mais fortes.</p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Problema</th>
+                  <th>O que é</th>
+                  <th>Causas</th>
+                  <th>Consequências</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ilha de calor</strong></td>
+                  <td>A cidade fica mais quente que áreas rurais próximas.</td>
+                  <td>Muito concreto, asfalto e poucas árvores.</td>
+                  <td>Aumento da temperatura e desconforto térmico.</td>
+                </tr>
+                <tr>
+                  <td><strong>Inversão térmica</strong></td>
+                  <td>O ar frio fica preso perto do solo e impede a dispersão da poluição.</td>
+                  <td>Estabilidade atmosférica, baixa circulação de ar e poluição urbana.</td>
+                  <td>Fumaça acumulada e problemas respiratórios.</td>
+                </tr>
+                <tr>
+                  <td><strong>Chuva ácida</strong></td>
+                  <td>Chuva com substâncias ácidas formadas pela poluição.</td>
+                  <td>Poluição de indústrias, carros e queima de combustíveis fósseis.</td>
+                  <td>Destrói plantas, corrói prédios e polui rios.</td>
+                </tr>
+                <tr>
+                  <td><strong>Enchentes</strong></td>
+                  <td>Acúmulo de água em áreas urbanas.</td>
+                  <td>Muito asfalto, lixo nos bueiros, ocupação irregular e excesso de chuva.</td>
+                  <td>Prejuízos materiais, doenças e deslocamento de pessoas.</td>
+                </tr>
+                <tr>
+                  <td><strong>Movimentos de massa</strong></td>
+                  <td>Deslizamentos de terra, principalmente em morros.</td>
+                  <td>Chuva intensa, retirada da vegetação e ocupação irregular.</td>
+                  <td>Soterramentos, destruição de casas e mortes.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="energia">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 8</div>
+              <h2>Fontes de Energia</h2>
+            </div>
+            <p class="lead">Fontes de energia são recursos usados para produzir energia, como petróleo, vento, água, carvão e sol.</p>
+          </div>
+
+          <div class="grid two">
+            <article class="card energy-card">
+              <span class="mini-label">Fonte primária</span>
+              <h3>Vem diretamente da natureza</h3>
+              <ul class="clean energy">
+                <li>Petróleo.</li>
+                <li>Carvão.</li>
+                <li>Gás natural.</li>
+                <li>Vento.</li>
+                <li>Sol.</li>
+                <li>Água.</li>
+                <li>Biomassa.</li>
+                <li>Urânio.</li>
+              </ul>
+            </article>
+
+            <article class="card energy-card">
+              <span class="mini-label">Fonte secundária</span>
+              <h3>Passou por transformação</h3>
+              <ul class="clean energy">
+                <li>Eletricidade.</li>
+                <li>Gasolina.</li>
+                <li>Diesel.</li>
+                <li>Etanol.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="grid two" style="margin-top:16px">
+            <article class="card energy-card">
+              <span class="mini-label">Renováveis</span>
+              <h3>Podem ser repostas pela natureza</h3>
+              <p>Exemplos: solar, eólica, hidrelétrica e biomassa.</p>
+            </article>
+
+            <article class="card energy-card">
+              <span class="mini-label">Não renováveis</span>
+              <h3>Podem acabar</h3>
+              <p>Exemplos: petróleo, carvão, gás natural e urânio.</p>
+            </article>
+          </div>
+
+          <div class="grid three" style="margin-top:16px">
+            <article class="card energy-card">
+              <strong>🛢️ Fontes fósseis</strong>
+              <p>Petróleo, carvão mineral e gás natural.</p>
+              <ul class="clean">
+                <li>Vantagens: muito eficientes e alto rendimento energético.</li>
+              </ul>
+              <ul class="clean warning">
+                <li>Desvantagens: poluem, liberam CO₂ e intensificam o aquecimento global.</li>
+              </ul>
+            </article>
+
+            <article class="card energy-card">
+              <strong>💧 Hidrelétrica</strong>
+              <p>Usa a força da água para gerar eletricidade.</p>
+              <ul class="clean">
+                <li>Vantagens: renovável e produz muita energia.</li>
+              </ul>
+              <ul class="clean warning">
+                <li>Desvantagens: alaga áreas, afeta rios e desloca populações.</li>
+              </ul>
+            </article>
+
+            <article class="card energy-card">
+              <strong>☀️ Energia solar</strong>
+              <p>Usa a luz do Sol.</p>
+              <ul class="clean">
+                <li>Vantagens: renovável e limpa durante a geração.</li>
+              </ul>
+              <ul class="clean warning">
+                <li>Desvantagens: depende do Sol e tem instalação cara.</li>
+              </ul>
+            </article>
+
+            <article class="card energy-card">
+              <strong>🌬️ Energia eólica</strong>
+              <p>Usa a força dos ventos.</p>
+              <ul class="clean">
+                <li>Vantagens: renovável e não polui durante a geração.</li>
+              </ul>
+              <ul class="clean warning">
+                <li>Desvantagens: depende dos ventos e pode afetar aves.</li>
+              </ul>
+            </article>
+
+            <article class="card energy-card">
+              <strong>🌱 Biomassa</strong>
+              <p>Energia produzida pela matéria orgânica: madeira, bagaço de cana, etanol, biogás, restos agrícolas e carvão vegetal.</p>
+              <ul class="clean">
+                <li>Vantagens: renovável e aproveita resíduos.</li>
+              </ul>
+              <ul class="clean warning">
+                <li>Desvantagens: pode causar desmatamento e poluir quando queimada.</li>
+              </ul>
+            </article>
+
+            <article class="card energy-card">
+              <strong>☢️ Energia nuclear</strong>
+              <p>Usa urânio e produz energia pela fissão nuclear.</p>
+              <ul class="clean">
+                <li>Vantagens: gera muita energia e tem baixa emissão direta de CO₂.</li>
+              </ul>
+              <ul class="clean warning">
+                <li>Desvantagens: lixo radioativo, risco de acidentes e alto custo.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="matrizes">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 9</div>
+              <h2>Matriz Energética e Matriz Elétrica</h2>
+            </div>
+            <p class="lead">Esses dois termos parecem iguais, mas não são. Essa diferença costuma cair em prova.</p>
+          </div>
+
+          <div class="grid two">
+            <article class="card">
+              <h3>Matriz energética</h3>
+              <p>É o conjunto de todas as fontes usadas para produzir energia em um país, incluindo transportes, indústrias, casas, comércio e eletricidade.</p>
+              <p><strong>Exemplo:</strong> petróleo usado em carros faz parte da matriz energética.</p>
+            </article>
+            <article class="card">
+              <h3>Matriz elétrica</h3>
+              <p>É o conjunto de fontes usadas especificamente para produzir eletricidade.</p>
+              <p><strong>Exemplo:</strong> hidrelétricas, energia solar, eólica, nuclear e termelétricas.</p>
+            </article>
+          </div>
+
+          <div class="note" style="margin-top:16px">
+            <strong>Pegadinha comum:</strong> se a questão fala de gasolina, diesel, transporte ou combustível, geralmente é matriz energética. Se fala de produção de eletricidade, tomada, usina elétrica ou apagão, é matriz elétrica.
+          </div>
+        </section>
+
+        <section id="glossario">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 10</div>
+              <h2>Resumo das palavras que você precisa saber</h2>
+            </div>
+            <p class="lead">Use a busca para revisar rapidamente antes da prova.</p>
+          </div>
+
+          <div class="glossary-tools">
+            <input id="termSearch" type="search" placeholder="Pesquisar termo: urbanização, energia eólica, saneamento..." />
+          </div>
+
+          <div class="glossary-list" id="glossaryList">
+            <div class="term"><strong>Urbanização</strong><span>Crescimento das cidades e da população urbana.</span></div>
+            <div class="term"><strong>Êxodo rural</strong><span>Saída da população do campo para a cidade.</span></div>
+            <div class="term"><strong>Rede urbana</strong><span>Conjunto de cidades conectadas por fluxos.</span></div>
+            <div class="term"><strong>Hierarquia urbana</strong><span>Ordem de importância das cidades.</span></div>
+            <div class="term"><strong>Metrópole</strong><span>Cidade grande que influencia outras ao redor.</span></div>
+            <div class="term"><strong>Região metropolitana</strong><span>Municípios integrados a uma cidade principal.</span></div>
+            <div class="term"><strong>Conurbação</strong><span>Cidades que crescem até se encontrarem fisicamente.</span></div>
+            <div class="term"><strong>Megalópole</strong><span>União de várias metrópoles.</span></div>
+            <div class="term"><strong>Cidade global</strong><span>Cidade com influência mundial.</span></div>
+            <div class="term"><strong>Favelização</strong><span>Ocupação irregular associada à falta de moradia formal.</span></div>
+            <div class="term"><strong>Segregação socioespacial</strong><span>Separação espacial das pessoas conforme a renda.</span></div>
+            <div class="term"><strong>Gentrificação</strong><span>Valorização de bairro que expulsa moradores antigos.</span></div>
+            <div class="term"><strong>Mobilidade urbana</strong><span>Facilidade de deslocamento pela cidade.</span></div>
+            <div class="term"><strong>Saneamento básico</strong><span>Água, esgoto, lixo e drenagem.</span></div>
+            <div class="term"><strong>Ilha de calor</strong><span>Aumento da temperatura urbana por concreto, asfalto e pouca vegetação.</span></div>
+            <div class="term"><strong>Inversão térmica</strong><span>Ar frio prende poluentes perto do solo.</span></div>
+            <div class="term"><strong>Chuva ácida</strong><span>Chuva contaminada por poluentes industriais e veiculares.</span></div>
+            <div class="term"><strong>Enchentes</strong><span>Acúmulo de água por chuva, impermeabilização e drenagem ruim.</span></div>
+            <div class="term"><strong>Movimentos de massa</strong><span>Deslizamentos de terra em encostas.</span></div>
+            <div class="term"><strong>Fonte primária</strong><span>Recurso energético vindo diretamente da natureza.</span></div>
+            <div class="term"><strong>Fonte secundária</strong><span>Energia ou combustível obtido após transformação.</span></div>
+            <div class="term"><strong>Renovável</strong><span>Fonte que pode ser reposta naturalmente.</span></div>
+            <div class="term"><strong>Não renovável</strong><span>Fonte que pode acabar.</span></div>
+            <div class="term"><strong>Matriz energética</strong><span>Conjunto de fontes usadas para toda energia do país.</span></div>
+            <div class="term"><strong>Matriz elétrica</strong><span>Conjunto de fontes usadas para gerar eletricidade.</span></div>
+            <div class="term"><strong>Fontes fósseis</strong><span>Petróleo, carvão mineral e gás natural.</span></div>
+            <div class="term"><strong>Biomassa</strong><span>Energia obtida de matéria orgânica.</span></div>
+            <div class="term"><strong>Hidrelétrica</strong><span>Energia elétrica gerada pela força da água.</span></div>
+            <div class="term"><strong>Energia solar</strong><span>Energia obtida da luz do Sol.</span></div>
+            <div class="term"><strong>Energia eólica</strong><span>Energia obtida dos ventos.</span></div>
+            <div class="term"><strong>Energia nuclear</strong><span>Energia gerada pela fissão do urânio.</span></div>
+          </div>
+        </section>
+
+        <section id="quiz">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Parte 11</div>
+              <h2>Questões de revisão</h2>
+            </div>
+            <p class="lead">Treine para questões com situação-problema, não só definição.</p>
+          </div>
+
+          <div class="quiz">
+            <details>
+              <summary>1. Uma cidade cresce sem planejamento, e parte da população passa a morar em áreas irregulares em morros. Qual conceito aparece?</summary>
+              <p><strong>Favelização</strong>, podendo estar associada a <strong>movimentos de massa</strong> quando há risco de deslizamentos.</p>
+            </details>
+
+            <details>
+              <summary>2. Um bairro antigo recebe investimentos, fica mais caro e os moradores antigos saem. Que fenômeno é esse?</summary>
+              <p><strong>Gentrificação.</strong> A valorização do bairro atrai pessoas com maior renda e expulsa parte dos antigos moradores.</p>
+            </details>
+
+            <details>
+              <summary>3. Duas cidades crescem até parecerem uma só, mas continuam com prefeituras diferentes. Qual é o conceito?</summary>
+              <p><strong>Conurbação.</strong> É a união física das manchas urbanas de municípios diferentes.</p>
+            </details>
+
+            <details>
+              <summary>4. Uma questão fala sobre petróleo, diesel e gasolina usados em transportes. É matriz energética ou elétrica?</summary>
+              <p><strong>Matriz energética.</strong> Ela envolve todas as formas de energia usadas no país, não apenas eletricidade.</p>
+            </details>
+
+            <details>
+              <summary>5. A poluição fica presa perto do solo e aumenta problemas respiratórios. Qual fenômeno?</summary>
+              <p><strong>Inversão térmica.</strong> O ar frio fica preso embaixo e dificulta a dispersão dos poluentes.</p>
+            </details>
+
+            <details>
+              <summary>6. Uma cidade possui bolsa de valores, sedes de empresas e influência mundial. Como ela é classificada?</summary>
+              <p><strong>Cidade global.</strong> Exemplos: Nova York, Londres e Tóquio.</p>
+            </details>
+          </div>
+        </section>
+
+        <section>
+          <div class="footer">
+            <h3>Minha dica para a prova</h3>
+            <p>
+              Pelo jeito que muitos professores montam as questões, provavelmente não será cobrada apenas a definição.
+              Pode aparecer um texto, uma imagem, um mapa ou uma situação do cotidiano e a pergunta será: “qual conceito está sendo representado?”.
+            </p>
+            <p>
+              Então, além de decorar os nomes, entenda <strong>por que cada fenômeno acontece</strong> e <strong>quais são suas consequências</strong>.
+              Isso ajuda muito quando a questão vier com pegadinha.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('geo-theme');
+    if (savedTheme === 'light') document.body.classList.add('light');
+
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('geo-theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    const navLinks = [...document.querySelectorAll('#nav a')];
+    const sections = navLinks
+      .map(link => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    const activateNav = () => {
+      let current = sections[0];
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 120) current = section;
+      }
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current.id);
+      });
+    };
+
+    document.addEventListener('scroll', activateNav, { passive: true });
+    activateNav();
+
+    const termSearch = document.getElementById('termSearch');
+    const terms = [...document.querySelectorAll('.term')];
+
+    termSearch.addEventListener('input', () => {
+      const q = termSearch.value.trim().toLowerCase();
+      terms.forEach(term => {
+        term.style.display = term.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
